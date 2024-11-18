@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { ExternalLinkIcon, GithubIcon, ArrowLeftIcon, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
-import { containerVariants, itemVariants } from './layout';
+import { containerVariants, itemVariants } from './animation-variants';
 import type { Project } from '@/components/sections/projects';
 
 interface Props {
