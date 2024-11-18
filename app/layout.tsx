@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Navigation } from '@/components/navigation'
 import { Toaster } from '@/components/ui/sonner'
-import { MagneticCursor } from '@/components/ui/magnetic-cursor'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,14 +30,13 @@ export default function RootLayout({
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} relative`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <MagneticCursor />
           <Navigation />
           {children}
           <Toaster />

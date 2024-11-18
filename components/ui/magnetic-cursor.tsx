@@ -28,7 +28,7 @@ export function MagneticCursor() {
       width: 32,
       x: cursorX,
       y: cursorY,
-      backgroundColor: "var(--cursor)",
+      backgroundColor: "rgb(255, 255, 255)",
       mixBlendMode: "difference" as const,
     },
     text: {
@@ -36,7 +36,7 @@ export function MagneticCursor() {
       width: 64,
       x: cursorX - 16,
       y: cursorY - 16,
-      backgroundColor: "var(--cursor-hover)",
+      backgroundColor: "rgb(255, 255, 255)",
       mixBlendMode: "difference" as const,
       scale: 1.2,
     },

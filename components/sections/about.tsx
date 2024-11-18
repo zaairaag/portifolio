@@ -39,10 +39,7 @@ const item = {
 
 export function About() {
   return (
-    <section id="about" className="w-full min-h-screen py-24 relative overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/50" />
-      
+    <section id="about" className="w-full min-h-screen py-24 relative">
       {/* Content */}
       <div className="container relative px-4 md:px-6 mx-auto">
         <motion.div
@@ -115,10 +112,7 @@ export function About() {
                         variants={item}
                         className="relative"
                       >
-                        <div className="absolute -left-[17px] top-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                          <div className="w-3 h-3 rounded-full bg-primary" />
-                        </div>
-                        <div className="pl-6">
+                        <div className="pl-2">
                           <div className="flex items-center gap-3 mb-2">
                             <h4 className="font-semibold text-lg text-high-contrast">{exp.role}</h4>
                             <Badge variant="outline" className="bg-primary/5">

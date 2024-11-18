@@ -7,8 +7,8 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-32 border-t border-border bg-background/50 backdrop-blur-sm">
-      <div className="h-16 flex items-center justify-between max-w-6xl mx-auto px-4 relative">
+    <footer className="border-t border-border">
+      <div className="h-16 flex items-center justify-between max-w-6xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
