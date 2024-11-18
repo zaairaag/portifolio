@@ -1,10 +1,10 @@
 'use client';
 
 import { useCallback } from "react";
-import Particles from "react-tsparticles";
-import type { Engine } from "tsparticles-engine";
-import { loadFull } from "tsparticles";
-import type { ISourceOptions } from "tsparticles-engine";
+import { Particles } from "@tsparticles/react";
+import type { Engine } from "@tsparticles/engine";
+import { loadSlim } from "@tsparticles/slim";
+import type { ISourceOptions } from "@tsparticles/engine";
 
 const particlesOptions: ISourceOptions = {
   fullScreen: {
@@ -49,66 +49,31 @@ const particlesOptions: ISourceOptions = {
       value: 0.5,
       animation: {
         enable: true,
-        speed: 3,
+        speed: 1,
         minimumValue: 0.1,
-        sync: false,
       },
     },
     shape: {
       type: "circle",
     },
     size: {
-      value: { min: 1, max: 5 },
-      animation: {
-        enable: true,
-        speed: 20,
-        minimumValue: 0.1,
-        sync: false,
-      },
+      value: { min: 1, max: 3 },
     },
   },
   detectRetina: true,
-  interactivity: {
-    events: {
-      onClick: {
-        enable: true,
-        mode: "push",
-      },
-      onHover: {
-        enable: true,
-        mode: "grab",
-      },
-      resize: true,
-    },
-    modes: {
-      push: {
-        quantity: 4,
-      },
-      grab: {
-        distance: 140,
-        links: {
-          opacity: 1,
-        },
-      },
-      repulse: {
-        distance: 200,
-        duration: 0.4,
-      },
-    },
-  },
 };
 
 export function ParticlesBackground() {
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine);
+    await loadSlim(engine);
   }, []);
 
   return (
     <Particles
       id="tsparticles"
-      className="absolute inset-0 -z-10"
       init={particlesInit}
       options={particlesOptions}
+      className="absolute inset-0 -z-10"
     />
   );
 }
