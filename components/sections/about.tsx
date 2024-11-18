@@ -8,28 +8,16 @@ import { technologies } from '@/data/technologies';
 
 const experiences = [
   {
-    year: '2023',
-    role: 'Desenvolvedora Full Stack',
-    company: 'Banco do Brasil',
-    description: 'Desenvolvimento de soluções corporativas utilizando React, Node.js, TypeScript e SharePoint.',
-    highlights: [
-      'Desenvolvimento de aplicações completas',
-      'APIs REST e GraphQL',
-      'Otimização de performance',
-      'Testes automatizados'
-    ]
+    year: '2019 - Presente',
+    role: 'Desenvolvedora de Software',
+    company: 'Ímpar',
+    description: 'Programadora de Software (2022 - Presente) · Analista de Sistema (2020 - 2022) · Desenvolvedora Front-end (2019 - 2020)',
   },
   {
     year: '2022',
-    role: 'Desenvolvedora Full Stack',
-    company: 'Freelancer',
-    description: 'Desenvolvimento de sites e sistemas web personalizados.',
-    highlights: [
-      'Aplicações Node.js e React',
-      'APIs e Microsserviços',
-      'Bancos de dados SQL e NoSQL',
-      'DevOps e Cloud'
-    ]
+    role: 'Analista de Negócios',
+    company: 'Deloitte Digital',
+    description: 'Tempo integral · 4 meses',
   }
 ];
 
@@ -93,7 +81,8 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              Desenvolvedora Full Stack apaixonada por criar soluções completas e inovadoras, do backend ao frontend.
+              Desenvolvedora de Software com mais de 4 anos de experiência em desenvolvimento web,
+              especializada em SharePoint e tecnologias modernas de frontend.
             </motion.p>
           </motion.div>
 
@@ -116,8 +105,8 @@ export function About() {
                     <h3 className="text-2xl font-semibold text-high-contrast">Minha Jornada</h3>
                   </div>
                   <p className="text-base text-high-contrast font-medium leading-relaxed mb-6">
-                    Desenvolvedora Full Stack com mais de 2 anos de experiência, especializada em React, Node.js, TypeScript e SharePoint. 
-                    Atualmente focada no desenvolvimento de soluções corporativas para o Banco do Brasil.
+                    Desenvolvedora de Software especializada em SharePoint e tecnologias modernas de frontend. 
+                    Atualmente na Ímpar, desenvolvendo soluções corporativas.
                   </p>
                   <div className="relative pl-4 border-l-2 border-primary/30 space-y-6">
                     {experiences.map((exp, index) => (
@@ -138,18 +127,6 @@ export function About() {
                           </div>
                           <div className="text-primary font-medium mb-2">{exp.company}</div>
                           <p className="text-high-contrast/90 mb-3">{exp.description}</p>
-                          <ul className="grid grid-cols-2 gap-2">
-                            {exp.highlights.map((highlight, i) => (
-                              <motion.li
-                                key={i}
-                                variants={item}
-                                className="flex items-center gap-2 text-sm text-high-contrast/80"
-                              >
-                                <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-                                {highlight}
-                              </motion.li>
-                            ))}
-                          </ul>
                         </div>
                       </motion.div>
                     ))}
@@ -213,26 +190,6 @@ export function About() {
                   </div>
                 </motion.div>
               </Card>
-
-              {/* Additional Stats or Info Cards */}
-              <div className="grid grid-cols-2 gap-4">
-                <motion.div variants={item}>
-                  <Card className="p-6 backdrop-blur-md bg-background/50 border-primary/10">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-primary mb-2">2+</div>
-                      <div className="text-sm text-high-contrast/80">Anos de Experiência</div>
-                    </div>
-                  </Card>
-                </motion.div>
-                <motion.div variants={item}>
-                  <Card className="p-6 backdrop-blur-md bg-background/50 border-primary/10">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-primary mb-2">20+</div>
-                      <div className="text-sm text-high-contrast/80">Projetos Entregues</div>
-                    </div>
-                  </Card>
-                </motion.div>
-              </div>
             </motion.div>
           </div>
         </motion.div>

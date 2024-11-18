@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
+import { ParticlesBackground } from "../ui/particles-background";
 
 export function Hero() {
   const ref = useRef(null);
@@ -18,10 +19,12 @@ export function Hero() {
   return (
     <section ref={ref} className="min-h-screen w-full flex items-center justify-center relative overflow-hidden">
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-primary/20 via-purple-500/10 to-background"
+        className="absolute inset-0 bg-gradient-to-br from-background/50 via-background/40 to-background"
         style={{ y, opacity }}
       />
       
+      <ParticlesBackground />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -43,7 +46,7 @@ export function Hero() {
             className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-xl"
           />
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 relative">
-            Frontend Developer
+            Desenvolvedora de Software
           </h1>
         </motion.div>
 
@@ -53,7 +56,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          Crafting beautiful, interactive web experiences with modern technologies
+          Criando experiências digitais únicas e inovadoras com tecnologias modernas
         </motion.p>
 
         <motion.div
@@ -67,7 +70,7 @@ export function Hero() {
             className="group relative overflow-hidden"
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <span className="relative z-10">View Projects</span>
+            <span className="relative z-10">Ver Projetos</span>
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-primary/50 to-purple-500/50"
               initial={{ x: "100%" }}
@@ -81,7 +84,7 @@ export function Hero() {
             className="group"
             onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <span>Contact Me</span>
+            <span>Contato</span>
             <MousePointerClick className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>
