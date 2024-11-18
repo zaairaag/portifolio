@@ -4,12 +4,14 @@ import { About } from '@/components/sections/about';
 import { Hero } from '@/components/sections/hero';
 import { ContactForm } from '@/components/sections/contact-form';
 import { Footer } from '@/components/footer-new';
+import { Technologies } from '@/components/sections/technologies';
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       <Hero />
       <About />
+      <Technologies />
       
       {/* Contact Section */}
       <section id="contact" className="w-full py-24 relative overflow-hidden">
