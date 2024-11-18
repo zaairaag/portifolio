@@ -146,10 +146,7 @@ export function Navigation() {
                 delay: 0.2
               }}
             >
-              <Logo width={32} height={32} animated={!isScrolled} />
-              <span className="font-semibold text-lg hidden sm:inline-block">
-                JD
-              </span>
+              <Logo width={48} height={48} animated={!isScrolled} />
             </motion.div>
           </MagneticComponent>
 

@@ -9,26 +9,26 @@ import { technologies } from '@/data/technologies';
 const experiences = [
   {
     year: '2023',
-    role: 'Desenvolvedora Front-end',
+    role: 'Desenvolvedora Full Stack',
     company: 'Banco do Brasil',
-    description: 'Desenvolvimento de soluções corporativas utilizando React, TypeScript e SharePoint.',
+    description: 'Desenvolvimento de soluções corporativas utilizando React, Node.js, TypeScript e SharePoint.',
     highlights: [
-      'Desenvolvimento de componentes reutilizáveis',
-      'Integração com APIs REST',
+      'Desenvolvimento de aplicações completas',
+      'APIs REST e GraphQL',
       'Otimização de performance',
       'Testes automatizados'
     ]
   },
   {
     year: '2022',
-    role: 'Desenvolvedora WordPress',
+    role: 'Desenvolvedora Full Stack',
     company: 'Freelancer',
-    description: 'Desenvolvimento de sites e e-commerces personalizados com WordPress.',
+    description: 'Desenvolvimento de sites e sistemas web personalizados.',
     highlights: [
-      'Temas customizados',
-      'Plugins sob demanda',
-      'WooCommerce',
-      'SEO e otimização'
+      'Aplicações Node.js e React',
+      'APIs e Microsserviços',
+      'Bancos de dados SQL e NoSQL',
+      'DevOps e Cloud'
     ]
   }
 ];
@@ -93,7 +93,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              Desenvolvedora apaixonada por criar experiências digitais incríveis e resolver problemas complexos.
+              Desenvolvedora Full Stack apaixonada por criar soluções completas e inovadoras, do backend ao frontend.
             </motion.p>
           </motion.div>
 
@@ -116,7 +116,7 @@ export function About() {
                     <h3 className="text-2xl font-semibold text-high-contrast">Minha Jornada</h3>
                   </div>
                   <p className="text-base text-high-contrast font-medium leading-relaxed mb-6">
-                    Desenvolvedora Front-end com mais de 2 anos de experiência, especializada em React, TypeScript e SharePoint. 
+                    Desenvolvedora Full Stack com mais de 2 anos de experiência, especializada em React, Node.js, TypeScript e SharePoint. 
                     Atualmente focada no desenvolvimento de soluções corporativas para o Banco do Brasil.
                   </p>
                   <div className="relative pl-4 border-l-2 border-primary/30 space-y-6">

@@ -9,8 +9,8 @@ import { MagneticCursor } from '@/components/ui/magnetic-cursor'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Zaíra Gonçalves | Frontend Developer',
-  description: 'Frontend Developer',
+  title: 'Zaíra Gonçalves | Desenvolvedora Full Stack',
+  description: 'Desenvolvedora Full Stack apaixonada por criar experiências digitais únicas e memoráveis.',
 }
 
 export default function RootLayout({

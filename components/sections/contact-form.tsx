@@ -12,21 +12,24 @@ import { toast } from 'sonner';
 const socialLinks = [
   {
     name: 'GitHub',
-    href: 'https://github.com/zairacandido',
+    href: 'https://github.com/zairagoncalves',
     icon: GithubIcon,
     color: 'hover:text-[#333]',
+    username: '@zairagoncalves'
   },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/in/zairacandido',
+    href: 'https://linkedin.com/in/zairagoncalves',
     icon: LinkedinIcon,
     color: 'hover:text-[#0077b5]',
+    username: '@zairagoncalves'
   },
   {
     name: 'Twitter',
-    href: 'https://twitter.com/zairacandido',
+    href: 'https://twitter.com/zairagoncalves',
     icon: TwitterIcon,
     color: 'hover:text-[#1da1f2]',
+    username: '@zairagoncalves'
   },
 ];
 
@@ -109,7 +112,7 @@ export function ContactForm() {
               </div>
               <div>
                 <h4 className="font-medium">{social.name}</h4>
-                <p className="text-sm text-muted-foreground">@zairacandido</p>
+                <p className="text-sm text-muted-foreground">{social.username}</p>
               </div>
             </motion.a>
           ))}

@@ -16,7 +16,7 @@ export function Footer() {
           className="flex flex-col md:flex-row justify-between items-center gap-4 w-full"
         >
           <p className="text-sm text-muted-foreground">
-            {currentYear} Zaira Candido. Todos os direitos reservados.
+            {currentYear} Zaíra Gonçalves. Todos os direitos reservados.
           </p>
           
           <div className="flex items-center space-x-1 text-sm text-muted-foreground">
