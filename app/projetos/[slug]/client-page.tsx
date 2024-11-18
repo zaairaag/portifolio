@@ -1,13 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ExternalLinkIcon, GithubIcon, ArrowLeftIcon, CheckCircle2 } from 'lucide-react';
+import { ArrowLeftIcon, ExternalLinkIcon, GithubIcon, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { containerVariants, itemVariants } from './animation-variants';
-import type { Project } from '@/components/sections/projects';
+import type { Project } from '@/config/projects';
 
 interface Props {
   project: Project;

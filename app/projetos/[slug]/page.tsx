@@ -1,4 +1,4 @@
-import { projects } from '@/components/sections/projects';
+import { projects } from '@/config/projects';
 import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon } from 'lucide-react';
 import Link from 'next/link';

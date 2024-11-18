@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
-import { ParticlesBackground } from "../ui/particles-background";
 
 export function Hero() {
   const ref = useRef(null);
@@ -23,8 +22,6 @@ export function Hero() {
         style={{ y, opacity }}
       />
       
-      <ParticlesBackground />
-
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

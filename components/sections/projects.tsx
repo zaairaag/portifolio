@@ -7,90 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLinkIcon, GithubIcon, ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
-
-export interface Project {
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  category: string;
-  links: {
-    demo?: string;
-    github?: string;
-  };
-  highlights: string[];
-}
-
-export const projects: Project[] = [
-  {
-    title: 'SharePoint Modern Sites',
-    description: 'Desenvolvimento de sites modernos para o Banco do Brasil utilizando SharePoint Framework (SPFx). Implementação de webparts personalizadas, layouts responsivos e integração com APIs REST.',
-    image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80',
-    tags: ['React', 'TypeScript', 'SharePoint', 'SPFx'],
-    category: 'SharePoint',
-    links: {
-      demo: '#',
-      github: '#',
-    },
-    highlights: [
-      'Desenvolvimento de webparts personalizadas',
-      'Integração com APIs REST',
-      'Layout responsivo e moderno',
-      'Performance otimizada'
-    ]
-  },
-  {
-    title: 'Power Apps Solutions',
-    description: 'Criação de aplicações empresariais usando Power Apps e Power Automate. Desenvolvimento de fluxos de trabalho automatizados e interfaces intuitivas para gestão de processos internos.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
-    tags: ['Power Apps', 'Power Automate', 'SharePoint', 'Azure'],
-    category: 'Power Platform',
-    links: {
-      demo: '#',
-      github: '#',
-    },
-    highlights: [
-      'Automação de processos',
-      'Interface intuitiva',
-      'Integração com SharePoint',
-      'Fluxos de trabalho personalizados'
-    ]
-  },
-  {
-    title: 'Portal Institucional',
-    description: 'Desenvolvimento de portal institucional utilizando WordPress. Criação de tema personalizado, plugins específicos e integração com sistemas externos via API.',
-    image: 'https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&q=80',
-    tags: ['WordPress', 'PHP', 'JavaScript', 'MySQL'],
-    category: 'Web',
-    links: {
-      demo: '#',
-      github: '#',
-    },
-    highlights: [
-      'Design personalizado',
-      'Integração com APIs externas',
-      'Plugins customizados',
-      'SEO otimizado'
-    ]
-  },
-];
-
-const categories = ['Todos', 'SharePoint', 'Power Platform', 'Web'];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  show: { y: 0, opacity: 1 }
-};
+import { Project, projects } from '@/config/projects';
 
 export function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
@@ -100,6 +17,27 @@ export function Projects() {
     (project) =>
       selectedCategory === 'Todos' || project.category === selectedCategory
   );
+
+  const allCategories = projects.map(project => project.category);
+  const uniqueCategories = allCategories.filter((category, index) => 
+    allCategories.indexOf(category) === index
+  );
+  const categories = ['Todos'].concat(uniqueCategories);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    show: { y: 0, opacity: 1 }
+  };
 
   return (
     <section id="projects" className="py-20 relative">
