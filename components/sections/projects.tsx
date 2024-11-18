@@ -8,7 +8,20 @@ import { Button } from '@/components/ui/button';
 import { ExternalLinkIcon, GithubIcon, ArrowRightIcon } from 'lucide-react';
 import Link from 'next/link';
 
-export const projects = [
+export interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  category: string;
+  links: {
+    demo?: string;
+    github?: string;
+  };
+  highlights: string[];
+}
+
+export const projects: Project[] = [
   {
     title: 'SharePoint Modern Sites',
     description: 'Desenvolvimento de sites modernos para o Banco do Brasil utilizando SharePoint Framework (SPFx). Implementação de webparts personalizadas, layouts responsivos e integração com APIs REST.',

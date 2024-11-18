@@ -75,12 +75,12 @@ function MagneticComponent({ children }: { children: React.ReactNode }) {
       onMouseMove={handleMouse}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={handleMouseEnter}
-      animate={{
+      style={{
         x: isHovered ? magneticX : 0,
         y: isHovered ? magneticY : 0,
+        display: "inline-block"
       }}
       transition={{ type: "spring", stiffness: 350, damping: 15 }}
-      style={{ display: "inline-block" }}
       data-cursor
     >
       {children}
@@ -97,10 +97,10 @@ export function Navigation() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const pathname = usePathname();
 
-  const getHref = (item: typeof links[0]) => {
+  const getHref = (item: typeof links[0]): string => {
     if (item.href) return item.href;
-    if (pathname === '/') return item.hash;
-    return `/${item.hash}`;
+    if (pathname === '/') return item.hash || '/';
+    return `/${item.hash || ''}`;
   };
 
   const scrollYProgress = useSpring(0, {

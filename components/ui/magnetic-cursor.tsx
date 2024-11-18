@@ -26,16 +26,12 @@ export function MagneticCursor() {
     default: {
       height: 32,
       width: 32,
-      x: cursorX,
-      y: cursorY,
       backgroundColor: "rgb(255, 255, 255)",
       mixBlendMode: "difference" as const,
     },
     text: {
       height: 64,
       width: 64,
-      x: cursorX - 16,
-      y: cursorY - 16,
       backgroundColor: "rgb(255, 255, 255)",
       mixBlendMode: "difference" as const,
       scale: 1.2,
@@ -68,6 +64,10 @@ export function MagneticCursor() {
       className="fixed top-0 left-0 pointer-events-none z-50 rounded-full border border-primary/20"
       variants={variants}
       animate={cursorVariant}
+      style={{
+        x: cursorVariant === "text" ? cursorX.get() - 16 : cursorX,
+        y: cursorVariant === "text" ? cursorY.get() - 16 : cursorY
+      }}
       transition={{ type: "spring", ...springConfig }}
     />
   );
