@@ -138,15 +138,15 @@ export function Navigation() {
       }}
     >
       <motion.div
-        className="absolute inset-0 bg-background/80 backdrop-blur-md border-b"
+        className="absolute inset-0 bg-background/80 backdrop-blur-md border-b border-border/40"
         style={{ opacity: backgroundOpacity }}
       />
-      <div className="container mx-auto px-4">
-        <div className="h-16 flex items-center justify-between max-w-6xl mx-auto relative">
+      <div className="container mx-auto px-6 lg:px-8">
+        <div className="h-20 flex items-center justify-between max-w-7xl mx-auto relative">
           <MagneticComponent>
             <Link href="/">
               <motion.div
-                className="flex items-center gap-2 w-[200px]"
+                className="flex items-center gap-4"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
@@ -156,23 +156,25 @@ export function Navigation() {
                   delay: 0.2
                 }}
               >
-                <Logo width={48} height={48} animated={!isScrolled} />
+                <Logo width={64} height={64} animated={!isScrolled} />
               </motion.div>
             </Link>
           </MagneticComponent>
 
-          <div className="hidden md:flex items-center justify-center gap-12 flex-1">
+          <div className="hidden md:flex items-center justify-end gap-16 flex-1">
             {links.map((item, index) => (
               <MagneticComponent key={item.name}>
                 <Link
                   href={getHref(item)}
-                  className="hover:text-primary transition-colors relative group text-sm font-medium"
+                  className="hover:text-primary transition-colors relative group text-base font-medium tracking-wide"
                   onClick={(e) => {
                     if (pathname !== '/' && item.hash) {
                       e.preventDefault();
                       window.location.href = '/' + item.hash;
                     }
                   }}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
                   <motion.span
                     animate={{
@@ -200,39 +202,34 @@ export function Navigation() {
             ))}
           </div>
 
-          <div className="flex items-center gap-4 w-[200px] justify-end">
-            <MagneticComponent>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="rounded-full"
-                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          <div className="flex items-center gap-6">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="rounded-full"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 20
+                }}
               >
-                <motion.div
-                  initial={false}
-                  animate={{
-                    rotate: theme === 'dark' ? 0 : 180
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 200,
-                    damping: 10
-                  }}
-                >
-                  {theme === 'dark' ? (
-                    <SunIcon className="h-5 w-5" />
-                  ) : (
-                    <MoonIcon className="h-5 w-5" />
-                  )}
-                </motion.div>
-              </Button>
-            </MagneticComponent>
+                {theme === "light" ? (
+                  <MoonIcon className="h-5 w-5" />
+                ) : (
+                  <SunIcon className="h-5 w-5" />
+                )}
+              </motion.div>
+            </Button>
 
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu className="h-6 w-6" />
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild className="md:hidden">
+                <Button variant="ghost" size="icon" className="rounded-full">
+                  <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">

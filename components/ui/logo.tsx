@@ -65,9 +65,9 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
 
         {/* Z - parte superior */}
         <motion.path
-          d="M10 8H22"
+          d="M10 10H18"
           className="stroke-primary"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
@@ -82,9 +82,9 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
 
         {/* Z - diagonal */}
         <motion.path
-          d="M22 8L10 24"
+          d="M18 10L10 22"
           className="stroke-primary"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
@@ -99,9 +99,9 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
 
         {/* Z - parte inferior */}
         <motion.path
-          d="M10 24H22"
+          d="M10 22H18"
           className="stroke-primary"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
@@ -114,11 +114,11 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           }}
         />
 
-        {/* G - arco principal */}
+        {/* G - arco superior */}
         <motion.path
-          d="M19 12C21.2091 12 23 13.7909 23 16C23 18.2091 21.2091 20 19 20C16.7909 20 15 18.2091 15 16"
+          d="M20 10H26"
           className="stroke-primary"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
@@ -131,18 +131,69 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           }}
         />
 
-        {/* G - linha vertical */}
+        {/* G - linha vertical esquerda */}
         <motion.path
-          d="M15 16V20"
+          d="M20 10V22"
           className="stroke-primary"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
-            duration: 1,
+            duration: 1.5,
             ease: "easeInOut",
             delay: 1,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        />
+
+        {/* G - linha inferior */}
+        <motion.path
+          d="M20 22H26"
+          className="stroke-primary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{
+            duration: 1.5,
+            ease: "easeInOut",
+            delay: 1.2,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        />
+
+        {/* G - linha vertical direita */}
+        <motion.path
+          d="M26 16V22"
+          className="stroke-primary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{
+            duration: 1.5,
+            ease: "easeInOut",
+            delay: 1.4,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        />
+
+        {/* G - linha horizontal meio */}
+        <motion.path
+          d="M23 16H26"
+          className="stroke-primary"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{
+            duration: 1.5,
+            ease: "easeInOut",
+            delay: 1.6,
             repeat: Infinity,
             repeatType: "reverse"
           }}
