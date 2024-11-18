@@ -46,7 +46,7 @@ export function Hero() {
             className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-xl"
           />
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 relative">
-            Desenvolvedora de Software
+            Programadora de Software
           </h1>
         </motion.div>
 

@@ -9,8 +9,16 @@ import { MagneticCursor } from '@/components/ui/magnetic-cursor'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Zaíra Gonçalves | Desenvolvedora Full Stack',
-  description: 'Desenvolvedora Full Stack apaixonada por criar experiências digitais únicas e memoráveis.',
+  title: 'Zaíra Gonçalves | Programadora de Software',
+  description: 'Programadora de Software especializada em criar soluções digitais inovadoras e de alta qualidade.',
+  icons: {
+    icon: [
+      {
+        url: '/favicon.svg',
+        type: 'image/svg+xml',
+      }
+    ],
+  },
 }
 
 export default function RootLayout({
@@ -19,7 +27,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
