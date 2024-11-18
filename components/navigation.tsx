@@ -7,6 +7,8 @@ import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
 import { MoonIcon, SunIcon, Menu } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Logo } from '@/components/ui/logo';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const links = [
   {
@@ -93,6 +95,13 @@ export function Navigation() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const pathname = usePathname();
+
+  const getHref = (item: typeof links[0]) => {
+    if (item.href) return item.href;
+    if (pathname === '/') return item.hash;
+    return `/${item.hash}`;
+  };
 
   const scrollYProgress = useSpring(0, {
     stiffness: 100,
@@ -135,37 +144,35 @@ export function Navigation() {
       <div className="container mx-auto px-4">
         <div className="h-16 flex items-center justify-between max-w-6xl mx-auto relative">
           <MagneticComponent>
-            <motion.div
-              className="flex items-center gap-2 w-[200px]"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-                delay: 0.2
-              }}
-            >
-              <Logo width={48} height={48} animated={!isScrolled} />
-            </motion.div>
+            <Link href="/">
+              <motion.div
+                className="flex items-center gap-2 w-[200px]"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                  delay: 0.2
+                }}
+              >
+                <Logo width={48} height={48} animated={!isScrolled} />
+              </motion.div>
+            </Link>
           </MagneticComponent>
 
           <div className="hidden md:flex items-center justify-center gap-12 flex-1">
             {links.map((item, index) => (
               <MagneticComponent key={item.name}>
-                <motion.a
-                  href={item.href || item.hash}
+                <Link
+                  href={getHref(item)}
                   className="hover:text-primary transition-colors relative group text-sm font-medium"
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 20,
-                    delay: 0.1 * (index + 1)
+                  onClick={(e) => {
+                    if (pathname !== '/' && item.hash) {
+                      e.preventDefault();
+                      window.location.href = '/' + item.hash;
+                    }
                   }}
-                  onHoverStart={() => setHoveredIndex(index)}
-                  onHoverEnd={() => setHoveredIndex(null)}
                 >
                   <motion.span
                     animate={{
@@ -188,7 +195,7 @@ export function Navigation() {
                       damping: 20
                     }}
                   />
-                </motion.a>
+                </Link>
               </MagneticComponent>
             ))}
           </div>
@@ -231,22 +238,31 @@ export function Navigation() {
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col gap-4">
                   {links.map((item, index) => (
-                    <motion.a
+                    <Link
                       key={item.name}
-                      href={item.href || item.hash}
+                      href={getHref(item)}
                       className="block px-2 py-1 text-lg hover:text-primary transition-colors"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 260,
-                        damping: 20,
-                        delay: 0.1 + index * 0.1,
+                      onClick={(e) => {
+                        if (pathname !== '/' && item.hash) {
+                          e.preventDefault();
+                          window.location.href = '/' + item.hash;
+                        }
+                        setIsOpen(false);
                       }}
-                      onClick={() => setIsOpen(false)}
                     >
-                      {item.name}
-                    </motion.a>
+                      <motion.span
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 20,
+                          delay: 0.1 + index * 0.1,
+                        }}
+                      >
+                        {item.name}
+                      </motion.span>
+                    </Link>
                   ))}
                 </nav>
               </SheetContent>

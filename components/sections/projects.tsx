@@ -6,8 +6,9 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLinkIcon, GithubIcon } from 'lucide-react';
+import Link from 'next/link';
 
-const projects = [
+export const projects = [
   {
     title: 'SharePoint Modern Sites',
     description: 'Desenvolvimento de sites modernos para o Banco do Brasil utilizando SharePoint Framework (SPFx). Implementação de webparts personalizadas, layouts responsivos e integração com APIs REST.',
@@ -140,70 +141,72 @@ export function Projects() {
               <motion.div
                 key={project.title}
                 variants={itemVariants}
+                className="relative group"
                 onHoverStart={() => setHoveredProject(project.title)}
                 onHoverEnd={() => setHoveredProject(null)}
-                className="group"
               >
-                <Card className="overflow-hidden h-full bg-background/50 backdrop-blur-sm border-primary/10 glass">
-                  <motion.div
-                    className="relative h-48 overflow-hidden image-wrapper"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                      initial={{ scale: 1.2 }}
-                      animate={{ scale: hoveredProject === project.title ? 1.3 : 1.2 }}
-                      transition={{ duration: 0.4 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <Link href={`/projetos/${project.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                  <Card className="overflow-hidden">
                     <motion.div
-                      className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"
-                      initial={{ y: 20 }}
-                      whileHover={{ y: 0 }}
+                      className="relative h-48 overflow-hidden image-wrapper"
+                      whileHover={{ scale: 1.02 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <div className="flex gap-4">
-                        <Button size="sm" className="gap-2 glass" data-cursor>
-                          <ExternalLinkIcon className="h-4 w-4" />
-                          Demo
-                        </Button>
-                        <Button size="sm" variant="outline" className="gap-2 glass" data-cursor>
-                          <GithubIcon className="h-4 w-4" />
-                          Código
-                        </Button>
-                      </div>
+                      <motion.img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                        initial={{ scale: 1.2 }}
+                        animate={{ scale: hoveredProject === project.title ? 1.3 : 1.2 }}
+                        transition={{ duration: 0.4 }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"
+                        initial={{ y: 20 }}
+                        whileHover={{ y: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="flex gap-4">
+                          <Button size="sm" className="gap-2 glass" data-cursor>
+                            <ExternalLinkIcon className="h-4 w-4" />
+                            Demo
+                          </Button>
+                          <Button size="sm" variant="outline" className="gap-2 glass" data-cursor>
+                            <GithubIcon className="h-4 w-4" />
+                            Código
+                          </Button>
+                        </div>
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
 
-                  <div className="p-6">
-                    <motion.h3
-                      className="text-xl font-semibold mb-2"
-                      initial={{ opacity: 0.8 }}
-                      whileHover={{ opacity: 1 }}
-                    >
-                      {project.title}
-                    </motion.h3>
-                    <p className="mb-4 line-clamp-3">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2 mt-auto">
-                      {project.tags.map((tag) => (
-                        <motion.div
-                          key={tag}
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <Badge variant="secondary" className="bg-primary/5 hover:bg-primary/10">
-                            {tag}
-                          </Badge>
-                        </motion.div>
-                      ))}
+                    <div className="p-6">
+                      <motion.h3
+                        className="text-xl font-semibold mb-2"
+                        initial={{ opacity: 0.8 }}
+                        whileHover={{ opacity: 1 }}
+                      >
+                        {project.title}
+                      </motion.h3>
+                      <p className="mb-4 line-clamp-3">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 mt-auto">
+                        {project.tags.map((tag) => (
+                          <motion.div
+                            key={tag}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <Badge variant="secondary" className="bg-primary/5 hover:bg-primary/10">
+                              {tag}
+                            </Badge>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
