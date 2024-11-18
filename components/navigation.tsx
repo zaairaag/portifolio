@@ -142,94 +142,91 @@ export function Navigation() {
         style={{ opacity: backgroundOpacity }}
       />
       <div className="container mx-auto px-6 lg:px-8">
-        <div className="h-20 flex items-center justify-between max-w-7xl mx-auto relative">
-          <MagneticComponent>
-            <Link href="/">
-              <motion.div
-                className="flex items-center gap-4"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 260,
-                  damping: 20,
-                  delay: 0.2
-                }}
-              >
-                <Logo width={64} height={64} animated={!isScrolled} />
-              </motion.div>
-            </Link>
-          </MagneticComponent>
-
-          <div className="hidden md:flex items-center justify-end gap-16 flex-1">
-            {links.map((item, index) => (
-              <MagneticComponent key={item.name}>
-                <Link
-                  href={getHref(item)}
-                  className="hover:text-primary transition-colors relative group text-base font-medium tracking-wide"
-                  onClick={(e) => {
-                    if (pathname !== '/' && item.hash) {
-                      e.preventDefault();
-                      window.location.href = '/' + item.hash;
-                    }
+        <div className="h-24 py-4 flex items-center justify-between max-w-7xl mx-auto relative">
+          {/* Logo no canto esquerdo */}
+          <div className="flex-shrink-0">
+            <MagneticComponent>
+              <Link href="/">
+                <motion.div
+                  className="flex items-center gap-4"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                    delay: 0.2
                   }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <motion.span
-                    animate={{
-                      scale: hoveredIndex === index ? 1.1 : 1,
-                      color: hoveredIndex === index ? "var(--primary)" : "currentColor"
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    {item.name}
-                  </motion.span>
-                  <motion.span
-                    className="absolute -bottom-1 left-0 h-0.5 bg-primary"
-                    initial={{ width: "0%" }}
-                    animate={{
-                      width: hoveredIndex === index ? "100%" : "0%"
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      damping: 20
-                    }}
-                  />
-                </Link>
-              </MagneticComponent>
-            ))}
+                  <Logo width={64} height={64} animated={!isScrolled} />
+                </motion.div>
+              </Link>
+            </MagneticComponent>
           </div>
 
-          <div className="flex items-center gap-6">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 20
-                }}
+          {/* Links de navegação centralizados */}
+          <div className="hidden md:flex items-center justify-center flex-1 mx-4">
+            <div className="flex items-center gap-8">
+              {links.map((item, index) => (
+                <MagneticComponent key={item.name}>
+                  <Link
+                    href={getHref(item)}
+                    className="hover:text-primary transition-colors relative group text-base font-medium tracking-wide"
+                    onClick={(e) => {
+                      if (pathname !== '/' && item.hash) {
+                        e.preventDefault();
+                        window.location.href = '/' + item.hash;
+                      }
+                    }}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                  >
+                    <motion.span
+                      animate={{
+                        scale: hoveredIndex === index ? 1.1 : 1,
+                        color: hoveredIndex === index ? "var(--primary)" : "currentColor"
+                      }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
+                      {item.name}
+                    </motion.span>
+                    <motion.span
+                      className="absolute -bottom-1 left-0 h-0.5 bg-primary"
+                      initial={{ width: "0%" }}
+                      animate={{
+                        width: hoveredIndex === index ? "100%" : "0%"
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20
+                      }}
+                    />
+                  </Link>
+                </MagneticComponent>
+              ))}
+            </div>
+          </div>
+
+          {/* Botões no canto direito */}
+          <div className="flex items-center gap-4">
+            <MagneticComponent>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                className="rounded-full"
               >
-                {theme === "light" ? (
-                  <MoonIcon className="h-5 w-5" />
-                ) : (
-                  <SunIcon className="h-5 w-5" />
-                )}
-              </motion.div>
-            </Button>
+                <SunIcon className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <MoonIcon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </MagneticComponent>
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="md:hidden">
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <Menu className="h-5 w-5" />
+                  <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">

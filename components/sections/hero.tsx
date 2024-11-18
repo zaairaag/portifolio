@@ -1,9 +1,10 @@
 'use client';
 
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRef, useEffect } from 'react';
+import NewParticles from '../new-particles';
 
 export function Hero() {
   const ref = useRef(null);
@@ -12,10 +13,8 @@ export function Hero() {
     offset: ["start start", "end start"]
   });
 
-  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
-  const y = useSpring(useTransform(scrollYProgress, [0, 1], ["0%", "50%"]), springConfig);
-  const opacity = useSpring(useTransform(scrollYProgress, [0, 0.5], [1, 0]), springConfig);
-  const scale = useSpring(useTransform(scrollYProgress, [0, 0.5], [1, 0.8]), springConfig);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -34,17 +33,18 @@ export function Hero() {
 
   return (
     <section ref={ref} className="min-h-screen w-full flex items-center justify-center relative overflow-hidden pt-20" id="home">
-      <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-background/50 via-background/40 to-background"
-        style={{ y, opacity }}
-      />
+      {/* Particles Background */}
+      <div className="absolute inset-0 z-30">
+        <NewParticles />
+      </div>
+
+      {/* Removido o gradiente para as partículas ficarem mais visíveis */}
       
       <motion.div
+        className="container mx-auto px-4 z-20 flex flex-col items-center text-center gap-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        style={{ scale }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 z-10 flex flex-col items-center text-center gap-8"
       >
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}
