@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 240, 25, 3.9%;
+  --background-start-rgb: 240, 5.9%, 95.9%;
+  --background-end-rgb: 240, 5.9%, 95.9%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 0, 0%, 95%;
+    --background-start-rgb: 20, 14.3%, 4.1%;
+    --background-end-rgb: 20, 14.3%, 4.1%;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 346.8 77.2% 49.8%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 100%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 100%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 0 0% 100%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 346.8 77.2% 49.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Gradiente suave para o tema escuro */
+.dark body {
+  background: linear-gradient(
+    135deg,
+    hsl(240, 10%, 3%) 0%,
+    hsl(240, 10%, 2%) 50%,
+    hsl(240, 10%, 1%) 100%
+  );
+}
+
+/* Tratamento de imagens */
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+  background-color: hsl(240, 10%, 3.9%);
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  mix-blend-mode: normal;
+}
+
+/* Ajuste de imagens no tema claro */
+.image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-wrapper:hover::after {
+  opacity: 1;
+}
+
+/* Ajuste de imagens no tema escuro */
+.dark .image-wrapper {
+  background-color: hsl(240, 10%, 1%);
+}
+
+.dark .image-wrapper::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.dark .image-wrapper img {
+  filter: brightness(0.85) contrast(1.1) saturate(1.1);
+  mix-blend-mode: normal;
+}
+
+.dark .image-wrapper:hover img {
+  filter: brightness(0.9) contrast(1.15) saturate(1.15);
+}
+
+/* Ajustes de texto */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Ajustes de contraste para melhor legibilidade no tema escuro */
+.dark .text-high-contrast {
+  color: hsl(0, 0%, 100%);
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.dark .text-high-contrast-bold {
+  color: hsl(0, 0%, 100%);
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+}
+
+/* Ajustes de opacidade para melhor legibilidade */
+.text-muted-foreground {
+  opacity: 1 !important;
+  font-weight: 400;
+}
+
+.dark .text-muted-foreground {
+  opacity: 1 !important;
+  color: hsl(0, 0%, 100%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  opacity: 1 !important;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: hsl(0, 0%, 100%);
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+p, li {
+  opacity: 1 !important;
+  line-height: 1.6;
+}
+
+.dark p, .dark li {
+  opacity: 1 !important;
+  color: hsl(0, 0%, 100%);
+}
+
+/* Efeitos de glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
