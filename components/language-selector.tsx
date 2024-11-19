@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState, useLayoutEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { locales } from '@/i18n.config';
 import {
   Select,
@@ -15,7 +15,6 @@ export function LanguageSelector() {
   const router = useRouter();
   const pathName = usePathname();
   const [currentLocale, setCurrentLocale] = useState<string>('pt');
-  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     const currentPath = pathName?.split('/')[1];
@@ -27,15 +26,6 @@ export function LanguageSelector() {
       const browserLang = navigator.language.split('-')[0];
       const defaultLocale = locales.includes(browserLang as any) ? browserLang : 'pt';
       setCurrentLocale(defaultLocale);
-    }
-  }, [pathName]);
-
-  useLayoutEffect(() => {
-    if (scrollPositionRef.current > 0) {
-      window.scrollTo({
-        top: scrollPositionRef.current,
-        behavior: 'instant'
-      });
     }
   }, [pathName]);
 
@@ -52,19 +42,35 @@ export function LanguageSelector() {
   };
 
   const handleLanguageChange = (locale: string) => {
-    scrollPositionRef.current = window.scrollY;
     const newPath = redirectedPathName(locale);
     
-    // Desativa o comportamento suave do scroll temporariamente
+    // Store scroll position before navigation
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    }
+    
+    // Disable smooth scroll temporarily
     document.documentElement.style.scrollBehavior = 'auto';
     
     router.push(newPath);
     
-    // Restaura o comportamento suave do scroll após a navegação
+    // Restore smooth scroll after navigation
     requestAnimationFrame(() => {
       document.documentElement.style.scrollBehavior = '';
     });
   };
+
+  // Restore scroll position after navigation
+  useEffect(() => {
+    const scrollPosition = sessionStorage.getItem('scrollPosition');
+    if (scrollPosition) {
+      window.scrollTo({
+        top: parseInt(scrollPosition),
+        behavior: 'instant'
+      });
+      sessionStorage.removeItem('scrollPosition');
+    }
+  }, [pathName]);
 
   return (
     <Select

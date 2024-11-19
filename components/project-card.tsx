@@ -91,7 +91,7 @@ export function ProjectCard({
       </div>
 
       {/* Conteúdo expandido */}
-      <AnimatePresence initial={false}>
+      <AnimatePresence mode="sync" initial={false}>
         {isExpanded && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}

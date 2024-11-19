@@ -56,6 +56,7 @@ export function Projects({ translations = defaultTranslations, locale }: Project
     <section id="projects" className="py-20 relative">
       <motion.div 
         className="absolute inset-0 opacity-20"
+        style={{ position: 'absolute' }}
         animate={{
           background: [
             "radial-gradient(circle at 0% 0%, var(--primary) 0%, transparent 70%)",
