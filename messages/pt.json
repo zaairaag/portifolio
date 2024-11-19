@@ -66,6 +66,17 @@
     "viewCode": "Ver Código",
     "viewDetails": "Ver Detalhes"
   },
+  "portfolio": {
+    "title": "Meu Portfólio",
+    "description": "Conheça alguns dos projetos que desenvolvi, demonstrando minhas habilidades e experiência em diferentes tecnologias.",
+    "featured": "Projetos em Destaque",
+    "categories": {
+      "all": "Todos",
+      "web": "Web Apps",
+      "enterprise": "Corporativo",
+      "email": "Email Marketing"
+    }
+  },
   "experience": {
     "title": "Serviços",
     "present": "Presente"
