@@ -1,5 +1,4 @@
 import { Projects } from '@/components/sections/projects';
-import { Footer } from '@/components/footer';
 import { getTranslations } from 'next-intl/server';
 
 export default async function ProjectsPage({ params: { locale } }: { params: { locale: string } }) {
@@ -18,7 +17,6 @@ export default async function ProjectsPage({ params: { locale } }: { params: { l
           locale={locale}
         />
       </div>
-      <Footer />
     </main>
   );
 }

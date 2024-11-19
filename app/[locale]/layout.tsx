@@ -3,6 +3,10 @@ import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
+import { ThemeProvider } from '@/components/theme-provider'
+import { Navigation } from '@/components/navigation'
+import { Toaster } from '@/components/ui/sonner'
+import { Footer } from '@/components/footer-new'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,10 +22,6 @@ export const metadata: Metadata = {
     ],
   }
 }
-
-import { ThemeProvider } from '@/components/theme-provider'
-import { Navigation } from '@/components/navigation'
-import { Toaster } from '@/components/ui/sonner'
 
 export function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'pt' }];
@@ -51,6 +51,7 @@ export default async function LocaleLayout({
       >
         <Navigation />
         {children}
+        <Footer />
         <Toaster />
       </ThemeProvider>
     </NextIntlClientProvider>

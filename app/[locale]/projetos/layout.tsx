@@ -5,10 +5,5 @@ export default function ProjectsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <Navigation />
-      {children}
-    </>
-  );
+  return children;
 }
