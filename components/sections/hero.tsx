@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRef, useEffect } from 'react';
-import NewParticles from '../new-particles';
 
 export function Hero() {
   const ref = useRef(null);
@@ -13,17 +12,22 @@ export function Hero() {
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
+    // Previne scroll manual quando estiver na seção hero
     const handleWheel = (e: WheelEvent) => {
-      if (window.scrollY < window.innerHeight) {
-        const nextSection = document.getElementById('about');
-        if (nextSection && e.deltaY > 0) {
-          e.preventDefault();
-          nextSection.scrollIntoView({ behavior: 'smooth' });
-        }
+      const heroSection = document.getElementById('home');
+      const aboutSection = document.getElementById('about');
+      
+      if (!heroSection || !aboutSection) return;
+      
+      const heroRect = heroSection.getBoundingClientRect();
+      
+      // Se estiver na seção hero e tentar rolar para baixo
+      if (heroRect.top === 0 && e.deltaY > 0) {
+        e.preventDefault();
+        aboutSection.scrollIntoView({ behavior: 'smooth' });
       }
     };
 
@@ -32,16 +36,19 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={ref} className="min-h-screen w-full flex items-center justify-center relative overflow-hidden pt-20" id="home">
-      {/* Particles Background */}
-      <div className="absolute inset-0 z-30">
-        <NewParticles />
-      </div>
-
-      {/* Removido o gradiente para as partículas ficarem mais visíveis */}
+    <section 
+      ref={ref} 
+      className="h-screen w-full flex items-center justify-center relative overflow-hidden pt-32" 
+      id="home"
+      style={{
+        height: 'calc(100vh - 6rem)' // Ajusta para a altura da navbar
+      }}
+    >
+      {/* Gradiente de fundo */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/50 z-0" />
       
       <motion.div
-        className="container mx-auto px-4 z-20 flex flex-col items-center text-center gap-8"
+        className="container mx-auto px-4 z-20 flex flex-col items-center justify-center text-center gap-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -142,7 +149,7 @@ export function Hero() {
           </Button>
         </motion.div>
 
-        <motion.div
+        <motion.div 
           className="flex gap-6 mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -164,58 +171,35 @@ export function Hero() {
             </motion.div>
           ))}
         </motion.div>
+      </motion.div>
 
+      <motion.div
+        className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.5 }}
+        style={{ opacity }}
+      >
         <motion.div
-          className="relative mt-12"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
-          style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ 
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="cursor-pointer hover:text-primary transition-colors"
+          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
         >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ 
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="cursor-pointer hover:text-primary transition-colors"
-            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            <ArrowDown className="w-6 h-6" />
-          </motion.div>
+          <ArrowDown className="w-6 h-6" />
         </motion.div>
       </motion.div>
 
-      {/* Partículas de fundo */}
-      <motion.div
-        className="absolute inset-0 z-0 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/30 rounded-full"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 2, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: i * 0.1,
-            }}
-          />
-        ))}
-      </motion.div>
+      {/* Grid de fundo */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background/50" />
+      </div>
     </section>
   );
 }
