@@ -6,8 +6,9 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { SendIcon, CheckIcon, GithubIcon, LinkedinIcon, XIcon } from 'lucide-react';
+import { SendIcon, CheckIcon, GithubIcon, LinkedinIcon, XIcon, CalendarIcon, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const socialLinks = [
   {
@@ -72,6 +73,10 @@ export function ContactForm() {
     }
   };
 
+  const handleScheduleMeeting = () => {
+    window.open('https://calendly.com/zairagoncalves', '_blank');
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -122,7 +127,7 @@ export function ContactForm() {
       {/* Divider */}
       <div className="hidden md:block w-[2px] h-full bg-gradient-to-b from-border/0 via-border to-border/0" />
 
-      {/* Contact Form */}
+      {/* Contact Form & Meeting Scheduler */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -133,131 +138,125 @@ export function ContactForm() {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent" />
           <div className="absolute inset-[1px] bg-background/80 backdrop-blur-xl rounded-lg" />
           
-          <form onSubmit={handleSubmit} className="relative space-y-6 p-6">
-            <div className="space-y-2">
-              <label 
-                htmlFor="name"
-                className={`text-sm font-medium transition-colors ${
-                  focusedField === 'name' ? 'text-primary' : 'text-foreground'
-                }`}
-              >
-                Nome
-              </label>
-              <div className="relative">
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  onFocus={() => setFocusedField('name')}
-                  onBlur={() => setFocusedField(null)}
-                  placeholder="Seu nome"
-                  required
-                  className="bg-background/50 backdrop-blur-sm border-border/50 focus:border-primary transition-all"
-                />
-                <motion.div
-                  className="absolute bottom-0 left-0 h-[2px] bg-primary"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: focusedField === 'name' ? 1 : 0 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </div>
-            </div>
+          <Tabs defaultValue="message" className="relative">
+            <TabsList className="grid w-full grid-cols-2 mb-4">
+              <TabsTrigger value="message">Mensagem</TabsTrigger>
+              <TabsTrigger value="meeting">Agendar Reunião</TabsTrigger>
+            </TabsList>
 
-            <div className="space-y-2">
-              <label 
-                htmlFor="email"
-                className={`text-sm font-medium transition-colors ${
-                  focusedField === 'email' ? 'text-primary' : 'text-foreground'
-                }`}
-              >
-                Email
-              </label>
-              <div className="relative">
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onFocus={() => setFocusedField('email')}
-                  onBlur={() => setFocusedField(null)}
-                  placeholder="seu.email@exemplo.com"
-                  required
-                  className="bg-background/50 backdrop-blur-sm border-border/50 focus:border-primary transition-all"
-                />
-                <motion.div
-                  className="absolute bottom-0 left-0 h-[2px] bg-primary"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: focusedField === 'email' ? 1 : 0 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </div>
-            </div>
+            <TabsContent value="message">
+              <form onSubmit={handleSubmit} className="space-y-6 p-6">
+                <div className="space-y-2">
+                  <label 
+                    htmlFor="name"
+                    className={`text-sm font-medium transition-colors ${
+                      focusedField === 'name' ? 'text-primary' : 'text-foreground'
+                    }`}
+                  >
+                    Nome
+                  </label>
+                  <div className="relative">
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      onFocus={() => setFocusedField('name')}
+                      onBlur={() => setFocusedField(null)}
+                      className="bg-background"
+                      required
+                    />
+                  </div>
+                </div>
 
-            <div className="space-y-2">
-              <label 
-                htmlFor="message"
-                className={`text-sm font-medium transition-colors ${
-                  focusedField === 'message' ? 'text-primary' : 'text-foreground'
-                }`}
-              >
-                Mensagem
-              </label>
-              <div className="relative">
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  onFocus={() => setFocusedField('message')}
-                  onBlur={() => setFocusedField(null)}
-                  placeholder="Sua mensagem..."
-                  required
-                  className="min-h-[120px] bg-background/50 backdrop-blur-sm border-border/50 focus:border-primary transition-all resize-none"
-                />
-                <motion.div
-                  className="absolute bottom-0 left-0 h-[2px] bg-primary"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: focusedField === 'message' ? 1 : 0 }}
-                  transition={{ duration: 0.2 }}
-                />
-              </div>
-            </div>
+                <div className="space-y-2">
+                  <label 
+                    htmlFor="email"
+                    className={`text-sm font-medium transition-colors ${
+                      focusedField === 'email' ? 'text-primary' : 'text-foreground'
+                    }`}
+                  >
+                    Email
+                  </label>
+                  <div className="relative">
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      onFocus={() => setFocusedField('email')}
+                      onBlur={() => setFocusedField(null)}
+                      className="bg-background"
+                      required
+                    />
+                  </div>
+                </div>
 
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full relative overflow-hidden group hover:scale-[1.02] transition-transform"
-            >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/10"
-                initial={false}
-                animate={{
-                  x: isSubmitting ? "100%" : "-100%"
-                }}
-                transition={{
-                  duration: 0.5,
-                  ease: "easeInOut",
-                  repeat: isSubmitting ? Infinity : 0
-                }}
-              />
-              
-              <span className="relative flex items-center justify-center gap-2">
-                {isSubmitting ? (
-                  <>
-                    <CheckIcon className="w-4 h-4" />
-                    <span>Enviando...</span>
-                  </>
-                ) : (
-                  <>
-                    <SendIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    <span>Enviar Mensagem</span>
-                  </>
-                )}
-              </span>
-            </Button>
-          </form>
+                <div className="space-y-2">
+                  <label 
+                    htmlFor="message"
+                    className={`text-sm font-medium transition-colors ${
+                      focusedField === 'message' ? 'text-primary' : 'text-foreground'
+                    }`}
+                  >
+                    Mensagem
+                  </label>
+                  <div className="relative">
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      onFocus={() => setFocusedField('message')}
+                      onBlur={() => setFocusedField(null)}
+                      className="min-h-[120px] bg-background resize-none"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <CheckIcon className="mr-2 h-4 w-4" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      <SendIcon className="mr-2 h-4 w-4" />
+                      Enviar mensagem
+                    </>
+                  )}
+                </Button>
+              </form>
+            </TabsContent>
+
+            <TabsContent value="meeting">
+              <div className="p-6 space-y-6">
+                <div className="space-y-4">
+                  <h4 className="text-lg font-medium">Agende uma reunião</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Escolha um horário conveniente para conversarmos sobre seu projeto ou oportunidade.
+                  </p>
+                </div>
+
+                <Button 
+                  onClick={handleScheduleMeeting}
+                  className="w-full group"
+                  variant="outline"
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  Agendar no Calendly
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </div>
+            </TabsContent>
+          </Tabs>
         </Card>
       </motion.div>
     </div>
