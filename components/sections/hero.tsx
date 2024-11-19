@@ -7,6 +7,7 @@ import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
+import { TypeAnimation } from 'react-type-animation';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -101,19 +102,28 @@ export function Hero() {
           <div className="relative overflow-hidden">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 relative whitespace-nowrap px-2 pb-2 pt-1">
               <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 {t('title')} {t('name')}
               </motion.span>
             </h1>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
               className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground mt-2"
             >
-              {t('role')}
+              <TypeAnimation
+                sequence={[
+                  500,
+                  t('role'),
+                ]}
+                wrapper="span"
+                speed={50}
+                cursor={true}
+              />
             </motion.div>
           </div>
         </motion.div>
