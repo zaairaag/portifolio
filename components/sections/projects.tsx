@@ -110,7 +110,7 @@ export function Projects({ translations = defaultTranslations, locale }: Project
           ))}
         </motion.div>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <motion.div
             key={selectedCategory}
             variants={containerVariants}

@@ -103,6 +103,7 @@
   "portfolio": {
     "title": "Portfólio",
     "subtitle": "Alguns dos meus trabalhos recentes",
+    "description": "Aqui estão alguns dos projetos em que trabalhei. Cada um representa um desafio único e uma experiência de aprendizado.",
     "viewProject": "Ver Projeto",
     "viewCode": "Ver Código",
     "viewDetails": "Ver Detalhes",
@@ -115,8 +116,10 @@
   },
   "experience": {
     "title": "Experiência",
+    "subtitle": "Serviços e Soluções",
     "present": "Presente",
-    "services": {
+    "popular": "Popular",
+    "experiences": {
       "webDev": "Desenvolvimento Web",
       "webDevDesc": "Aplicações web modernas e responsivas",
       "fullstack": "Desenvolvimento Full Stack",
@@ -125,25 +128,36 @@
       "consultingDesc": "Orientação especializada e melhores práticas"
     },
     "features": {
+      "bestPractices": "Melhores Práticas",
+      "mentoring": "Mentoria",
       "responsiveDesign": "Design Responsivo",
       "seoOptimization": "Otimização SEO",
       "apiIntegration": "Integração de APIs",
       "performanceAccess": "Performance e Acessibilidade",
-      "frontendBackend": "Integração Frontend e Backend",
-      "database": "Design de Banco de Dados",
-      "security": "Implementação de Segurança",
-      "scalability": "Soluções de Escalabilidade",
-      "architecture": "Planejamento de Arquitetura",
-      "codeReview": "Revisão de Código",
-      "bestPractices": "Melhores Práticas",
-      "mentoring": "Mentoria Técnica"
+      "frontendBackend": "Frontend e Backend",
+      "database": "Banco de Dados",
+      "security": "Segurança",
+      "scalability": "Escalabilidade",
+      "architecture": "Arquitetura",
+      "codeReview": "Revisão de Código"
     },
     "prices": {
-      "webDevPrice": "A partir de R$10.000",
-      "fullstackPrice": "A partir de R$20.000",
-      "consultingPrice": "A partir de R$5.000"
+      "consultingPrice": "A partir de R$ 200/hora",
+      "webDevPrice": "A partir de R$ 5.000",
+      "fullstackPrice": "A partir de R$ 10.000"
     },
-    "popular": "Mais Popular"
+    "requestQuote": "Solicitar Orçamento",
+    "faq": {
+      "title": "Perguntas Frequentes",
+      "process": {
+        "question": "Como funciona o processo de desenvolvimento?",
+        "answer": "O processo começa com uma análise detalhada dos requisitos, seguida pelo planejamento da arquitetura e desenvolvimento iterativo com feedback constante do cliente."
+      },
+      "timeline": {
+        "question": "Qual é o prazo médio dos projetos?",
+        "answer": "O prazo varia de acordo com a complexidade do projeto, mas geralmente projetos web levam de 4 a 12 semanas para serem concluídos."
+      }
+    }
   },
   "contact": {
     "title": "Vamos Criar Algo Incrível Juntos",
@@ -157,9 +171,7 @@
   },
   "notFound": {
     "title": "Página não encontrada",
-    "message": "Desculpe, a página que você procura não existe.",
     "description": "Desculpe, a página que você procura não existe.",
-    "backHome": "Voltar ao início",
     "button": "Voltar ao início"
   },
   "footer": {

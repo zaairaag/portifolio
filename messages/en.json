@@ -103,6 +103,7 @@
   "portfolio": {
     "title": "Portfolio",
     "subtitle": "Some of my recent work",
+    "description": "Here are some of the projects I've worked on. Each one represents a unique challenge and a learning experience.",
     "viewProject": "View Project",
     "viewCode": "View Code",
     "viewDetails": "View Details",
@@ -115,8 +116,29 @@
   },
   "experience": {
     "title": "Experience",
+    "subtitle": "Services and Solutions",
     "present": "Present",
-    "services": {
+    "popular": "Popular",
+    "features": {
+      "responsiveDesign": "Responsive Design",
+      "seoOptimization": "SEO Optimization",
+      "apiIntegration": "API Integration",
+      "performanceAccess": "Performance & Accessibility",
+      "frontendBackend": "Frontend & Backend",
+      "database": "Databases",
+      "security": "Security",
+      "scalability": "Scalability",
+      "architecture": "Architecture",
+      "codeReview": "Code Review",
+      "bestPractices": "Best Practices",
+      "mentoring": "Mentoring"
+    },
+    "prices": {
+      "webDevPrice": "From $2,000 USD",
+      "fullstackPrice": "From $4,000 USD",
+      "consultingPrice": "From $100 USD/hour"
+    },
+    "experiences": {
       "webDev": "Web Development",
       "webDevDesc": "Modern and responsive web applications",
       "fullstack": "Full Stack Development",
@@ -124,26 +146,18 @@
       "consulting": "Technical Consulting",
       "consultingDesc": "Expert guidance and best practices"
     },
-    "features": {
-      "responsiveDesign": "Responsive Design",
-      "seoOptimization": "SEO Optimization",
-      "apiIntegration": "API Integration",
-      "performanceAccess": "Performance & Accessibility",
-      "frontendBackend": "Frontend & Backend Integration",
-      "database": "Database Design",
-      "security": "Security Implementation",
-      "scalability": "Scalability Solutions",
-      "architecture": "Architecture Planning",
-      "codeReview": "Code Review",
-      "bestPractices": "Best Practices",
-      "mentoring": "Technical Mentoring"
-    },
-    "prices": {
-      "webDevPrice": "Starting at $10,000",
-      "fullstackPrice": "Starting at $20,000",
-      "consultingPrice": "Starting at $5,000"
-    },
-    "popular": "Most Popular"
+    "requestQuote": "Request Quote",
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "process": {
+        "question": "How does the development process work?",
+        "answer": "The process begins with a detailed requirements analysis, followed by architecture planning and iterative development with constant client feedback."
+      },
+      "timeline": {
+        "question": "What is the average project timeline?",
+        "answer": "The timeline varies according to project complexity, but typically web projects take 4 to 12 weeks to complete."
+      }
+    }
   },
   "contact": {
     "title": "Let's Create Something Amazing Together",
