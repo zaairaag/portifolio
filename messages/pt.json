@@ -19,7 +19,7 @@
     "scroll": "Role para saber mais",
     "cta": {
       "projects": "Ver Portfólio",
-      "contact": "Contato"
+      "contact": "Entre em contato"
     },
     "social": {
       "github": "https://github.com/zairaglez",
@@ -29,8 +29,27 @@
   },
   "about": {
     "title": "Sobre Mim",
-    "subtitle": "Desenvolvedora Full Stack",
-    "description": "Sou uma desenvolvedora Full Stack com experiência em desenvolvimento web e mobile. Trabalho com tecnologias modernas como React, Next.js, Node.js e muito mais.",
+    "intro": {
+      "role": "Desenvolvedora Full Stack com mais de 4 anos de experiência em desenvolvimento web e soluções empresariais.",
+      "description": "Especializada em criar soluções web modernas e escaláveis, com foco em SharePoint, React e Node.js. Possuo sólida experiência no desenvolvimento de aplicações corporativas e interfaces responsivas que proporcionam excelente experiência ao usuário."
+    },
+    "experience": {
+      "title": "Experiência Profissional",
+      "type": "Tempo integral",
+      "remote": "Remota",
+      "present": "o momento",
+      "skills": "Competências"
+    },
+    "skills": {
+      "title": "Principais Tecnologias",
+      "categories": {
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "microsoft": "Microsoft",
+        "cloud": "Cloud & DevOps",
+        "marketing": "Marketing Digital"
+      }
+    },
     "journey": {
       "title": "Minha Jornada",
       "description": "Minha jornada na programação começou durante a faculdade, onde descobri minha paixão por criar soluções através do código. Desde então, venho me aperfeiçoando e trabalhando em projetos desafiadores."

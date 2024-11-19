@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Building2, Calendar, MapPin, Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const experiences = [
   {
@@ -65,7 +65,7 @@ const experiences = [
 
 const skillCategories = [
   {
-    name: "Frontend",
+    name: "frontend",
     skills: [
       "React.js",
       "Next.js",
@@ -82,7 +82,7 @@ const skillCategories = [
     gradient: "from-blue-500 to-cyan-400"
   },
   {
-    name: "Backend",
+    name: "backend",
     skills: [
       "Node.js",
       "Express.js",
@@ -93,7 +93,7 @@ const skillCategories = [
     gradient: "from-green-500 to-emerald-400"
   },
   {
-    name: "Microsoft",
+    name: "microsoft",
     skills: [
       "SharePoint",
       "SPFx",
@@ -104,7 +104,7 @@ const skillCategories = [
     gradient: "from-indigo-500 to-purple-400"
   },
   {
-    name: "Cloud & DevOps",
+    name: "cloud",
     skills: [
       "Git",
       "GitHub",
@@ -115,7 +115,7 @@ const skillCategories = [
     gradient: "from-orange-500 to-amber-400"
   },
   {
-    name: "Marketing Digital",
+    name: "marketing",
     skills: [
       "Marketing de Conteúdo",
       "SEO",
@@ -128,6 +128,8 @@ const skillCategories = [
 ];
 
 export default function SobrePage() {
+  const t = useTranslations('about');
+
   return (
     <div className="container mx-auto px-4 py-16 md:py-24 space-y-16">
       {/* Hero Section */}
@@ -159,7 +161,7 @@ export default function SobrePage() {
               }}
               className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent"
             >
-              Sobre Mim
+              {t('title')}
             </motion.h1>
             
             <div className="space-y-6">
@@ -173,7 +175,7 @@ export default function SobrePage() {
                 }}
                 className="text-xl md:text-2xl font-medium"
               >
-                Desenvolvedora Full Stack com mais de 4 anos de experiência em desenvolvimento web e soluções empresariais.
+                {t('intro.role')}
               </motion.p>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -185,9 +187,7 @@ export default function SobrePage() {
                 }}
                 className="text-lg text-muted-foreground leading-relaxed"
               >
-                Especializada em criar soluções web modernas e escaláveis, com foco em SharePoint, React e Node.js. 
-                Possuo sólida experiência no desenvolvimento de aplicações corporativas e interfaces responsivas 
-                que proporcionam excelente experiência ao usuário.
+                {t('intro.description')}
               </motion.p>
             </div>
           </div>
@@ -205,7 +205,7 @@ export default function SobrePage() {
               transition={{ duration: 0.5 }}
               className="text-3xl font-bold mb-12 text-center"
             >
-              Experiência Profissional
+              {t('experience.title')}
             </motion.h2>
 
             <div className="relative space-y-8">
@@ -270,7 +270,7 @@ export default function SobrePage() {
               transition={{ duration: 0.5 }}
               className="text-3xl font-bold mb-12 text-center"
             >
-              Principais Tecnologias
+              {t('skills.title')}
             </motion.h2>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -291,7 +291,7 @@ export default function SobrePage() {
                       />
                       
                       <h3 className={`text-xl font-semibold bg-gradient-to-r ${category.gradient} bg-clip-text text-transparent`}>
-                        {category.name}
+                        {t(`skills.categories.${category.name}`)}
                       </h3>
                       
                       <div className="flex flex-wrap gap-2 relative">

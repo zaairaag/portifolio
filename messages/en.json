@@ -19,7 +19,7 @@
     "scroll": "Scroll to learn more",
     "cta": {
       "projects": "View Projects",
-      "contact": "Contact"
+      "contact": "Get in touch"
     },
     "social": {
       "github": "https://github.com/zairaglez",
@@ -29,8 +29,27 @@
   },
   "about": {
     "title": "About Me",
-    "subtitle": "Full Stack Developer",
-    "description": "I'm a Full Stack Developer with experience in web and mobile development. I work with modern technologies like React, Next.js, Node.js and more.",
+    "intro": {
+      "role": "Full Stack Developer with over 4 years of experience in web development and enterprise solutions.",
+      "description": "Specialized in creating modern and scalable web solutions, focusing on SharePoint, React, and Node.js. I have solid experience in developing corporate applications and responsive interfaces that provide excellent user experience."
+    },
+    "experience": {
+      "title": "Professional Experience",
+      "type": "Full-time",
+      "remote": "Remote",
+      "present": "present",
+      "skills": "Skills"
+    },
+    "skills": {
+      "title": "Main Technologies",
+      "categories": {
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "microsoft": "Microsoft",
+        "cloud": "Cloud & DevOps",
+        "marketing": "Marketing Digital"
+      }
+    },
     "journey": {
       "title": "My Journey",
       "description": "My programming journey began during college, where I discovered my passion for creating solutions through code. Since then, I've been improving and working on challenging projects."

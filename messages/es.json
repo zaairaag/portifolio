@@ -2,11 +2,11 @@
   "navigation": {
     "Home": "Inicio",
     "about": "Sobre Mí",
-    "projects": "Proyectos",
-    "experience": "Experiencia",
+    "projects": "Portafolio",
+    "experience": "Servicios",
     "contact": "Contacto",
     "Sobre": "Sobre Mí",
-    "Projetos": "Proyectos",
+    "Projetos": "Portafolio",
     "Contato": "Contacto"
   },
   "hero": {
@@ -15,11 +15,11 @@
     "role": "Desarrolladora de Software",
     "subtitle": "Creando experiencias digitales únicas e innovadoras con tecnologías modernas",
     "description": "Desarrolladora Full Stack apasionada por crear soluciones innovadoras",
-    "contact": "Contáctame",
+    "contact": "Contactar",
     "scroll": "Desplázate para saber más",
     "cta": {
-      "projects": "Ver Proyectos",
-      "contact": "Contacto"
+      "projects": "Ver Portafolio",
+      "contact": "Contactar"
     },
     "social": {
       "github": "https://github.com/zairaglez",
@@ -29,8 +29,37 @@
   },
   "about": {
     "title": "Sobre Mí",
-    "subtitle": "Desarrolladora Full Stack",
-    "description": "Soy una desarrolladora Full Stack con experiencia en desarrollo web y móvil. Trabajo con tecnologías modernas como React, Next.js, Node.js y más.",
+    "intro": {
+      "role": "Desarrolladora Full Stack con más de 4 años de experiencia en desarrollo web y soluciones empresariales.",
+      "description": "Especializada en crear soluciones web modernas y escalables, con enfoque en SharePoint, React y Node.js. Tengo una sólida experiencia en el desarrollo de aplicaciones corporativas e interfaces responsivas que proporcionan una excelente experiencia de usuario."
+    },
+    "experience": {
+      "title": "Experiencia Profesional",
+      "type": "Tiempo completo",
+      "remote": "Remoto",
+      "present": "actualidad",
+      "skills": "Habilidades",
+      "role": {
+        "programmer": "Programadora de Software",
+        "analyst": "Analista de Sistemas",
+        "frontend": "Desarrolladora Frontend"
+      },
+      "company": {
+        "impar": "Ímpar",
+        "deloitte": "Deloitte Digital"
+      },
+      "location": "Río de Janeiro, Brasil"
+    },
+    "skills": {
+      "title": "Principales Tecnologías",
+      "categories": {
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "microsoft": "Microsoft",
+        "cloud": "Cloud & DevOps",
+        "marketing": "Marketing Digital"
+      }
+    },
     "journey": {
       "title": "Mi Trayectoria",
       "description": "Mi viaje en la programación comenzó durante la universidad, donde descubrí mi pasión por crear soluciones a través del código. Desde entonces, he estado mejorando y trabajando en proyectos desafiantes."
@@ -41,23 +70,25 @@
     }
   },
   "projects": {
-    "title": "Proyectos",
+    "title": "Portafolio",
     "subtitle": "Algunos de mis trabajos recientes",
     "viewProject": "Ver Proyecto",
     "viewCode": "Ver Código",
     "viewDetails": "Ver Detalles"
   },
   "experience": {
-    "title": "Experiencia",
+    "title": "Servicios",
     "present": "Presente"
   },
   "contact": {
     "title": "Contacto",
     "description": "¿Hablamos sobre tu proyecto?",
     "name": "Nombre",
-    "email": "Correo",
+    "email": "Correo electrónico",
     "message": "Mensaje",
-    "send": "Enviar Mensaje"
+    "send": "Enviar mensaje",
+    "success": "¡Mensaje enviado con éxito!",
+    "error": "Ocurrió un error al enviar el mensaje."
   },
   "notFound": {
     "title": "Página no encontrada",
