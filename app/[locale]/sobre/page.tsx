@@ -1,115 +1,323 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Building2, Calendar, MapPin, Star } from 'lucide-react';
+
+const experiences = [
+  {
+    role: "Programadora de Software",
+    company: "Ímpar",
+    period: "ago de 2022 - o momento",
+    duration: "2 anos 4 meses",
+    location: "Rio de Janeiro",
+    type: "Tempo integral",
+    achievements: [
+      "Desenvolvimento e manutenção de soluções em SharePoint e Node.js",
+      "Implementação de webparts modernas usando SPFx e React",
+      "Integração com APIs externas e desenvolvimento de microsserviços"
+    ],
+    skills: ["SharePoint", "Node.js", "React", "TypeScript", "SPFx"]
+  },
+  {
+    role: "Analista de Negócios",
+    company: "Deloitte Digital",
+    period: "mai de 2022 - ago de 2022",
+    duration: "4 meses",
+    location: "Rio de Janeiro, Brasil",
+    type: "Tempo integral · Remota",
+    achievements: [
+      "Desenvolvimento de Templates de Email Marketing",
+      "Implementação de Componentes na Plataforma AEM"
+    ],
+    skills: ["Marketing Cloud", "Salesforce", "Adobe Experience Manager (AEM)"]
+  },
+  {
+    role: "Analista de Sistema",
+    company: "Ímpar",
+    period: "out de 2020 - mai de 2022",
+    duration: "1 ano 8 meses",
+    location: "Rio de Janeiro, Brasil",
+    type: "Tempo integral",
+    achievements: [
+      "Desenvolvimento de páginas dinâmicas em SharePoint 2013 e Modern",
+      "Implementação de soluções usando React, Vue.js e AngularJS",
+      "Criação de webparts personalizadas com SPFx e TypeScript"
+    ],
+    skills: ["SharePoint", "React", "Vue.js", "AngularJS", "TypeScript", "SPFx"]
+  },
+  {
+    role: "Desenvolvedora Front-end",
+    company: "Ímpar",
+    period: "dez de 2019 - out de 2020",
+    duration: "11 meses",
+    location: "Rio de Janeiro e Região, Brasil",
+    type: "Estágio",
+    achievements: [
+      "Desenvolvimento de interfaces responsivas em SharePoint",
+      "Manutenção e otimização de páginas existentes",
+      "Implementação de soluções com JavaScript e jQuery"
+    ],
+    skills: ["SharePoint", "JavaScript", "jQuery", "HTML", "CSS"]
+  }
+];
+
+const skillCategories = [
+  {
+    name: "Frontend",
+    skills: [
+      "React.js",
+      "Next.js",
+      "TypeScript",
+      "JavaScript",
+      "Vue.js",
+      "AngularJS",
+      "HTML5",
+      "CSS3",
+      "Tailwind CSS",
+      "Bootstrap",
+      "jQuery"
+    ],
+    gradient: "from-blue-500 to-cyan-400"
+  },
+  {
+    name: "Backend",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "SQL",
+      "MongoDB"
+    ],
+    gradient: "from-green-500 to-emerald-400"
+  },
+  {
+    name: "Microsoft",
+    skills: [
+      "SharePoint",
+      "SPFx",
+      "Power Platform",
+      "Power Automate",
+      "Power Apps"
+    ],
+    gradient: "from-indigo-500 to-purple-400"
+  },
+  {
+    name: "Cloud & DevOps",
+    skills: [
+      "Git",
+      "GitHub",
+      "Azure DevOps",
+      "Docker",
+      "CI/CD"
+    ],
+    gradient: "from-orange-500 to-amber-400"
+  },
+  {
+    name: "Marketing Digital",
+    skills: [
+      "Marketing de Conteúdo",
+      "SEO",
+      "Adobe Experience Manager",
+      "Marketing Cloud",
+      "Salesforce"
+    ],
+    gradient: "from-pink-500 to-rose-400"
+  }
+];
 
 export default function SobrePage() {
   return (
-    <main className="flex min-h-screen flex-col">
-      <div className="flex-1 py-24">
-        <div className="container px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-12"
-          >
-            {/* Hero Section */}
-            <div className="flex flex-col md:flex-row gap-8 items-center">
-              <div className="flex-1 space-y-4">
-                <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">
-                  Sobre Mim
-                </h1>
-                <p className="text-xl text-muted-foreground">
-                  Desenvolvedora Full Stack apaixonada por criar soluções inovadoras e impactantes.
-                </p>
-              </div>
-              <div className="relative w-64 h-64 md:w-80 md:h-80">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 blur-2xl" />
-                <Image
-                  src="/profile.jpg"
-                  alt="Zaíra Gonçalves"
-                  width={320}
-                  height={320}
-                  className="rounded-full relative border-2 border-border"
-                />
-              </div>
+    <div className="container mx-auto px-4 py-16 md:py-24 space-y-16">
+      {/* Hero Section */}
+      <section className="max-w-3xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative"
+        >
+          {/* Decorative element */}
+          <motion.div 
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ 
+              duration: 0.8,
+              ease: "easeOut"
+            }}
+            className="absolute -top-4 -left-4 w-16 h-16 bg-primary/10 rounded-full blur-xl" 
+          />
+          
+          <div className="relative space-y-8 pt-12">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                ease: "easeOut"
+              }}
+              className="text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent"
+            >
+              Sobre Mim
+            </motion.h1>
+            
+            <div className="space-y-6">
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.2,
+                  ease: "easeOut"
+                }}
+                className="text-xl md:text-2xl font-medium"
+              >
+                Desenvolvedora Full Stack com mais de 4 anos de experiência em desenvolvimento web e soluções empresariais.
+              </motion.p>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.4,
+                  ease: "easeOut"
+                }}
+                className="text-lg text-muted-foreground leading-relaxed"
+              >
+                Especializada em criar soluções web modernas e escaláveis, com foco em SharePoint, React e Node.js. 
+                Possuo sólida experiência no desenvolvimento de aplicações corporativas e interfaces responsivas 
+                que proporcionam excelente experiência ao usuário.
+              </motion.p>
             </div>
+          </div>
+        </motion.div>
+      </section>
 
-            {/* Bio Section */}
-            <section className="space-y-6">
-              <h2 className="text-2xl font-bold">Minha História</h2>
-              <div className="prose prose-gray dark:prose-invert max-w-none">
-                <p>
-                  Com mais de X anos de experiência em desenvolvimento web, tenho me dedicado a criar soluções 
-                  que não apenas resolvem problemas, mas também proporcionam experiências excepcionais aos usuários.
-                </p>
-                <p>
-                  Minha jornada começou com [sua história aqui] e desde então tenho trabalhado com diversas 
-                  tecnologias e frameworks modernos, sempre buscando aprender e evoluir.
-                </p>
-              </div>
-            </section>
+      {/* Conteúdo Principal */}
+      <div className="container px-4 mx-auto pb-24">
+        <div className="max-w-5xl mx-auto space-y-24">
+          {/* Experiência Profissional */}
+          <section className="max-w-4xl mx-auto">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl font-bold mb-12 text-center"
+            >
+              Experiência Profissional
+            </motion.h2>
 
-            {/* Skills Section */}
-            <section className="space-y-6">
-              <h2 className="text-2xl font-bold">Habilidades</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <Card className="p-6 space-y-4">
-                  <h3 className="font-semibold">Frontend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge>React</Badge>
-                    <Badge>Next.js</Badge>
-                    <Badge>TypeScript</Badge>
-                    <Badge>Tailwind CSS</Badge>
-                  </div>
-                </Card>
-                <Card className="p-6 space-y-4">
-                  <h3 className="font-semibold">Backend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge>Node.js</Badge>
-                    <Badge>Python</Badge>
-                    <Badge>SQL</Badge>
-                    <Badge>REST APIs</Badge>
-                  </div>
-                </Card>
-                <Card className="p-6 space-y-4">
-                  <h3 className="font-semibold">Ferramentas</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge>Git</Badge>
-                    <Badge>Docker</Badge>
-                    <Badge>AWS</Badge>
-                    <Badge>CI/CD</Badge>
-                  </div>
-                </Card>
-              </div>
-            </section>
+            <div className="relative space-y-8">
+              {/* Linha vertical do tempo */}
+              <div className="absolute left-0 md:left-1/2 h-full w-px bg-border transform -translate-x-1/2" />
 
-            {/* Experience Section */}
-            <section className="space-y-6">
-              <h2 className="text-2xl font-bold">Experiência</h2>
-              <div className="space-y-8">
-                {/* Add your experience items here */}
-                <Card className="p-6 space-y-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-semibold">Cargo</h3>
-                      <p className="text-muted-foreground">Empresa</p>
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={`${exp.company}-${exp.role}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className={`relative grid md:grid-cols-2 gap-8 ${
+                    index % 2 === 0 ? 'md:text-right' : ''
+                  }`}
+                >
+                  {/* Círculo na linha do tempo */}
+                  <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform -translate-x-1/2 mt-6">
+                    <div className="absolute w-8 h-8 bg-primary/20 rounded-full -m-2 animate-pulse" />
+                  </div>
+
+                  {/* Conteúdo */}
+                  <div className={`md:col-span-1 ${
+                    index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2'
+                  }`}>
+                    <Card className="p-6 hover:shadow-lg transition-shadow">
+                      <div className="space-y-4">
+                        <div className="space-y-2">
+                          <h3 className="text-xl font-semibold">{exp.role}</h3>
+                          <div className="text-muted-foreground">
+                            <p className="font-medium">{exp.company}</p>
+                            <p className="text-sm">{exp.type}</p>
+                            <p className="text-sm">{exp.period} · {exp.duration}</p>
+                            <p className="text-sm">{exp.location}</p>
+                          </div>
+                        </div>
+
+                        <ul className="list-disc list-inside space-y-1 text-sm">
+                          {exp.achievements.map((achievement, i) => (
+                            <li key={i} className="text-muted-foreground">{achievement}</li>
+                          ))}
+                        </ul>
+
+                        <div className="flex flex-wrap gap-2">
+                          {exp.skills.map((skill, i) => (
+                            <Badge key={i} variant="secondary">{skill}</Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          {/* Skills Section */}
+          <section className="max-w-4xl mx-auto">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-3xl font-bold mb-12 text-center"
+            >
+              Principais Tecnologias
+            </motion.h2>
+
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {skillCategories.map((category, index) => (
+                <motion.div
+                  key={category.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <Card className="h-full overflow-hidden group">
+                    <div className="p-6 space-y-4 relative">
+                      {/* Gradient background with animation */}
+                      <div className="absolute inset-0 bg-gradient-to-br opacity-10 group-hover:opacity-20 transition-opacity duration-300 ease-out"
+                        style={{
+                          background: `linear-gradient(to bottom right, var(--${category.gradient.split(' ')[1]}) 0%, var(--${category.gradient.split(' ')[3]}) 100%)`
+                        }}
+                      />
+                      
+                      <h3 className={`text-xl font-semibold bg-gradient-to-r ${category.gradient} bg-clip-text text-transparent`}>
+                        {category.name}
+                      </h3>
+                      
+                      <div className="flex flex-wrap gap-2 relative">
+                        {category.skills.map((skill, i) => (
+                          <Badge 
+                            key={i} 
+                            variant="secondary"
+                            className={`
+                              hover:bg-gradient-to-r ${category.gradient} 
+                              hover:text-white hover:border-transparent 
+                              transition-all duration-300
+                              hover:scale-105 hover:shadow-md
+                            `}
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
-                    <Badge variant="outline">2022 - Presente</Badge>
-                  </div>
-                  <p className="text-muted-foreground">
-                    Descrição das responsabilidades e conquistas...
-                  </p>
-                </Card>
-                {/* Add more experience cards as needed */}
-              </div>
-            </section>
-          </motion.div>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </section>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
