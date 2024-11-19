@@ -7,12 +7,13 @@ import { useTranslations } from 'next-intl';
 
 const experiences = [
   {
-    role: "Programadora de Software",
     company: "Ímpar",
-    period: "ago de 2022 - o momento",
-    duration: "2 anos 4 meses",
-    location: "Rio de Janeiro",
-    type: "Tempo integral",
+    period: "dez de 2019 - presente",
+    duration: "4 anos",
+    location: "Rio de Janeiro, Brasil",
+    role: "Programadora de Software",
+    period_role: "ago de 2022 - presente",
+    duration_role: "2 anos 4 meses",
     achievements: [
       "Desenvolvimento e manutenção de soluções em SharePoint e Node.js",
       "Implementação de webparts modernas usando SPFx e React",
@@ -21,11 +22,11 @@ const experiences = [
     skills: ["SharePoint", "Node.js", "React", "TypeScript", "SPFx"]
   },
   {
-    role: "Analista de Negócios",
     company: "Deloitte Digital",
     period: "mai de 2022 - ago de 2022",
     duration: "4 meses",
     location: "Rio de Janeiro, Brasil",
+    role: "Analista de Negócios",
     type: "Tempo integral · Remota",
     achievements: [
       "Desenvolvimento de Templates de Email Marketing",
@@ -34,32 +35,20 @@ const experiences = [
     skills: ["Marketing Cloud", "Salesforce", "Adobe Experience Manager (AEM)"]
   },
   {
-    role: "Analista de Sistema",
     company: "Ímpar",
-    period: "out de 2020 - mai de 2022",
-    duration: "1 ano 8 meses",
+    period: "dez de 2019 - ago de 2022",
+    duration: "2 anos 8 meses",
     location: "Rio de Janeiro, Brasil",
-    type: "Tempo integral",
+    role: "Analista de Sistema",
     achievements: [
       "Desenvolvimento de páginas dinâmicas em SharePoint 2013 e Modern",
       "Implementação de soluções usando React, Vue.js e AngularJS",
-      "Criação de webparts personalizadas com SPFx e TypeScript"
-    ],
-    skills: ["SharePoint", "React", "Vue.js", "AngularJS", "TypeScript", "SPFx"]
-  },
-  {
-    role: "Desenvolvedora Front-end",
-    company: "Ímpar",
-    period: "dez de 2019 - out de 2020",
-    duration: "11 meses",
-    location: "Rio de Janeiro e Região, Brasil",
-    type: "Estágio",
-    achievements: [
+      "Criação de webparts personalizadas com SPFx e TypeScript",
       "Desenvolvimento de interfaces responsivas em SharePoint",
       "Manutenção e otimização de páginas existentes",
       "Implementação de soluções com JavaScript e jQuery"
     ],
-    skills: ["SharePoint", "JavaScript", "jQuery", "HTML", "CSS"]
+    skills: ["SharePoint", "React", "Vue.js", "AngularJS", "TypeScript", "SPFx", "JavaScript", "jQuery", "HTML", "CSS"]
   }
 ];
 
@@ -214,7 +203,7 @@ export default function SobrePage() {
 
               {experiences.map((exp, index) => (
                 <motion.div
-                  key={`${exp.company}-${exp.role}`}
+                  key={exp.company}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -232,27 +221,39 @@ export default function SobrePage() {
                     index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2'
                   }`}>
                     <Card className="p-6 hover:shadow-lg transition-shadow">
-                      <div className="space-y-4">
+                      <div className="space-y-6">
+                        {/* Cabeçalho da empresa */}
                         <div className="space-y-2">
-                          <h3 className="text-xl font-semibold">{exp.role}</h3>
+                          <h3 className="text-xl font-semibold">{exp.company}</h3>
                           <div className="text-muted-foreground">
-                            <p className="font-medium">{exp.company}</p>
-                            <p className="text-sm">{exp.type}</p>
                             <p className="text-sm">{exp.period} · {exp.duration}</p>
                             <p className="text-sm">{exp.location}</p>
                           </div>
                         </div>
 
-                        <ul className="list-disc list-inside space-y-1 text-sm">
-                          {exp.achievements.map((achievement, i) => (
-                            <li key={i} className="text-muted-foreground">{achievement}</li>
-                          ))}
-                        </ul>
+                        {/* Roles (se existirem) */}
+                        <div className="space-y-4">
+                          <div className="space-y-1">
+                            <h4 className="font-medium">{exp.role}</h4>
+                            {exp.period_role && (
+                              <p className="text-sm text-muted-foreground">{exp.period_role} · {exp.duration_role}</p>
+                            )}
+                            {exp.type && (
+                              <p className="text-sm text-muted-foreground">{exp.type}</p>
+                            )}
+                          </div>
 
-                        <div className="flex flex-wrap gap-2">
-                          {exp.skills.map((skill, i) => (
-                            <Badge key={i} variant="secondary">{skill}</Badge>
-                          ))}
+                          <ul className="list-disc list-inside space-y-1 text-sm">
+                            {exp.achievements.map((achievement, i) => (
+                              <li key={i} className="text-muted-foreground">{achievement}</li>
+                            ))}
+                          </ul>
+
+                          <div className="flex flex-wrap gap-2">
+                            {exp.skills.map((skill, i) => (
+                              <Badge key={i} variant="secondary">{skill}</Badge>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </Card>
