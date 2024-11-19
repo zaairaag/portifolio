@@ -3,16 +3,34 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick, ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { TypeAnimation } from 'react-type-animation';
+import { useTheme } from 'next-themes';
 
 export function Hero() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
+  const { theme } = useTheme();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"]
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY
+      });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useEffect(() => {
     // Previne scroll manual quando estiver na seção hero
@@ -38,17 +56,27 @@ export function Hero() {
   return (
     <section 
       ref={ref} 
-      className="h-screen w-full flex items-center justify-center relative overflow-hidden pt-32" 
+      className="h-screen w-full flex items-center justify-center relative overflow-hidden" 
       id="home"
-      style={{
-        height: 'calc(100vh - 6rem)' // Ajusta para a altura da navbar
-      }}
     >
+      {/* Interactive Cursor Effect */}
+      <motion.div
+        className="pointer-events-none fixed inset-0 z-30"
+        animate={{
+          background: `radial-gradient(400px at ${mousePosition.x}px ${mousePosition.y}px, ${
+            theme === 'dark' 
+              ? 'rgba(255, 0, 128, 0.07)'
+              : 'rgba(0, 223, 216, 0.07)'
+          }, transparent 70%)`
+        }}
+        transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+      />
+
       {/* Gradiente de fundo */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/50 z-0" />
       
       <motion.div
-        className="container mx-auto px-4 z-20 flex flex-col items-center justify-center text-center gap-8"
+        className="container mx-auto px-4 z-20 flex flex-col items-center justify-center text-center gap-8 mt-16"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -174,7 +202,7 @@ export function Hero() {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.5 }}
