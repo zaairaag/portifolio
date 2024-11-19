@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "Home": "Inicio",
+    "about": "Sobre Mí",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "contact": "Contacto",
+    "Sobre": "Sobre Mí",
+    "Projetos": "Proyectos",
+    "Contato": "Contacto"
+  },
+  "hero": {
+    "title": "Hola, soy",
+    "name": "Zaíra Gonçalves",
+    "role": "Desarrolladora de Software",
+    "subtitle": "Creando experiencias digitales únicas e innovadoras con tecnologías modernas",
+    "description": "Desarrolladora Full Stack apasionada por crear soluciones innovadoras",
+    "contact": "Contáctame",
+    "scroll": "Desplázate para saber más",
+    "cta": {
+      "projects": "Ver Proyectos",
+      "contact": "Contacto"
+    },
+    "social": {
+      "github": "https://github.com/zairaglez",
+      "linkedin": "https://www.linkedin.com/in/zaira-gon%C3%A7alves-8b0b1b1b9/",
+      "twitter": "https://twitter.com/zairaglez"
+    }
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "subtitle": "Desarrolladora Full Stack",
+    "description": "Soy una desarrolladora Full Stack con experiencia en desarrollo web y móvil. Trabajo con tecnologías modernas como React, Next.js, Node.js y más.",
+    "journey": {
+      "title": "Mi Trayectoria",
+      "description": "Mi viaje en la programación comenzó durante la universidad, donde descubrí mi pasión por crear soluciones a través del código. Desde entonces, he estado mejorando y trabajando en proyectos desafiantes."
+    },
+    "technologies": {
+      "title": "Tecnologías",
+      "description": "Estas son algunas de las tecnologías con las que trabajo:"
+    }
+  },
+  "projects": {
+    "title": "Proyectos",
+    "subtitle": "Algunos de mis trabajos recientes",
+    "viewProject": "Ver Proyecto",
+    "viewCode": "Ver Código",
+    "viewDetails": "Ver Detalles"
+  },
+  "experience": {
+    "title": "Experiencia",
+    "present": "Presente"
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "¿Hablamos sobre tu proyecto?",
+    "name": "Nombre",
+    "email": "Correo",
+    "message": "Mensaje",
+    "send": "Enviar Mensaje"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "message": "Lo siento, la página que buscas no existe.",
+    "description": "Lo siento, la página que buscas no existe.",
+    "backHome": "Volver al inicio",
+    "button": "Volver al inicio"
+  }
+}

@@ -4,12 +4,25 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { ExternalLinkIcon, GithubIcon, ArrowRightIcon } from 'lucide-react';
-import Link from 'next/link';
 import { Project, projects } from '@/config/projects';
 
-export function Projects() {
+interface ProjectsProps {
+  translations?: {
+    title: string;
+    subtitle: string;
+    viewDetails: string;
+  };
+  locale: string;
+}
+
+const defaultTranslations = {
+  title: 'Projects',
+  subtitle: 'Some of my recent work',
+  viewDetails: 'View Details'
+};
+
+export function Projects({ translations = defaultTranslations, locale }: ProjectsProps) {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
@@ -65,10 +78,10 @@ export function Projects() {
           className="text-center mb-12 space-y-4"
         >
           <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
-            Projetos em Destaque
+            {translations.title}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Conheça alguns dos projetos que desenvolvi, utilizando diferentes tecnologias e soluções criativas.
+            {translations.subtitle}
           </p>
         </motion.div>
 
@@ -114,7 +127,7 @@ export function Projects() {
                 onHoverStart={() => setHoveredProject(project.title)}
                 onHoverEnd={() => setHoveredProject(null)}
               >
-                <Link href={`/projetos/${project.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                <div className="cursor-pointer" onClick={() => window.location.href = `/${locale}/projetos/${project.title.toLowerCase().replace(/\s+/g, '-')}`}>
                   <Card className="overflow-hidden bg-background/50 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition-all duration-500">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="relative h-[300px] md:h-full overflow-hidden">
@@ -163,10 +176,10 @@ export function Projects() {
                               initial={{ x: 0 }}
                               whileHover={{ x: 5 }}
                             >
-                              Ver detalhes
+                              {translations.viewDetails}
                               <ArrowRightIcon className="w-4 h-4" />
                             </motion.div>
-                            <div className="flex gap-4">
+                            <div className="flex gap-4" onClick={(e) => e.stopPropagation()}>
                               {project.links.demo && (
                                 <motion.a
                                   href={project.links.demo}
@@ -195,7 +208,7 @@ export function Projects() {
                       </div>
                     </div>
                   </Card>
-                </Link>
+                </div>
               </motion.div>
             ))}
           </motion.div>

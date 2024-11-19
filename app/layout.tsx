@@ -1,15 +1,11 @@
-import './globals.css'
-import { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { ThemeProvider } from '@/components/theme-provider'
-import { Navigation } from '@/components/navigation'
-import { Toaster } from '@/components/ui/sonner'
+import './globals.css';
+import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Zaíra Gonçalves | Programadora de Software',
-  description: 'Programadora de Software especializada em criar soluções digitais inovadoras e de alta qualidade.',
+export const metadata = {
+  title: 'Zaira Carvalho',
+  description: 'Full Stack Developer',
   icons: {
     icon: [
       {
@@ -17,31 +13,19 @@ export const metadata: Metadata = {
         type: 'image/svg+xml',
       }
     ],
-  },
-}
+  }
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <head>
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      </head>
-      <body className={`${inter.className} relative`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navigation />
-          {children}
-          <Toaster />
-        </ThemeProvider>
+    <html suppressHydrationWarning>
+      <body className={inter.className} suppressHydrationWarning>
+        {children}
       </body>
     </html>
-  )
+  );
 }

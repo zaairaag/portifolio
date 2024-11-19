@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { HeartIcon, RocketIcon, CodeIcon } from 'lucide-react';
 import { technologies } from '@/data/technologies';
+import { useTranslations } from 'next-intl';
 
 const experiences = [
   {
@@ -38,6 +39,8 @@ const item = {
 };
 
 export function About() {
+  const t = useTranslations('about');
+
   return (
     <section id="about" className="w-full min-h-screen py-24 relative">
       {/* Content */}
@@ -70,7 +73,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              Sobre Mim
+              {t('title')}
             </motion.h2>
             <motion.p
               className="text-xl font-medium text-high-contrast max-w-2xl mx-auto leading-relaxed"
@@ -78,8 +81,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              Desenvolvedora de Software com mais de 4 anos de experiência em desenvolvimento web,
-              especializada em SharePoint e tecnologias modernas de frontend.
+              {t('subtitle')}
             </motion.p>
           </motion.div>
 
@@ -99,11 +101,10 @@ export function About() {
                     <div className="p-3 rounded-xl bg-primary/10">
                       <RocketIcon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-semibold text-high-contrast">Minha Jornada</h3>
+                    <h3 className="text-2xl font-semibold text-high-contrast">{t('journey.title')}</h3>
                   </div>
                   <p className="text-base text-high-contrast font-medium leading-relaxed mb-6">
-                    Desenvolvedora de Software especializada em SharePoint e tecnologias modernas de frontend. 
-                    Atualmente na Ímpar, desenvolvendo soluções corporativas.
+                    {t('journey.description')}
                   </p>
                   <div className="relative pl-4 border-l-2 border-primary/30 space-y-6">
                     {experiences.map((exp, index) => (
@@ -143,7 +144,7 @@ export function About() {
                     <div className="p-3 rounded-xl bg-primary/10">
                       <CodeIcon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-semibold text-high-contrast">Tecnologias</h3>
+                    <h3 className="text-2xl font-semibold text-high-contrast">{t('technologies.title')}</h3>
                   </div>
                   <div className="space-y-8">
                     {technologies.map((category) => (

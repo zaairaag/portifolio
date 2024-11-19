@@ -1,0 +1,69 @@
+{
+  "navigation": {
+    "Home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact",
+    "Sobre": "About",
+    "Projetos": "Projects",
+    "Contato": "Contact"
+  },
+  "hero": {
+    "title": "Hi, I'm",
+    "name": "Zaíra Gonçalves",
+    "role": "Software Developer",
+    "subtitle": "Creating unique and innovative digital experiences with modern technologies",
+    "description": "Full Stack Developer passionate about creating innovative solutions",
+    "contact": "Get in touch",
+    "scroll": "Scroll to learn more",
+    "cta": {
+      "projects": "View Projects",
+      "contact": "Contact"
+    },
+    "social": {
+      "github": "https://github.com/zairaglez",
+      "linkedin": "https://www.linkedin.com/in/zaira-gon%C3%A7alves-8b0b1b1b9/",
+      "twitter": "https://twitter.com/zairaglez"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Full Stack Developer",
+    "description": "I'm a Full Stack Developer with experience in web and mobile development. I work with modern technologies like React, Next.js, Node.js and more.",
+    "journey": {
+      "title": "My Journey",
+      "description": "My programming journey began during college, where I discovered my passion for creating solutions through code. Since then, I've been improving and working on challenging projects."
+    },
+    "technologies": {
+      "title": "Technologies",
+      "description": "These are some of the technologies I work with:"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Some of my recent work",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "viewDetails": "View Details"
+  },
+  "experience": {
+    "title": "Experience",
+    "present": "Present"
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Let's talk about your project?",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "message": "Sorry, the page you are looking for does not exist.",
+    "description": "Sorry, the page you are looking for does not exist.",
+    "backHome": "Back to Home",
+    "button": "Back to Home"
+  }
+}

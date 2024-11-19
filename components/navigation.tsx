@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useMotionTemplate, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
 import { MoonIcon, SunIcon, Menu } from 'lucide-react';
@@ -9,6 +9,9 @@ import { useTheme } from 'next-themes';
 import { Logo } from '@/components/ui/logo';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { LanguageSelector } from './language-selector';
+import { ModeToggle } from './mode-toggle';
 
 const links = [
   {
@@ -29,7 +32,7 @@ const links = [
   },
 ];
 
-function MagneticComponent({ children }: { children: React.ReactNode }) {
+function MagneticComponent({ children, className = "" }: { children: React.ReactNode, className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -57,17 +60,16 @@ function MagneticComponent({ children }: { children: React.ReactNode }) {
     setIsHovered(true);
   };
 
-  const magneticX = useTransform(
-    useSpring(position.x),
-    [-100, 100],
-    [-15, 15]
-  );
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-  const magneticY = useTransform(
-    useSpring(position.y),
-    [-100, 100],
-    [-15, 15]
-  );
+  useEffect(() => {
+    x.set(position.x);
+    y.set(position.y);
+  }, [position, x, y]);
+
+  const magneticX = useTransform(x, [-100, 100], [-15, 15]);
+  const magneticY = useTransform(y, [-100, 100], [-15, 15]);
 
   return (
     <motion.div
@@ -78,8 +80,8 @@ function MagneticComponent({ children }: { children: React.ReactNode }) {
       style={{
         x: isHovered ? magneticX : 0,
         y: isHovered ? magneticY : 0,
-        display: "inline-block"
       }}
+      className={className}
       transition={{ type: "spring", stiffness: 350, damping: 15 }}
       data-cursor
     >
@@ -89,6 +91,7 @@ function MagneticComponent({ children }: { children: React.ReactNode }) {
 }
 
 export function Navigation() {
+  const t = useTranslations('navigation');
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -103,11 +106,7 @@ export function Navigation() {
     return `/${item.hash || ''}`;
   };
 
-  const scrollYProgress = useSpring(0, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const scrollYProgress = useTransform(scrollY, [0, 500], [0, 1]);
 
   useEffect(() => {
     setMounted(true);
@@ -116,11 +115,10 @@ export function Navigation() {
   useEffect(() => {
     return scrollY.onChange((latest) => {
       setIsScrolled(latest > 50);
-      scrollYProgress.set(Math.min(latest / 500, 1));
     });
-  }, [scrollY, scrollYProgress]);
+  }, [scrollY]);
 
-  const backgroundOpacity = useMotionTemplate`${scrollYProgress}`;
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.8]);
 
   if (!mounted) {
     return null;
@@ -145,83 +143,95 @@ export function Navigation() {
         <div className="h-24 py-4 flex items-center justify-between max-w-7xl mx-auto relative">
           {/* Logo no canto esquerdo */}
           <div className="flex-shrink-0">
-            <MagneticComponent>
+            <div className="inline-block">
               <Link href="/">
-                <motion.div
-                  className="flex items-center gap-4"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 260,
-                    damping: 20,
-                    delay: 0.2
-                  }}
-                >
-                  <Logo width={64} height={64} animated={!isScrolled} />
-                </motion.div>
+                <MagneticComponent className="inline-block">
+                  <motion.div
+                    className="flex items-center gap-4"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 20,
+                      delay: 0.2
+                    }}
+                  >
+                    <Logo width={64} height={64} animated={!isScrolled} />
+                  </motion.div>
+                </MagneticComponent>
               </Link>
-            </MagneticComponent>
+            </div>
           </div>
 
           {/* Links de navegação centralizados */}
           <div className="hidden md:flex items-center justify-center flex-1 mx-4">
             <div className="flex items-center gap-8">
               {links.map((item, index) => (
-                <MagneticComponent key={item.name}>
+                <div key={item.name} className="inline-block">
                   <Link
                     href={getHref(item)}
-                    className="hover:text-primary transition-colors relative group text-base font-medium tracking-wide"
+                    className="block"
                     onClick={(e) => {
                       if (pathname !== '/' && item.hash) {
                         e.preventDefault();
                         window.location.href = '/' + item.hash;
                       }
                     }}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
                   >
-                    <motion.span
-                      animate={{
-                        scale: hoveredIndex === index ? 1.1 : 1,
-                        color: hoveredIndex === index ? "var(--primary)" : "currentColor"
-                      }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      {item.name}
-                    </motion.span>
-                    <motion.span
-                      className="absolute -bottom-1 left-0 h-0.5 bg-primary"
-                      initial={{ width: "0%" }}
-                      animate={{
-                        width: hoveredIndex === index ? "100%" : "0%"
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20
-                      }}
-                    />
+                    <MagneticComponent className="inline-block">
+                      <motion.div
+                        className="hover:text-primary transition-colors relative group text-base font-medium tracking-wide"
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                      >
+                        <motion.span
+                          animate={{
+                            scale: hoveredIndex === index ? 1.1 : 1,
+                            color: hoveredIndex === index ? "var(--primary)" : "currentColor"
+                          }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          {t(item.name)}
+                        </motion.span>
+                        <motion.span
+                          className="absolute -bottom-1 left-0 h-0.5 bg-primary"
+                          initial={{ width: "0%" }}
+                          animate={{
+                            width: hoveredIndex === index ? "100%" : "0%"
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 20
+                          }}
+                        />
+                      </motion.div>
+                    </MagneticComponent>
                   </Link>
-                </MagneticComponent>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Botões no canto direito */}
           <div className="flex items-center gap-4">
-            <MagneticComponent>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                className="rounded-full"
-              >
-                <SunIcon className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <MoonIcon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            </MagneticComponent>
+            <div className="inline-block">
+              <MagneticComponent className="inline-block">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+                  className="rounded-full"
+                >
+                  <SunIcon className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <MoonIcon className="absolute h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                  <span className="sr-only">Toggle theme</span>
+                </Button>
+              </MagneticComponent>
+            </div>
+
+            <LanguageSelector />
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="md:hidden">
@@ -254,7 +264,7 @@ export function Navigation() {
                           delay: 0.1 + index * 0.1,
                         }}
                       >
-                        {item.name}
+                        {t(item.name)}
                       </motion.span>
                     </Link>
                   ))}
