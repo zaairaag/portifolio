@@ -14,20 +14,24 @@ import { ModeToggle } from './mode-toggle';
 
 const links = [
   {
-    name: "Home",
-    hash: "#home",
+    key: "Home",
+    href: "/",
   },
   {
-    name: "Sobre",
-    hash: "#about",
+    key: "about",
+    href: "/sobre",
   },
   {
-    name: "Projetos",
-    href: "/projetos",
+    key: "projects",
+    href: "/portfolio",
   },
   {
-    name: "Contato",
-    hash: "#contact",
+    key: "experience",
+    href: "/servicos",
+  },
+  {
+    key: "contact",
+    href: "/contato",
   },
 ];
 
@@ -103,7 +107,7 @@ export function Navigation() {
           <div className="hidden md:flex items-center justify-center flex-1 mx-4">
             <div className="flex items-center gap-8">
               {links.map((item) => (
-                <div key={item.name}>
+                <div key={item.key}>
                   <Link
                     href={getHref(item)}
                     className="text-base font-medium tracking-wide hover:text-primary transition-colors"
@@ -114,7 +118,7 @@ export function Navigation() {
                       }
                     }}
                   >
-                    {t(item.name)}
+                    {t(item.key)}
                   </Link>
                 </div>
               ))}
@@ -139,7 +143,7 @@ export function Navigation() {
                 <div className="flex flex-col gap-8 mt-8">
                   {links.map((item) => (
                     <Link
-                      key={item.name}
+                      key={item.key}
                       href={getHref(item)}
                       className="text-lg font-medium tracking-wide hover:text-primary transition-colors"
                       onClick={() => {
@@ -149,7 +153,7 @@ export function Navigation() {
                         }
                       }}
                     >
-                      {t(item.name)}
+                      {t(item.key)}
                     </Link>
                   ))}
                   <div className="flex flex-col gap-4">

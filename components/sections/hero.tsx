@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick, ArrowDown } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -32,27 +32,6 @@ export function Hero() {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    // Previne scroll manual quando estiver na seção hero
-    const handleWheel = (e: WheelEvent) => {
-      const heroSection = document.getElementById('home');
-      const aboutSection = document.getElementById('about');
-      
-      if (!heroSection || !aboutSection) return;
-      
-      const heroRect = heroSection.getBoundingClientRect();
-      
-      // Se estiver na seção hero e tentar rolar para baixo
-      if (heroRect.top === 0 && e.deltaY > 0) {
-        e.preventDefault();
-        aboutSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
   }, []);
 
   return (
@@ -146,7 +125,7 @@ export function Hero() {
             className="group relative overflow-hidden"
             asChild
           >
-            <Link href="#projects">
+            <Link href="/portfolio">
               <span className="relative z-10">{t('cta.projects')}</span>
               <motion.div 
                 className="absolute inset-0 bg-gradient-to-r from-primary/50 to-purple-500/50"
@@ -163,7 +142,7 @@ export function Hero() {
             className="group"
             asChild
           >
-            <Link href="#contact">
+            <Link href="/contato">
               <span>{t('cta.contact')}</span>
               <MousePointerClick className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
@@ -207,28 +186,6 @@ export function Hero() {
               <TwitterIcon className="w-5 h-5" />
             </Link>
           </Button>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll Arrow */}
-      <motion.div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        style={{ opacity }}
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ 
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="cursor-pointer hover:text-primary transition-colors"
-          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-        >
-          <ArrowDown className="w-6 h-6" />
         </motion.div>
       </motion.div>
     </section>

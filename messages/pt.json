@@ -2,11 +2,11 @@
   "navigation": {
     "Home": "Início",
     "about": "Sobre Mim",
-    "projects": "Projetos",
-    "experience": "Experiência",
+    "projects": "Portfólio",
+    "experience": "Serviços",
     "contact": "Contato",
     "Sobre": "Sobre Mim",
-    "Projetos": "Projetos",
+    "Projetos": "Portfólio",
     "Contato": "Contato"
   },
   "hero": {
@@ -18,7 +18,7 @@
     "contact": "Entre em contato",
     "scroll": "Role para saber mais",
     "cta": {
-      "projects": "Ver Projetos",
+      "projects": "Ver Portfólio",
       "contact": "Contato"
     },
     "social": {
@@ -41,14 +41,14 @@
     }
   },
   "projects": {
-    "title": "Projetos",
+    "title": "Portfólio",
     "subtitle": "Alguns dos meus trabalhos recentes",
     "viewProject": "Ver Projeto",
     "viewCode": "Ver Código",
     "viewDetails": "Ver Detalhes"
   },
   "experience": {
-    "title": "Experiência",
+    "title": "Serviços",
     "present": "Presente"
   },
   "contact": {
