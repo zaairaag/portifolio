@@ -1,20 +1,13 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Zaira Carvalho',
-  description: 'Full Stack Developer',
-  icons: {
-    icon: [
-      {
-        url: '/favicon.svg',
-        type: 'image/svg+xml',
-      }
-    ],
-  }
+  description: 'Portfolio',
 };
 
 export default function RootLayout({
@@ -23,11 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-background`} suppressHydrationWarning>
+        <ThemeProvider>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
