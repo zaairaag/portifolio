@@ -5,7 +5,6 @@ import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick, ArrowDown } f
 import { Button } from '@/components/ui/button';
 import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { TypeAnimation } from 'react-type-animation';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 
@@ -114,15 +113,7 @@ export function Hero() {
               transition={{ delay: 0.5 }}
               className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground mt-2"
             >
-              <TypeAnimation
-                sequence={[
-                  t('role'),
-                  1000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={0}
-              />
+              {t('role')}
             </motion.div>
           </div>
         </motion.div>

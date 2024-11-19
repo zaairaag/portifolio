@@ -1,7 +1,12 @@
 import { Projects } from '@/components/sections/projects';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export default async function ProjectsPage({ params: { locale } }: { params: { locale: string } }) {
+type Props = {
+  params: { locale: string }
+};
+
+export default async function ProjectsPage({ params: { locale } }: Props) {
+  setRequestLocale(locale);
   const t = await getTranslations('projects');
   const projectTranslations = {
     title: t('title'),
@@ -10,7 +15,7 @@ export default async function ProjectsPage({ params: { locale } }: { params: { l
   };
 
   return (
-    <main>
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="pt-20">
         <Projects 
           translations={projectTranslations}

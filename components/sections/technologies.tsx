@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Progress } from '@/components/ui/progress';
+import { Progress } from '@/components/ui/progress-temp'; 
 
 interface Technology {
   name: string;

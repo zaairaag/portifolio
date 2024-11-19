@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { SendIcon, CheckIcon, GithubIcon, LinkedinIcon, TwitterIcon } from 'lucide-react';
+import { SendIcon, CheckIcon, GithubIcon, LinkedinIcon, XIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 const socialLinks = [
@@ -27,7 +27,7 @@ const socialLinks = [
   {
     name: 'Twitter',
     href: 'https://twitter.com/zairagoncalves',
-    icon: TwitterIcon,
+    icon: XIcon,
     color: 'hover:text-[#1da1f2]',
     username: '@zairagoncalves'
   },

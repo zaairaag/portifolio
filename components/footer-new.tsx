@@ -18,12 +18,6 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             {currentYear} Zaíra Gonçalves. Todos os direitos reservados.
           </p>
-          
-          <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-            <span>Feito com</span>
-            <HeartIcon className="w-4 h-4 text-red-500" />
-            <span>usando Next.js & Tailwind</span>
-          </div>
         </motion.div>
       </div>
     </footer>

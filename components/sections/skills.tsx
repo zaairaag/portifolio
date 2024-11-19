@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import { Progress } from '@/components/ui/progress-temp';
 import { useRef } from 'react';
 
 interface Skill {
