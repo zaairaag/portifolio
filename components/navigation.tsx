@@ -14,29 +14,29 @@ import { ModeToggle } from './mode-toggle';
 
 const links = [
   {
-    key: "Home",
+    key: "home",
     href: "/",
   },
   {
     key: "about",
-    href: "/sobre",
+    href: "/about",
   },
   {
     key: "projects",
-    href: "/portfolio",
+    href: "/projects",
   },
   {
     key: "experience",
-    href: "/servicos",
+    href: "/experience",
   },
   {
     key: "contact",
-    href: "/contato",
+    href: "/contact",
   },
 ];
 
 export function Navigation() {
-  const t = useTranslations('navigation');
+  const t = useTranslations('nav');
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { scrollY } = useScroll();

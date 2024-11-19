@@ -1,57 +1,99 @@
 {
-  "navigation": {
-    "Home": "Inicio",
-    "about": "Sobre Mí",
-    "projects": "Portafolio",
-    "experience": "Servicios",
-    "contact": "Contacto",
-    "Sobre": "Sobre Mí",
-    "Projetos": "Portafolio",
-    "Contato": "Contacto"
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "experience": "Experiencia",
+    "contact": "Contacto"
   },
   "hero": {
-    "title": "Hola, soy",
+    "title": "¡Hola, soy",
     "name": "Zaíra Gonçalves",
     "role": "Desarrolladora de Software",
-    "subtitle": "Creando experiencias digitales únicas e innovadoras con tecnologías modernas",
-    "description": "Desarrolladora Full Stack apasionada por crear soluciones innovadoras",
-    "contact": "Contactar",
+    "subtitle": "Soy una desarrolladora front-end apasionada por crear experiencias web excepcionales. Me especializo en React y tengo experiencia en el desarrollo de aplicaciones web modernas y responsivas.",
+    "description": "Soy una desarrolladora front-end apasionada por crear experiencias web excepcionales. Me especializo en React y tengo experiencia en el desarrollo de aplicaciones web modernas y responsivas.",
+    "contact": "Contáctame",
     "scroll": "Desplázate para saber más",
     "cta": {
-      "projects": "Ver Portafolio",
-      "contact": "Contactar"
+      "projects": "Ver Proyectos",
+      "contact": "Contáctame"
     },
     "social": {
       "github": "https://github.com/zairaglez",
       "linkedin": "https://www.linkedin.com/in/zaira-gon%C3%A7alves-8b0b1b1b9/",
       "twitter": "https://twitter.com/zairaglez"
-    }
+    },
+    "downloadCV": "Descargar CV"
   },
   "about": {
     "title": "Sobre Mí",
+    "subtitle": "Desarrolladora Full Stack con más de 4 años de experiencia en desarrollo web y soluciones empresariales.",
     "intro": {
-      "role": "Desarrolladora Full Stack con más de 4 años de experiencia en desarrollo web y soluciones empresariales.",
+      "role": "Desarrolladora Full Stack",
       "description": "Especializada en crear soluciones web modernas y escalables, con enfoque en SharePoint, React y Node.js. Tengo una sólida experiencia en el desarrollo de aplicaciones corporativas e interfaces responsivas que proporcionan una excelente experiencia de usuario."
     },
+    "journey": {
+      "title": "Mi Trayectoria",
+      "description": "A lo largo de los últimos 4 años, me he dedicado al desarrollo de soluciones empresariales innovadoras. Mi trayectoria comenzó como desarrolladora front-end, evolucionó hacia el análisis de sistemas y hoy trabajo como desarrolladora full stack, siempre buscando crear experiencias excepcionales para los usuarios."
+    },
+    "technologies": {
+      "title": "Tecnologías",
+      "categories": {
+        "languages": "Lenguajes",
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "microsoft": "Microsoft",
+        "cloud": "Cloud & DevOps"
+      }
+    },
     "experience": {
-      "title": "Experiencia Profesional",
-      "type": "Tiempo completo",
-      "remote": "Remoto",
+      "title": "Experiencia",
       "present": "actualidad",
-      "skills": "Habilidades",
-      "role": {
-        "programmer": "Programadora de Software",
-        "analyst": "Analista de Sistemas",
-        "frontend": "Desarrolladora Frontend"
-      },
-      "company": {
-        "impar": "Ímpar",
-        "deloitte": "Deloitte Digital"
-      },
-      "location": "Río de Janeiro, Brasil"
+      "items": {
+        "impar_current": {
+          "company": "Ímpar",
+          "period": "dic de 2019 - actualidad",
+          "duration": "4 años",
+          "location": "Río de Janeiro, Brasil",
+          "role": "Programadora de Software",
+          "period_role": "ago de 2022 - actualidad",
+          "duration_role": "2 años 4 meses",
+          "achievements": [
+            "Desarrollo y mantenimiento de soluciones en SharePoint y Node.js",
+            "Implementación de webparts modernas usando SPFx y React",
+            "Integración con APIs externas y desarrollo de microservicios"
+          ]
+        },
+        "deloitte": {
+          "company": "Deloitte Digital",
+          "period": "may de 2022 - ago de 2022",
+          "duration": "4 meses",
+          "location": "Río de Janeiro, Brasil",
+          "role": "Analista de Negocios",
+          "type": "Tiempo completo · Remoto",
+          "achievements": [
+            "Desarrollo de Templates de Email Marketing",
+            "Implementación de Componentes en la Plataforma AEM"
+          ]
+        },
+        "impar_previous": {
+          "company": "Ímpar",
+          "period": "dic de 2019 - ago de 2022",
+          "duration": "2 años 8 meses",
+          "location": "Río de Janeiro, Brasil",
+          "role": "Analista de Sistema",
+          "achievements": [
+            "Desarrollo de páginas dinámicas en SharePoint 2013 y Modern",
+            "Implementación de soluciones usando React, Vue.js y AngularJS",
+            "Creación de webparts personalizadas con SPFx y TypeScript",
+            "Desarrollo de interfaces responsivas en SharePoint",
+            "Mantenimiento y optimización de páginas existentes"
+          ]
+        }
+      }
     },
     "skills": {
-      "title": "Principales Tecnologías",
+      "title": "Habilidades",
       "categories": {
         "frontend": "Frontend",
         "backend": "Backend",
@@ -59,36 +101,35 @@
         "cloud": "Cloud & DevOps",
         "marketing": "Marketing Digital"
       }
-    },
-    "journey": {
-      "title": "Mi Trayectoria",
-      "description": "Mi viaje en la programación comenzó durante la universidad, donde descubrí mi pasión por crear soluciones a través del código. Desde entonces, he estado mejorando y trabajando en proyectos desafiantes."
-    },
-    "technologies": {
-      "title": "Tecnologías",
-      "description": "Estas son algunas de las tecnologías con las que trabajo:"
     }
   },
-  "projects": {
-    "title": "Portafolio",
-    "subtitle": "Algunos de mis trabajos recientes",
+  "portfolio": {
+    "title": "Mis Proyectos",
+    "description": "Aquí hay algunos de los proyectos en los que he trabajado. Cada uno representa un desafío único y una experiencia de aprendizaje.",
+    "categories": {
+      "all": "Todos",
+      "web": "Apps Web",
+      "enterprise": "Empresarial",
+      "email": "Email Marketing"
+    },
     "viewProject": "Ver Proyecto",
-    "viewCode": "Ver Código",
-    "viewDetails": "Ver Detalles"
-  },
-  "experience": {
-    "title": "Servicios",
-    "present": "Presente"
+    "viewCode": "Ver Código"
   },
   "contact": {
-    "title": "Contacto",
-    "description": "¿Hablamos sobre tu proyecto?",
+    "title": "Contáctame",
+    "description": "¿Tienes un proyecto en mente? ¡Me encantaría ayudarte a hacerlo realidad!",
     "name": "Nombre",
     "email": "Correo electrónico",
     "message": "Mensaje",
     "send": "Enviar mensaje",
     "success": "¡Mensaje enviado con éxito!",
-    "error": "Ocurrió un error al enviar el mensaje."
+    "error": "Ocurrió un error al enviar el mensaje.",
+    "form": {
+      "name": "Nombre",
+      "email": "Correo",
+      "message": "Mensaje",
+      "send": "Enviar Mensaje"
+    }
   },
   "notFound": {
     "title": "Página no encontrada",
@@ -96,5 +137,8 @@
     "description": "Lo siento, la página que buscas no existe.",
     "backHome": "Volver al inicio",
     "button": "Volver al inicio"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados"
   }
 }

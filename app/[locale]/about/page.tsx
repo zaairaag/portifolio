@@ -60,47 +60,15 @@ const AnimatedBackground = () => {
 
 const experiences = [
   {
-    company: "Ímpar",
-    period: "dez de 2019 - presente",
-    duration: "4 anos",
-    location: "Rio de Janeiro, Brasil",
-    role: "Programadora de Software",
-    period_role: "ago de 2022 - presente",
-    duration_role: "2 anos 4 meses",
-    achievements: [
-      "Desenvolvimento e manutenção de soluções em SharePoint e Node.js",
-      "Implementação de webparts modernas usando SPFx e React",
-      "Integração com APIs externas e desenvolvimento de microsserviços"
-    ],
+    id: 'impar_current',
     skills: ["SharePoint", "Node.js", "React", "TypeScript", "SPFx"]
   },
   {
-    company: "Deloitte Digital",
-    period: "mai de 2022 - ago de 2022",
-    duration: "4 meses",
-    location: "Rio de Janeiro, Brasil",
-    role: "Analista de Negócios",
-    type: "Tempo integral · Remota",
-    achievements: [
-      "Desenvolvimento de Templates de Email Marketing",
-      "Implementação de Componentes na Plataforma AEM"
-    ],
+    id: 'deloitte',
     skills: ["Marketing Cloud", "Salesforce", "Adobe Experience Manager (AEM)"]
   },
   {
-    company: "Ímpar",
-    period: "dez de 2019 - ago de 2022",
-    duration: "2 anos 8 meses",
-    location: "Rio de Janeiro, Brasil",
-    role: "Analista de Sistema",
-    achievements: [
-      "Desenvolvimento de páginas dinâmicas em SharePoint 2013 e Modern",
-      "Implementação de soluções usando React, Vue.js e AngularJS",
-      "Criação de webparts personalizadas com SPFx e TypeScript",
-      "Desenvolvimento de interfaces responsivas em SharePoint",
-      "Manutenção e otimização de páginas existentes",
-      "Implementação de soluções com JavaScript e jQuery"
-    ],
+    id: 'impar_previous',
     skills: ["SharePoint", "React", "Vue.js", "AngularJS", "TypeScript", "SPFx", "JavaScript", "jQuery", "HTML", "CSS"]
   }
 ];
@@ -256,65 +224,72 @@ export default function SobrePage() {
                 {/* Linha vertical do tempo */}
                 <div className="absolute left-0 md:left-1/2 h-full w-px bg-border transform -translate-x-1/2" />
 
-                {experiences.map((exp, index) => (
-                  <motion.div
-                    key={exp.company}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className={`relative grid md:grid-cols-2 gap-8 ${
-                      index % 2 === 0 ? 'md:text-right' : ''
-                    }`}
-                  >
-                    {/* Círculo na linha do tempo */}
-                    <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform -translate-x-1/2 mt-6">
-                      <div className="absolute w-8 h-8 bg-primary/20 rounded-full -m-2 animate-pulse" />
-                    </div>
+                {experiences.map((exp, index) => {
+                  const expData = t.raw(`experience.items.${exp.id}`);
+                  if (!expData) return null;
 
-                    {/* Conteúdo */}
-                    <div className={`md:col-span-1 ${
-                      index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2'
-                    }`}>
-                      <Card className="p-6 hover:shadow-lg transition-shadow">
-                        <div className="space-y-6">
-                          {/* Cabeçalho da empresa */}
-                          <div className="space-y-2">
-                            <h3 className="text-xl font-semibold">{exp.company}</h3>
-                            <div className="text-muted-foreground">
-                              <p className="text-sm">{exp.period} · {exp.duration}</p>
-                              <p className="text-sm">{exp.location}</p>
+                  return (
+                    <motion.div
+                      key={exp.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className={`relative grid md:grid-cols-2 gap-8 ${
+                        index % 2 === 0 ? 'md:text-right' : ''
+                      }`}
+                    >
+                      {/* Círculo na linha do tempo */}
+                      <div className="absolute left-0 md:left-1/2 w-4 h-4 bg-primary rounded-full transform -translate-x-1/2 mt-6">
+                        <div className="absolute w-8 h-8 bg-primary/20 rounded-full -m-2 animate-pulse" />
+                      </div>
+
+                      {/* Conteúdo */}
+                      <div className={`md:col-span-1 ${
+                        index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2'
+                      }`}>
+                        <Card className="p-6 hover:shadow-lg transition-shadow">
+                          <div className="space-y-6">
+                            {/* Cabeçalho da empresa */}
+                            <div className="space-y-2">
+                              <h3 className="text-xl font-semibold">{expData.company}</h3>
+                              <div className="text-muted-foreground">
+                                <p className="text-sm">{expData.period} · {expData.duration}</p>
+                                <p className="text-sm">{expData.location}</p>
+                              </div>
+                            </div>
+
+                            {/* Roles (se existirem) */}
+                            <div className="space-y-4">
+                              <div className="space-y-1">
+                                <h4 className="font-medium">{expData.role}</h4>
+                                {expData.period_role && (
+                                  <p className="text-sm text-muted-foreground">{expData.period_role} · {expData.duration_role}</p>
+                                )}
+                                {expData.type && (
+                                  <p className="text-sm text-muted-foreground">{expData.type}</p>
+                                )}
+                              </div>
+
+                              {expData.achievements && expData.achievements.length > 0 && (
+                                <ul className="list-disc list-inside space-y-1 text-sm">
+                                  {expData.achievements.map((achievement: string, i: number) => (
+                                    <li key={i} className="text-muted-foreground">{achievement}</li>
+                                  ))}
+                                </ul>
+                              )}
+
+                              <div className="flex flex-wrap gap-2">
+                                {exp.skills.map((skill, i) => (
+                                  <Badge key={i} variant="secondary">{skill}</Badge>
+                                ))}
+                              </div>
                             </div>
                           </div>
-
-                          {/* Roles (se existirem) */}
-                          <div className="space-y-4">
-                            <div className="space-y-1">
-                              <h4 className="font-medium">{exp.role}</h4>
-                              {exp.period_role && (
-                                <p className="text-sm text-muted-foreground">{exp.period_role} · {exp.duration_role}</p>
-                              )}
-                              {exp.type && (
-                                <p className="text-sm text-muted-foreground">{exp.type}</p>
-                              )}
-                            </div>
-
-                            <ul className="list-disc list-inside space-y-1 text-sm">
-                              {exp.achievements.map((achievement, i) => (
-                                <li key={i} className="text-muted-foreground">{achievement}</li>
-                              ))}
-                            </ul>
-
-                            <div className="flex flex-wrap gap-2">
-                              {exp.skills.map((skill, i) => (
-                                <Badge key={i} variant="secondary">{skill}</Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </Card>
-                    </div>
-                  </motion.div>
-                ))}
+                        </Card>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </section>
 

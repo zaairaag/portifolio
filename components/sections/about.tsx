@@ -5,22 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { HeartIcon, RocketIcon, CodeIcon } from 'lucide-react';
 import { technologies } from '@/data/technologies';
-import { useTranslations } from 'next-intl';
-
-const experiences = [
-  {
-    year: '2019 - Presente',
-    role: 'Desenvolvedora de Software',
-    company: 'Ímpar',
-    description: 'Programadora de Software (2022 - Presente) · Analista de Sistema (2020 - 2022) · Desenvolvedora Front-end (2019 - 2020)',
-  },
-  {
-    year: '2022',
-    role: 'Analista de Negócios',
-    company: 'Deloitte Digital',
-    description: 'Tempo integral · 4 meses',
-  }
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const container = {
   hidden: { opacity: 0 },
@@ -39,7 +24,7 @@ const item = {
 };
 
 export function About() {
-  const t = useTranslations('about');
+  const { t } = useLanguage();
 
   return (
     <section id="about" className="w-full min-h-screen py-24 relative">
@@ -73,7 +58,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              {t('title')}
+              {t('about.title')}
             </motion.h2>
             <motion.p
               className="text-xl font-medium text-high-contrast max-w-2xl mx-auto leading-relaxed"
@@ -81,7 +66,7 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              {t('subtitle')}
+              {t('about.subtitle')}
             </motion.p>
           </motion.div>
 
@@ -101,13 +86,13 @@ export function About() {
                     <div className="p-3 rounded-xl bg-primary/10">
                       <RocketIcon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-semibold text-high-contrast">{t('journey.title')}</h3>
+                    <h3 className="text-2xl font-semibold text-high-contrast">{t('about.journey.title')}</h3>
                   </div>
                   <p className="text-base text-high-contrast font-medium leading-relaxed mb-6">
-                    {t('journey.description')}
+                    {t('about.journey.description')}
                   </p>
                   <div className="relative pl-4 border-l-2 border-primary/30 space-y-6">
-                    {experiences.map((exp, index) => (
+                    {t('about.experience.items', { returnObjects: true }).map((exp: any, index: number) => (
                       <motion.div
                         key={exp.year}
                         variants={item}
@@ -144,7 +129,7 @@ export function About() {
                     <div className="p-3 rounded-xl bg-primary/10">
                       <CodeIcon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-semibold text-high-contrast">{t('technologies.title')}</h3>
+                    <h3 className="text-2xl font-semibold text-high-contrast">{t('about.technologies.title')}</h3>
                   </div>
                   <div className="space-y-8">
                     {technologies.map((category) => (
@@ -154,30 +139,17 @@ export function About() {
                         className="space-y-3"
                       >
                         <h4 className="text-sm font-semibold text-high-contrast/90 pl-2 border-l-2 border-primary">
-                          {category.category}
+                          {t(`about.technologies.categories.${category.category.toLowerCase()}`)}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {category.items.map((tech) => (
-                            <motion.div
-                              key={tech.name}
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
+                            <Badge
+                              key={tech}
+                              variant="outline"
+                              className="bg-primary/5 hover:bg-primary/10 transition-colors duration-300"
                             >
-                              <Badge 
-                                variant="outline" 
-                                className="bg-background/50 backdrop-blur-sm hover:bg-primary/5 transition-all duration-300"
-                                style={{ 
-                                  borderColor: `${tech.color}40`,
-                                  boxShadow: `0 0 20px ${tech.color}10`
-                                }}
-                              >
-                                <span 
-                                  className="w-2 h-2 rounded-full mr-1.5"
-                                  style={{ backgroundColor: tech.color }}
-                                />
-                                {tech.name}
-                              </Badge>
-                            </motion.div>
+                              {tech}
+                            </Badge>
                           ))}
                         </div>
                       </motion.div>

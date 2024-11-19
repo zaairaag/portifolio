@@ -1,6 +1,6 @@
 export const technologies = [
   {
-    category: "Linguagens",
+    category: "languages",
     items: [
       {
         name: "TypeScript",
@@ -23,7 +23,7 @@ export const technologies = [
     ],
   },
   {
-    category: "Frontend",
+    category: "frontend",
     items: [
       {
         name: "React",
@@ -52,19 +52,19 @@ export const technologies = [
     ],
   },
   {
-    category: "Backend",
+    category: "backend",
     items: [
       {
         name: "Node.js",
         icon: "nodejs",
         color: "#339933",
-        level: "Intermediário",
+        level: "Avançado",
       },
       {
         name: "Express",
         icon: "express",
         color: "#000000",
-        level: "Intermediário",
+        level: "Avançado",
       },
       {
         name: "MongoDB",
@@ -75,59 +75,7 @@ export const technologies = [
     ],
   },
   {
-    category: "DevOps & Ferramentas",
-    items: [
-      {
-        name: "Git",
-        icon: "git",
-        color: "#F05032",
-        level: "Avançado",
-      },
-      {
-        name: "GitHub",
-        icon: "github",
-        color: "#181717",
-        level: "Avançado",
-      },
-      {
-        name: "VS Code",
-        icon: "vscode",
-        color: "#007ACC",
-        level: "Avançado",
-      },
-      {
-        name: "Docker",
-        icon: "docker",
-        color: "#2496ED",
-        level: "Intermediário",
-      },
-    ],
-  },
-  {
-    category: "Design & UI",
-    items: [
-      {
-        name: "Figma",
-        icon: "figma",
-        color: "#F24E1E",
-        level: "Intermediário",
-      },
-      {
-        name: "Adobe XD",
-        icon: "adobexd",
-        color: "#FF61F6",
-        level: "Intermediário",
-      },
-      {
-        name: "Photoshop",
-        icon: "photoshop",
-        color: "#31A8FF",
-        level: "Intermediário",
-      },
-    ],
-  },
-  {
-    category: "Microsoft",
+    category: "microsoft",
     items: [
       {
         name: "SharePoint",
@@ -142,9 +90,32 @@ export const technologies = [
         level: "Intermediário",
       },
       {
-        name: "Office 365",
-        icon: "office",
-        color: "#D83B01",
+        name: "Azure",
+        icon: "azure",
+        color: "#0089D6",
+        level: "Intermediário",
+      },
+    ],
+  },
+  {
+    category: "cloud",
+    items: [
+      {
+        name: "AWS",
+        icon: "aws",
+        color: "#232F3E",
+        level: "Intermediário",
+      },
+      {
+        name: "Docker",
+        icon: "docker",
+        color: "#2496ED",
+        level: "Intermediário",
+      },
+      {
+        name: "Git",
+        icon: "git",
+        color: "#F05032",
         level: "Avançado",
       },
     ],

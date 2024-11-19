@@ -87,15 +87,16 @@ const projects = [
 ];
 
 const categories = [
-  { id: 'all', label: 'Todos' },
-  { id: 'web', label: 'Web Apps' },
-  { id: 'enterprise', label: 'Corporativo' },
-  { id: 'email', label: 'Email Marketing' },
+  { id: 'all', label: 'all' },
+  { id: 'web', label: 'web' },
+  { id: 'enterprise', label: 'enterprise' },
+  { id: 'email', label: 'email' },
 ];
 
 export default function PortfolioPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const t = useTranslations('portfolio');
+  const tCategories = useTranslations('portfolio.categories');
 
   const filteredProjects = projects.filter(
     project => selectedCategory === 'all' || project.category === selectedCategory
@@ -142,7 +143,7 @@ export default function PortfolioPage() {
                     onClick={() => setSelectedCategory(category.id)}
                     className="rounded-full"
                   >
-                    {category.label}
+                    {tCategories(category.label)}
                   </Button>
                 ))}
               </div>

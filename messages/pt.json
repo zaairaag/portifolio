@@ -1,25 +1,22 @@
 {
-  "navigation": {
-    "Home": "Início",
-    "about": "Sobre Mim",
-    "projects": "Portfólio",
-    "experience": "Serviços",
-    "contact": "Contato",
-    "Sobre": "Sobre Mim",
-    "Projetos": "Portfólio",
-    "Contato": "Contato"
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "experience": "Experiência",
+    "contact": "Contato"
   },
   "hero": {
     "title": "Olá, eu sou",
     "name": "Zaíra Gonçalves",
-    "role": "Programadora de Software",
-    "subtitle": "Criando experiências digitais únicas e inovadoras com tecnologias modernas",
-    "description": "Desenvolvedora Full Stack apaixonada por criar soluções inovadoras",
+    "role": "Desenvolvedora de Software",
+    "subtitle": "Sou uma desenvolvedora front-end apaixonada por criar experiências web excepcionais. Me especializo em React e tenho experiência no desenvolvimento de aplicações web modernas e responsivas.",
     "contact": "Entre em contato",
+    "downloadCV": "Baixar CV",
     "scroll": "Role para saber mais",
     "cta": {
-      "projects": "Ver Portfólio",
-      "contact": "Entre em contato"
+      "projects": "Ver Projetos",
+      "contact": "Entre em Contato"
     },
     "social": {
       "github": "https://github.com/zairaglez",
@@ -29,19 +26,63 @@
   },
   "about": {
     "title": "Sobre Mim",
+    "subtitle": "Desenvolvedora Full Stack com mais de 4 anos de experiência em desenvolvimento web e soluções empresariais.",
     "intro": {
-      "role": "Desenvolvedora Full Stack com mais de 4 anos de experiência em desenvolvimento web e soluções empresariais.",
+      "role": "Desenvolvedora Full Stack",
       "description": "Especializada em criar soluções web modernas e escaláveis, com foco em SharePoint, React e Node.js. Possuo sólida experiência no desenvolvimento de aplicações corporativas e interfaces responsivas que proporcionam excelente experiência ao usuário."
     },
+    "journey": {
+      "title": "Minha Jornada",
+      "description": "Ao longo dos últimos 4 anos, tenho me dedicado ao desenvolvimento de soluções empresariais inovadoras. Minha jornada começou como desenvolvedora front-end, evoluiu para análise de sistemas e hoje atuo como desenvolvedora full stack, sempre buscando criar experiências excepcionais para os usuários."
+    },
     "experience": {
-      "title": "Experiência Profissional",
-      "type": "Tempo integral",
-      "remote": "Remota",
-      "present": "o momento",
-      "skills": "Competências"
+      "title": "Experiência",
+      "present": "Presente",
+      "items": {
+        "impar_current": {
+          "company": "Ímpar",
+          "period": "dez de 2019 - presente",
+          "duration": "4 anos",
+          "location": "Rio de Janeiro, Brasil",
+          "role": "Programadora de Software",
+          "period_role": "ago de 2022 - presente",
+          "duration_role": "2 anos 4 meses",
+          "achievements": [
+            "Desenvolvimento e manutenção de soluções em SharePoint e Node.js",
+            "Implementação de webparts modernas usando SPFx e React",
+            "Integração com APIs externas e desenvolvimento de microsserviços"
+          ]
+        },
+        "deloitte": {
+          "company": "Deloitte Digital",
+          "period": "mai de 2022 - ago de 2022",
+          "duration": "4 meses",
+          "location": "Rio de Janeiro, Brasil",
+          "role": "Analista de Negócios",
+          "type": "Tempo integral · Remota",
+          "achievements": [
+            "Desenvolvimento de Templates de Email Marketing",
+            "Implementação de Componentes na Plataforma AEM"
+          ]
+        },
+        "impar_previous": {
+          "company": "Ímpar",
+          "period": "dez de 2019 - ago de 2022",
+          "duration": "2 anos 8 meses",
+          "location": "Rio de Janeiro, Brasil",
+          "role": "Analista de Sistema",
+          "achievements": [
+            "Desenvolvimento de páginas dinâmicas em SharePoint 2013 e Modern",
+            "Implementação de soluções usando React, Vue.js e AngularJS",
+            "Criação de webparts personalizadas com SPFx e TypeScript",
+            "Desenvolvimento de interfaces responsivas em SharePoint",
+            "Manutenção e otimização de páginas existentes"
+          ]
+        }
+      }
     },
     "skills": {
-      "title": "Principais Tecnologias",
+      "title": "Habilidades",
       "categories": {
         "frontend": "Frontend",
         "backend": "Backend",
@@ -50,44 +91,69 @@
         "marketing": "Marketing Digital"
       }
     },
-    "journey": {
-      "title": "Minha Jornada",
-      "description": "Minha jornada na programação começou durante a faculdade, onde descobri minha paixão por criar soluções através do código. Desde então, venho me aperfeiçoando e trabalhando em projetos desafiadores."
-    },
     "technologies": {
       "title": "Tecnologias",
-      "description": "Estas são algumas das tecnologias com as quais trabalho:"
+      "languages": "Linguagens",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "microsoft": "Microsoft",
+      "cloud": "Cloud & DevOps"
     }
   },
-  "projects": {
+  "portfolio": {
     "title": "Portfólio",
     "subtitle": "Alguns dos meus trabalhos recentes",
     "viewProject": "Ver Projeto",
     "viewCode": "Ver Código",
-    "viewDetails": "Ver Detalhes"
-  },
-  "portfolio": {
-    "title": "Meu Portfólio",
-    "description": "Conheça alguns dos projetos que desenvolvi, demonstrando minhas habilidades e experiência em diferentes tecnologias.",
-    "featured": "Projetos em Destaque",
+    "viewDetails": "Ver Detalhes",
     "categories": {
       "all": "Todos",
-      "web": "Web Apps",
-      "enterprise": "Corporativo",
+      "web": "Apps Web",
+      "enterprise": "Empresarial",
       "email": "Email Marketing"
     }
   },
   "experience": {
-    "title": "Serviços",
-    "present": "Presente"
+    "title": "Experiência",
+    "present": "Presente",
+    "services": {
+      "webDev": "Desenvolvimento Web",
+      "webDevDesc": "Aplicações web modernas e responsivas",
+      "fullstack": "Desenvolvimento Full Stack",
+      "fullstackDesc": "Soluções completas com as tecnologias mais recentes",
+      "consulting": "Consultoria Técnica",
+      "consultingDesc": "Orientação especializada e melhores práticas"
+    },
+    "features": {
+      "responsiveDesign": "Design Responsivo",
+      "seoOptimization": "Otimização SEO",
+      "apiIntegration": "Integração de APIs",
+      "performanceAccess": "Performance e Acessibilidade",
+      "frontendBackend": "Integração Frontend e Backend",
+      "database": "Design de Banco de Dados",
+      "security": "Implementação de Segurança",
+      "scalability": "Soluções de Escalabilidade",
+      "architecture": "Planejamento de Arquitetura",
+      "codeReview": "Revisão de Código",
+      "bestPractices": "Melhores Práticas",
+      "mentoring": "Mentoria Técnica"
+    },
+    "prices": {
+      "webDevPrice": "A partir de R$10.000",
+      "fullstackPrice": "A partir de R$20.000",
+      "consultingPrice": "A partir de R$5.000"
+    },
+    "popular": "Mais Popular"
   },
   "contact": {
-    "title": "Contato",
-    "description": "Vamos conversar sobre seu projeto?",
-    "name": "Nome",
-    "email": "E-mail",
-    "message": "Mensagem",
-    "send": "Enviar Mensagem"
+    "title": "Vamos Criar Algo Incrível Juntos",
+    "subtitle": "Estou sempre aberta a novas oportunidades e adoraria ouvir sobre seu projeto.",
+    "form": {
+      "name": "Nome",
+      "email": "Email",
+      "message": "Mensagem",
+      "send": "Enviar Mensagem"
+    }
   },
   "notFound": {
     "title": "Página não encontrada",
@@ -95,5 +161,8 @@
     "description": "Desculpe, a página que você procura não existe.",
     "backHome": "Voltar ao início",
     "button": "Voltar ao início"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados"
   }
 }
