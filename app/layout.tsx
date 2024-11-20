@@ -7,10 +7,8 @@ import { Toaster } from '@/components/ui/sonner'
 import { SiteHeader } from '@/components/site-header'
 import { cn } from '@/lib/utils'
 import { LazyFooter } from '@/lib/lazy-loading'
-import { monitorResourceLoading } from '@/lib/performance'
-import { initializeMonitoring } from '@/lib/performance-monitor'
 import { SkipLink } from '@/components/skip-link'
-import { Suspense, useEffect } from 'react'
+import { Suspense } from 'react'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
 import { ThemeProvider } from '@/components/theme-provider'
 
@@ -21,11 +19,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  useEffect(() => {
-    initializeMonitoring()
-    monitorResourceLoading()
-  }, [])
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
