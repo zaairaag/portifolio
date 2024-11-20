@@ -43,7 +43,7 @@ export default function PortfolioPage() {
             priority
           />
         </div>
-        <div className="container">
+        <div className="container mx-auto max-w-5xl px-4 py-8">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-block rounded-full px-4 py-1.5 text-sm font-medium bg-accent/10 text-accent-foreground mb-4">
               Portfólio
@@ -64,7 +64,7 @@ export default function PortfolioPage() {
 
       {/* Filters */}
       <section className="sticky top-0 z-10 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="container py-4">
+        <div className="container mx-auto max-w-5xl px-4 py-8">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:flex lg:justify-center gap-2 max-w-4xl mx-auto">
             {categories.map((category) => (
               <button
@@ -85,15 +85,15 @@ export default function PortfolioPage() {
       </section>
 
       {/* Projects Grid */}
-      <section className="container py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="container mx-auto max-w-5xl px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredProjects.map((project) => (
             <div
               key={project.title}
-              className="group relative overflow-hidden rounded-xl bg-card transition-all duration-300 hover:-translate-y-2"
+              className="group relative overflow-hidden rounded-lg bg-card transition-all duration-300 hover:-translate-y-2"
             >
               {/* Thumbnail com overlay */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
                   src={project.thumbnail}
                   alt={project.title}
@@ -104,16 +104,16 @@ export default function PortfolioPage() {
               </div>
 
               {/* Conteúdo do card */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <h3 className="text-xl font-bold">{project.title}</h3>
-                <p className="mt-2 text-sm text-gray-200">{project.description}</p>
+              <div className="absolute inset-0 flex flex-col justify-end p-5 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <h3 className="text-lg font-bold leading-tight">{project.title}</h3>
+                <p className="mt-2 text-sm text-gray-200 line-clamp-3">{project.description}</p>
                 
                 {/* Tags */}
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-3 flex flex-wrap gap-1.5">
                   {project.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium backdrop-blur-sm"
+                      className="rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-medium backdrop-blur-sm"
                     >
                       {tag}
                     </span>
@@ -123,10 +123,10 @@ export default function PortfolioPage() {
                 {/* Botão Ver Mais */}
                 <Link
                   href={project.link || "#"}
-                  className="mt-6 inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  className="mt-4 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                   Ver Projeto
-                  <ChevronRight className="ml-2 h-4 w-4" />
+                  <ChevronRight className="ml-1.5 h-4 w-4" />
                 </Link>
               </div>
             </div>
