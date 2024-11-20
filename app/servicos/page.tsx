@@ -1,47 +1,15 @@
 import { services } from '@/data/services'
-import { ArrowRight, FileCheck, Lightbulb, MessageSquare, Rocket, Users, Zap } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { WorkProcess } from '@/components/sections/work-process'
 
 export const metadata: Metadata = {
   title: 'Serviços',
   description:
     'Desenvolvimento web profissional: sites, e-commerce, landing pages e mais. Soluções personalizadas para seu negócio crescer online.',
 }
-
-const workSteps = [
-  {
-    icon: <MessageSquare className="w-6 h-6" />,
-    title: 'Reunião Inicial',
-    description: 'Conversamos sobre seus objetivos, necessidades e expectativas para o projeto.',
-  },
-  {
-    icon: <Lightbulb className="w-6 h-6" />,
-    title: 'Planejamento',
-    description: 'Desenvolvo uma proposta detalhada com escopo, prazo e investimento.',
-  },
-  {
-    icon: <FileCheck className="w-6 h-6" />,
-    title: 'Aprovação',
-    description: 'Alinhamos todos os detalhes e aprovamos o plano de execução.',
-  },
-  {
-    icon: <Zap className="w-6 h-6" />,
-    title: 'Desenvolvimento',
-    description: 'Executo o projeto com atualizações frequentes sobre o progresso.',
-  },
-  {
-    icon: <Users className="w-6 h-6" />,
-    title: 'Feedback',
-    description: 'Revisamos juntos e fazemos ajustes conforme necessário.',
-  },
-  {
-    icon: <Rocket className="w-6 h-6" />,
-    title: 'Entrega',
-    description: 'Projeto finalizado, testado e pronto para decolar.',
-  },
-]
 
 export default function Services() {
   return (
@@ -107,56 +75,7 @@ export default function Services() {
       </section>
 
       {/* Seção Como Trabalhamos */}
-      <section className="container py-24 border-y border-border/50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary">
-              Como Trabalhamos
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-              Um processo transparente
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Do planejamento à entrega, com foco em resultados
-            </p>
-          </div>
-
-          {/* Linha do Tempo dos Passos */}
-          <div className="relative mt-12">
-            {/* Linha Central */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent" />
-
-            {/* Passos */}
-            <div className="space-y-12">
-              {workSteps.map((step, index) => (
-                <div
-                  key={index}
-                  className={`relative flex items-center gap-8 ${
-                    index % 2 === 0 ? 'flex-row-reverse' : ''
-                  }`}
-                >
-                  {/* Conteúdo */}
-                  <div className={`flex-1 ${index % 2 === 0 ? 'text-right' : ''}`}>
-                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
-                  </div>
-
-                  {/* Ícone */}
-                  <div className="relative z-10 shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-primary">
-                      {step.icon}
-                    </div>
-                    <div className="absolute -inset-4 bg-primary/5 rounded-[24px] blur-2xl" />
-                  </div>
-
-                  {/* Espaçador */}
-                  <div className="flex-1" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <WorkProcess />
 
       {/* Seção de Chamada para Ação */}
       <section className="relative overflow-hidden">
