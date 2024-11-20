@@ -1,166 +1,115 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { HeartIcon, RocketIcon, CodeIcon } from 'lucide-react';
+import { BriefcaseIcon, WrenchIcon } from 'lucide-react';
+import { Timeline } from '@/components/ui/timeline';
+import { SkillGrid } from '@/components/ui/skill-grid';
 import { technologies } from '@/data/technologies';
-import { useLanguage } from '@/contexts/LanguageContext';
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3
-    }
+const experiences = [
+  {
+    year: '2022 - Presente',
+    role: 'Programadora de Software',
+    company: 'Ímpar',
+    description: 'Desenvolvimento e manutenção de páginas estáticas e dinâmicas em ambientes SharePoint, utilizando tecnologias como Node.js e Microsoft SharePoint. Foco em soluções robustas e escaláveis.',
+  },
+  {
+    year: '2022',
+    role: 'Analista de Negócios',
+    company: 'Deloitte Digital',
+    description: 'Desenvolvimento de Templates de Email Marketing e Implementação de Componentes na Plataforma AEM, utilizando Marketing Cloud da Salesforce e Adobe Experience Manager (AEM).',
+  },
+  {
+    year: '2019 - 2022',
+    role: 'Analista de Sistema / Desenvolvedora Front-end',
+    company: 'Ímpar',
+    description: 'Desenvolvimento e manutenção de páginas em SharePoint 2013 (Classic e Modern) utilizando HTML, CSS, JavaScript, jQuery, AngularJS, Vue.js, React.js e SharePoint REST API. Criação de webparts com SPFx, React.js e TypeScript.',
   }
-};
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 }
-};
+];
 
 export function About() {
-  const { t } = useLanguage();
-
   return (
-    <section id="about" className="w-full min-h-screen py-24 relative">
-      {/* Content */}
-      <div className="container relative px-4 md:px-6 mx-auto">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-5xl mx-auto"
-        >
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16 relative"
-          >
-            <motion.div
-              className="inline-block"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="p-3 rounded-xl bg-primary/10 backdrop-blur-sm mb-4">
-                <HeartIcon className="w-6 h-6 text-primary" />
-              </div>
-            </motion.div>
-            <motion.h2
-              className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              {t('about.title')}
-            </motion.h2>
-            <motion.p
-              className="text-xl font-medium text-high-contrast max-w-2xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              {t('about.subtitle')}
-            </motion.p>
-          </motion.div>
+    <>
+      {/* Hero Section */}
+      <section className="container relative pt-24 pb-16 md:pt-32 md:pb-24">
+        {/* Background Decoration */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute -top-1/2 right-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
+          <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-violet-500/5 blur-3xl" />
+        </div>
 
-          {/* Main Content Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Left Column - Journey */}
-            <motion.div
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <Card className="p-8 backdrop-blur-md bg-background/50 border-primary/10">
-                <motion.div variants={item}>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-3 rounded-xl bg-primary/10">
-                      <RocketIcon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-high-contrast">{t('about.journey.title')}</h3>
-                  </div>
-                  <p className="text-base text-high-contrast font-medium leading-relaxed mb-6">
-                    {t('about.journey.description')}
-                  </p>
-                  <div className="relative pl-4 border-l-2 border-primary/30 space-y-6">
-                    {t('about.experience.items', { returnObjects: true }).map((exp: any, index: number) => (
-                      <motion.div
-                        key={exp.year}
-                        variants={item}
-                        className="relative"
-                      >
-                        <div className="pl-2">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h4 className="font-semibold text-lg text-high-contrast">{exp.role}</h4>
-                            <Badge variant="outline" className="bg-primary/5">
-                              {exp.year}
-                            </Badge>
-                          </div>
-                          <div className="text-primary font-medium mb-2">{exp.company}</div>
-                          <p className="text-high-contrast/90 mb-3">{exp.description}</p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              </Card>
-            </motion.div>
-
-            {/* Right Column - Technologies */}
-            <motion.div
-              variants={container}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <Card className="p-8 backdrop-blur-md bg-background/50 border-primary/10">
-                <motion.div variants={item}>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-3 rounded-xl bg-primary/10">
-                      <CodeIcon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-high-contrast">{t('about.technologies.title')}</h3>
-                  </div>
-                  <div className="space-y-8">
-                    {technologies.map((category) => (
-                      <motion.div
-                        key={category.category}
-                        variants={item}
-                        className="space-y-3"
-                      >
-                        <h4 className="text-sm font-semibold text-high-contrast/90 pl-2 border-l-2 border-primary">
-                          {t(`about.technologies.categories.${category.category.toLowerCase()}`)}
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {category.items.map((tech) => (
-                            <Badge
-                              key={tech}
-                              variant="outline"
-                              className="bg-primary/5 hover:bg-primary/10 transition-colors duration-300"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              </Card>
-            </motion.div>
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center space-y-6">
+            <div className="inline-block rounded-full px-4 py-1.5 text-sm font-medium bg-accent/10 text-accent-foreground mb-4">
+              Desenvolvedora Full Stack
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+              Transformando{" "}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-500">
+                desafios em soluções
+              </span>
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Desenvolvedora de Software especializada em SharePoint e desenvolvimento web moderno, 
+              com mais de 4 anos de experiência criando soluções digitais inovadoras.
+            </p>
           </div>
-        </motion.div>
-      </div>
-    </section>
+        </div>
+      </section>
+
+      {/* Content Sections */}
+      <section className="w-full pb-24 relative">
+        {/* Background Effects */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/50" />
+        </div>
+
+        <div className="container px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-5xl mx-auto space-y-24"
+          >
+            {/* Jornada Profissional */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="p-3 rounded-xl bg-primary/10">
+                  <BriefcaseIcon className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+                  Jornada Profissional
+                </h2>
+              </div>
+              <Timeline items={experiences} />
+            </motion.div>
+
+            {/* Habilidades Técnicas */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8 pt-8"
+            >
+              <div className="flex items-center gap-4 mb-12">
+                <div className="p-3 rounded-xl bg-primary/10">
+                  <WrenchIcon className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+                  Habilidades Técnicas
+                </h2>
+              </div>
+              <SkillGrid categories={technologies} />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }

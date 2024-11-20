@@ -4,25 +4,12 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { ExternalLinkIcon, GithubIcon, ArrowRightIcon } from 'lucide-react';
+import Link from 'next/link';
 import { Project, projects } from '@/config/projects';
 
-interface ProjectsProps {
-  translations?: {
-    title: string;
-    subtitle: string;
-    viewDetails: string;
-  };
-  locale: string;
-}
-
-const defaultTranslations = {
-  title: 'Projects',
-  subtitle: 'Some of my recent work',
-  viewDetails: 'View Details'
-};
-
-export function Projects({ translations = defaultTranslations, locale }: ProjectsProps) {
+export function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('Todos');
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
@@ -56,7 +43,6 @@ export function Projects({ translations = defaultTranslations, locale }: Project
     <section id="projects" className="py-20 relative">
       <motion.div 
         className="absolute inset-0 opacity-20"
-        style={{ position: 'absolute' }}
         animate={{
           background: [
             "radial-gradient(circle at 0% 0%, var(--primary) 0%, transparent 70%)",
@@ -79,10 +65,10 @@ export function Projects({ translations = defaultTranslations, locale }: Project
           className="text-center mb-12 space-y-4"
         >
           <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
-            {translations.title}
+            Projetos em Destaque
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {translations.subtitle}
+            Conheça alguns dos projetos que desenvolvi, utilizando diferentes tecnologias e soluções criativas.
           </p>
         </motion.div>
 
@@ -111,7 +97,7 @@ export function Projects({ translations = defaultTranslations, locale }: Project
           ))}
         </motion.div>
 
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           <motion.div
             key={selectedCategory}
             variants={containerVariants}
@@ -128,88 +114,83 @@ export function Projects({ translations = defaultTranslations, locale }: Project
                 onHoverStart={() => setHoveredProject(project.title)}
                 onHoverEnd={() => setHoveredProject(null)}
               >
-                <div className="cursor-pointer" onClick={() => window.location.href = `/${locale}/projetos/${project.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                  <Card className="overflow-hidden bg-background/50 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition-all duration-500">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="relative h-[300px] md:h-full overflow-hidden">
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        />
-                        <motion.img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover"
-                          initial={{ scale: 1 }}
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ duration: 0.6 }}
-                        />
+                <Card className="overflow-hidden bg-background/50 backdrop-blur-sm border-primary/10 hover:border-primary/30 transition-all duration-500">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="relative h-[300px] md:h-full overflow-hidden">
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      />
+                      <motion.img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                        initial={{ scale: 1 }}
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      />
+                    </div>
+
+                    <div className="p-6 flex flex-col justify-between">
+                      <div className="space-y-4">
+                        <motion.h3
+                          className="text-2xl font-semibold"
+                          initial={{ opacity: 0.8 }}
+                          whileHover={{ opacity: 1 }}
+                        >
+                          {project.title}
+                        </motion.h3>
+                        <p className="text-muted-foreground">
+                          {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags.map((tag) => (
+                            <Badge
+                              key={tag}
+                              variant="secondary"
+                              className="bg-primary/5"
+                            >
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
 
-                      <div className="p-6 flex flex-col justify-between">
-                        <div className="space-y-4">
-                          <motion.h3
-                            className="text-2xl font-semibold"
-                            initial={{ opacity: 0.8 }}
-                            whileHover={{ opacity: 1 }}
+                      <div className="pt-6">
+                        <div className="flex items-center justify-between">
+                          <Link 
+                            href={`/projetos/${project.title.toLowerCase().replace(/\s+/g, '-')}`}
+                            className="group/link flex items-center gap-2 text-sm text-primary font-medium hover:translate-x-1 transition-transform"
                           >
-                            {project.title}
-                          </motion.h3>
-                          <p className="text-muted-foreground">
-                            {project.description}
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {project.tags.map((tag) => (
-                              <Badge
-                                key={tag}
-                                variant="secondary"
-                                className="bg-primary/5"
+                            Ver detalhes
+                            <ArrowRightIcon className="w-4 h-4" />
+                          </Link>
+                          <div className="flex gap-4">
+                            {project.links.demo && (
+                              <Link
+                                href={project.links.demo}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-muted-foreground hover:text-primary transition-colors hover:scale-110"
                               >
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="pt-6">
-                          <div className="flex items-center justify-between">
-                            <motion.div
-                              className="flex items-center gap-2 text-sm text-primary font-medium"
-                              initial={{ x: 0 }}
-                              whileHover={{ x: 5 }}
-                            >
-                              {translations.viewDetails}
-                              <ArrowRightIcon className="w-4 h-4" />
-                            </motion.div>
-                            <div className="flex gap-4" onClick={(e) => e.stopPropagation()}>
-                              {project.links.demo && (
-                                <motion.a
-                                  href={project.links.demo}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-muted-foreground hover:text-primary transition-colors"
-                                  whileHover={{ scale: 1.1 }}
-                                >
-                                  <ExternalLinkIcon className="w-5 h-5" />
-                                </motion.a>
-                              )}
-                              {project.links.github && (
-                                <motion.a
-                                  href={project.links.github}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-muted-foreground hover:text-primary transition-colors"
-                                  whileHover={{ scale: 1.1 }}
-                                >
-                                  <GithubIcon className="w-5 h-5" />
-                                </motion.a>
-                              )}
-                            </div>
+                                <ExternalLinkIcon className="w-5 h-5" />
+                              </Link>
+                            )}
+                            {project.links.github && (
+                              <Link
+                                href={project.links.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-muted-foreground hover:text-primary transition-colors hover:scale-110"
+                              >
+                                <GithubIcon className="w-5 h-5" />
+                              </Link>
+                            )}
                           </div>
                         </div>
                       </div>
                     </div>
-                  </Card>
-                </div>
+                  </div>
+                </Card>
               </motion.div>
             ))}
           </motion.div>

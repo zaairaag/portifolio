@@ -1,71 +1,112 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useMotionTemplate, useSpring, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { MoonIcon, SunIcon, Menu } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { Logo } from '@/components/ui/logo';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { LanguageSelector } from './language-selector';
-import { ModeToggle } from './mode-toggle';
 
 const links = [
-  {
-    key: "home",
-    href: "/",
-  },
-  {
-    key: "about",
-    href: "/about",
-  },
-  {
-    key: "projects",
-    href: "/projects",
-  },
-  {
-    key: "experience",
-    href: "/experience",
-  },
-  {
-    key: "contact",
-    href: "/contact",
-  },
+  { name: "Home", href: "/" },
+  { name: "Sobre", href: "/sobre" },
+  { name: "Portfólio", href: "/portfolio" },
+  { name: "Serviços", href: "/servicos" },
+  { name: "Contato", href: "/contato" },
 ];
 
-export function Navigation() {
-  const t = useTranslations('nav');
-  const [mounted, setMounted] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const { scrollY } = useScroll();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname();
+function MagneticComponent({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
 
-  const getHref = (item: typeof links[0]): string => {
-    if (item.href) return item.href;
-    if (pathname === '/') return item.hash || '/';
-    return `/${item.hash || ''}`;
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+
+    const x = clientX - centerX;
+    const y = clientY - centerY;
+
+    setPosition({ x, y });
   };
 
-  const scrollYProgress = useTransform(scrollY, [0, 500], [0, 1]);
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setPosition({ x: 0, y: 0 });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const magneticX = useTransform(
+    useSpring(position.x),
+    [-100, 100],
+    [-15, 15]
+  );
+
+  const magneticY = useTransform(
+    useSpring(position.y),
+    [-100, 100],
+    [-15, 15]
+  );
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouse}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      style={{
+        x: isHovered ? magneticX : 0,
+        y: isHovered ? magneticY : 0,
+        display: "inline-block"
+      }}
+      transition={{ type: "spring", stiffness: 350, damping: 15 }}
+      data-cursor
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function Navigation() {
+  const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState("/");
+  const pathname = usePathname();
+
+  const scrollYProgress = useSpring(0, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    setActiveLink(pathname);
+  }, [pathname]);
 
   useEffect(() => {
-    return scrollY.on("change", (latest) => {
+    return scrollY.onChange((latest) => {
       setIsScrolled(latest > 50);
+      scrollYProgress.set(Math.min(latest / 500, 1));
     });
-  }, [scrollY]);
+  }, [scrollY, scrollYProgress]);
 
-  const backgroundOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.8]);
+  const backgroundOpacity = useMotionTemplate`${scrollYProgress}`;
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <motion.nav
@@ -83,9 +124,9 @@ export function Navigation() {
         style={{ opacity: backgroundOpacity }}
       />
       <div className="container mx-auto px-6 lg:px-8">
-        <div className="h-24 py-4 flex items-center justify-between max-w-7xl mx-auto relative">
+        <div className="h-20 flex items-center justify-between max-w-7xl mx-auto relative">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <MagneticComponent>
             <Link href="/">
               <motion.div
                 className="flex items-center gap-4"
@@ -98,69 +139,125 @@ export function Navigation() {
                   delay: 0.2
                 }}
               >
-                <Logo width={64} height={64} animated={!isScrolled} />
+                <Logo width={48} height={48} animated={!isScrolled} />
               </motion.div>
             </Link>
-          </div>
+          </MagneticComponent>
 
-          {/* Links de navegação */}
-          <div className="hidden md:flex items-center justify-center flex-1 mx-4">
-            <div className="flex items-center gap-8">
-              {links.map((item) => (
-                <div key={item.key}>
-                  <Link
-                    href={getHref(item)}
-                    className="text-base font-medium tracking-wide hover:text-primary transition-colors"
-                    onClick={(e) => {
-                      if (pathname !== '/' && item.hash) {
-                        e.preventDefault();
-                        window.location.href = '/' + item.hash;
-                      }
-                    }}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-1">
+            {links.map((link) => (
+              <MagneticComponent key={link.name}>
+                <Link href={link.href}>
+                  <motion.div
+                    className="relative px-4 py-2"
+                    whileHover="hover"
+                    animate={activeLink === link.href ? "active" : "default"}
                   >
-                    {t(item.key)}
-                  </Link>
-                </div>
-              ))}
-            </div>
+                    <motion.span
+                      className={`relative z-10 text-sm font-medium transition-colors ${
+                        activeLink === link.href 
+                          ? "text-primary" 
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {link.name}
+                    </motion.span>
+                    
+                    {/* Highlight Background */}
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-primary/10"
+                      initial={{ scale: 0, opacity: 0 }}
+                      variants={{
+                        hover: { scale: 1, opacity: 1 },
+                        active: { scale: 1, opacity: 1 },
+                        default: { scale: 0, opacity: 0 }
+                      }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    />
+                    
+                    {/* Active Indicator */}
+                    {activeLink === link.href && (
+                      <motion.div
+                        className="absolute -bottom-1 left-4 right-4 h-0.5 bg-primary"
+                        layoutId="activeIndicator"
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      />
+                    )}
+                  </motion.div>
+                </Link>
+              </MagneticComponent>
+            ))}
+
+            {/* Theme Toggle */}
+            <MagneticComponent>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="ml-4"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                <motion.div
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.5, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {theme === "dark" ? (
+                    <SunIcon className="h-5 w-5 text-primary" />
+                  ) : (
+                    <MoonIcon className="h-5 w-5 text-primary" />
+                  )}
+                </motion.div>
+              </Button>
+            </MagneticComponent>
           </div>
 
-          {/* Botões direita */}
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-4">
-              <LanguageSelector />
-              <ModeToggle />
-            </div>
-
-            {/* Menu mobile */}
+          {/* Mobile Menu */}
+          <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild className="md:hidden">
+              <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-72">
-                <div className="flex flex-col gap-8 mt-8">
-                  {links.map((item) => (
+              <SheetContent side="right" className="w-full sm:w-80">
+                <nav className="flex flex-col space-y-4 mt-8">
+                  {links.map((link) => (
                     <Link
-                      key={item.key}
-                      href={getHref(item)}
-                      className="text-lg font-medium tracking-wide hover:text-primary transition-colors"
-                      onClick={() => {
-                        setIsOpen(false);
-                        if (pathname !== '/' && item.hash) {
-                          window.location.href = '/' + item.hash;
-                        }
-                      }}
+                      key={link.name}
+                      href={link.href}
+                      className={`text-lg font-medium px-4 py-2 rounded-lg transition-colors ${
+                        activeLink === link.href
+                          ? "bg-primary/10 text-primary"
+                          : "text-muted-foreground hover:text-foreground hover:bg-primary/5"
+                      }`}
+                      onClick={() => setIsOpen(false)}
                     >
-                      {t(item.key)}
+                      {link.name}
                     </Link>
                   ))}
-                  <div className="flex flex-col gap-4">
-                    <LanguageSelector />
-                    <ModeToggle />
-                  </div>
-                </div>
+                  <Button
+                    variant="ghost"
+                    className="justify-start px-4"
+                    onClick={() => {
+                      setTheme(theme === "dark" ? "light" : "dark");
+                      setIsOpen(false);
+                    }}
+                  >
+                    {theme === "dark" ? (
+                      <>
+                        <SunIcon className="h-5 w-5 mr-2" />
+                        Modo Claro
+                      </>
+                    ) : (
+                      <>
+                        <MoonIcon className="h-5 w-5 mr-2" />
+                        Modo Escuro
+                      </>
+                    )}
+                  </Button>
+                </nav>
               </SheetContent>
             </Sheet>
           </div>
