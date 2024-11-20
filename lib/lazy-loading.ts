@@ -15,9 +15,4 @@ export const LazyFooter = createLazyComponent(
   { ssr: true }
 )
 
-export const LazyThemeProvider = createLazyComponent(
-  () => import('@/components/theme-provider').then(mod => ({ default: mod.ThemeProvider })),
-  { ssr: true }
-)
-
 // Adicione mais componentes lazy conforme necessário

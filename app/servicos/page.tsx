@@ -1,10 +1,8 @@
 import { services } from '@/data/services'
 import { ArrowRight, FileCheck, Lightbulb, MessageSquare, Rocket, Users, Zap } from 'lucide-react'
-
 import { Metadata } from 'next'
 import Link from 'next/link'
-
-import { HeroSection } from '@/components/sections/hero-section'
+import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
   title: 'Serviços',
@@ -48,20 +46,31 @@ const workSteps = [
 export default function Services() {
   return (
     <>
-      <HeroSection
-        badge="Serviços"
-        title="Soluções Web Profissionais"
-        subtitle="Do planejamento à execução, crio soluções web que impulsionam seu negócio"
-        action={{
-          text: 'Ver Projetos Realizados',
-          href: '/portfolio',
-        }}
-      />
+      {/* Seção de Cabeçalho */}
+      <section className="container py-16 md:py-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center justify-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary">
+            Serviços
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+            Soluções Web Profissionais
+          </h1>
+          <p className="text-xl text-muted-foreground mb-8">
+            Do planejamento à execução, crio soluções web que impulsionam seu negócio
+          </p>
+          <Button asChild size="lg">
+            <Link href="/portfolio">
+              Ver Projetos Realizados
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </section>
 
-      {/* Services Section */}
+      {/* Seção de Serviços */}
       <section className="container py-6 md:py-8">
         <div className="max-w-6xl mx-auto">
-          {/* Services Grid */}
+          {/* Grid de Serviços */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <Link
@@ -70,10 +79,10 @@ export default function Services() {
                 className="group block relative overflow-hidden"
               >
                 <div className="relative flex flex-col p-8 h-full bg-gradient-to-br from-card to-card/40 backdrop-blur-sm border border-border/50 rounded-3xl transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20">
-                  {/* Background Accent */}
+                  {/* Destaque de Fundo */}
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/40 via-primary to-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                  {/* Icon */}
+                  {/* Ícone */}
                   <div className="relative mb-6">
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
                       {service.icon}
@@ -81,20 +90,14 @@ export default function Services() {
                     <div className="absolute -inset-4 bg-primary/5 rounded-[32px] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
 
-                  {/* Content */}
-                  <div className="flex-1 space-y-4 mb-8">
-                    <h3 className="text-2xl font-semibold tracking-tight">{service.title}</h3>
-                    <p className="text-muted-foreground/90 leading-relaxed">
-                      {service.shortDescription}
-                    </p>
-                  </div>
+                  {/* Conteúdo */}
+                  <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
+                  <p className="text-muted-foreground mb-6">{service.description}</p>
 
-                  {/* Footer */}
-                  <div className="pt-6 border-t border-border/50">
-                    <div className="flex items-center">
-                      <span className="text-sm font-medium text-primary">Ver detalhes</span>
-                      <ArrowRight className="w-4 h-4 ml-2 text-primary transition-transform duration-300 group-hover:translate-x-1" />
-                    </div>
+                  {/* Link */}
+                  <div className="mt-auto inline-flex items-center text-primary font-medium">
+                    Saiba mais
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </div>
                 </div>
               </Link>
@@ -103,22 +106,28 @@ export default function Services() {
         </div>
       </section>
 
-      {/* How We Work Section */}
+      {/* Seção Como Trabalhamos */}
       <section className="container py-24 border-y border-border/50">
         <div className="max-w-5xl mx-auto">
-          <HeroSection
-            badge="Como Trabalhamos"
-            title="Um processo transparente"
-            subtitle="Do planejamento à entrega, com foco em resultados"
-          />
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary">
+              Como Trabalhamos
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              Um processo transparente
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              Do planejamento à entrega, com foco em resultados
+            </p>
+          </div>
 
-          {/* Steps Timeline */}
+          {/* Linha do Tempo dos Passos */}
           <div className="relative mt-12">
-            {/* Center Line */}
+            {/* Linha Central */}
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary/20 to-transparent" />
 
-            {/* Steps */}
-            <div className="space-y-12 relative">
+            {/* Passos */}
+            <div className="space-y-12">
               {workSteps.map((step, index) => (
                 <div
                   key={index}
@@ -126,42 +135,21 @@ export default function Services() {
                     index % 2 === 0 ? 'flex-row-reverse' : ''
                   }`}
                 >
-                  {/* Content Side */}
+                  {/* Conteúdo */}
                   <div className={`flex-1 ${index % 2 === 0 ? 'text-right' : ''}`}>
-                    <div
-                      className={`bg-gradient-to-br from-muted/80 to-muted/40 rounded-xl p-6 border border-border/50 relative group transition-all duration-300 hover:border-primary/50 ${
-                        index % 2 === 0 ? 'mr-4' : 'ml-4'
-                      }`}
-                    >
-                      {/* Connecting Line */}
-                      <div
-                        className={`absolute top-1/2 -translate-y-1/2 w-4 h-px bg-border/50 group-hover:bg-primary/50 transition-colors ${
-                          index % 2 === 0 ? '-right-4' : '-left-4'
-                        }`}
-                      />
-
-                      <div
-                        className={`flex items-center gap-4 mb-3 ${
-                          index % 2 === 0 ? 'flex-row-reverse' : ''
-                        }`}
-                      >
-                        <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
-                          {step.icon}
-                        </div>
-                        <h3 className="font-semibold text-xl">{step.title}</h3>
-                      </div>
-                      <p className="text-muted-foreground/90 leading-relaxed">{step.description}</p>
-                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground">{step.description}</p>
                   </div>
 
-                  {/* Center Point */}
-                  <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-violet-500 flex items-center justify-center text-primary-foreground text-sm font-medium">
-                      {index + 1}
+                  {/* Ícone */}
+                  <div className="relative z-10 shrink-0">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-primary">
+                      {step.icon}
                     </div>
+                    <div className="absolute -inset-4 bg-primary/5 rounded-[24px] blur-2xl" />
                   </div>
 
-                  {/* Empty Side */}
+                  {/* Espaçador */}
                   <div className="flex-1" />
                 </div>
               ))}
@@ -170,9 +158,9 @@ export default function Services() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Seção de Chamada para Ação */}
       <section className="relative overflow-hidden">
-        {/* Background Effects */}
+        {/* Efeitos de Fundo */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background">
           <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_70%)]" />
           <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
@@ -210,7 +198,7 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Bottom Gradient Line */}
+        {/* Linha de Gradiente Inferior */}
         <div className="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </section>
     </>
