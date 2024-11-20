@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 interface LogoProps {
   width?: number;
@@ -9,6 +10,20 @@ interface LogoProps {
 }
 
 export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="relative w-10 h-10">
+        <div className="absolute inset-0 bg-primary/10 rounded-lg" />
+      </div>
+    );
+  }
+
   return (
     <motion.div
       whileHover={animated ? {
@@ -33,7 +48,7 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           className="fill-primary/5 stroke-primary"
           strokeWidth="1"
           initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ 
+          animate={{
             scale: [0.95, 1, 0.95],
             opacity: [0.5, 1, 0.5],
             rotate: [0, 360]
@@ -51,7 +66,7 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           className="fill-primary/10 stroke-primary"
           strokeWidth="0.5"
           initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ 
+          animate={{
             scale: [1, 0.95, 1],
             opacity: [1, 0.5, 1],
             rotate: [360, 0]
@@ -206,7 +221,7 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           r="1"
           className="fill-primary"
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ 
+          animate={{
             scale: [0, 1, 0],
             opacity: [0, 1, 0]
           }}
@@ -226,11 +241,11 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
             cy="16"
             r="0.5"
             className="fill-primary/80"
-            initial={{ 
+            initial={{
               x: Math.cos(angle * Math.PI / 180) * 12,
               y: Math.sin(angle * Math.PI / 180) * 12
             }}
-            animate={{ 
+            animate={{
               x: [
                 Math.cos((angle + 0) * Math.PI / 180) * 12,
                 Math.cos((angle + 180) * Math.PI / 180) * 12,
