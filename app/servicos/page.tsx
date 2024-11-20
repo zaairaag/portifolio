@@ -56,7 +56,7 @@ export default function Services() {
       />
       
       {/* Services Section */}
-      <section className="container py-16">
+      <section className="container py-6 md:py-8">
         <div className="max-w-6xl mx-auto">
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

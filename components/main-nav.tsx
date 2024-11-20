@@ -28,7 +28,7 @@ export function MainNav() {
   const linkClasses = "inline-flex items-center text-base transition-colors hover:text-primary relative after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300"
 
   return (
-    <nav className="flex items-center gap-2">
+    <nav className="flex items-center gap-4 py-1.5">
       {menuItems.map((item) => (
         <Link 
           key={item.href} 

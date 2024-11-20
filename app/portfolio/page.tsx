@@ -29,7 +29,7 @@ export default function PortfolioPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section className="relative py-8 md:py-12 overflow-hidden">
         <div className="absolute inset-0 -z-10">
           {/* Background Decoration */}
           <div className="absolute -top-1/2 right-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
@@ -85,54 +85,56 @@ export default function PortfolioPage() {
       </section>
 
       {/* Projects Grid */}
-      <section className="container mx-auto max-w-5xl px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredProjects.map((project) => (
-            <div
-              key={project.title}
-              className="group relative overflow-hidden rounded-lg bg-card transition-all duration-300 hover:-translate-y-2"
-            >
-              {/* Thumbnail com overlay */}
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <Image
-                  src={project.thumbnail}
-                  alt={project.title}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              </div>
-
-              {/* Conteúdo do card */}
-              <div className="absolute inset-0 flex flex-col justify-end p-5 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <h3 className="text-lg font-bold leading-tight">{project.title}</h3>
-                <p className="mt-2 text-sm text-gray-200 line-clamp-3">{project.description}</p>
-                
-                {/* Tags */}
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {project.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-medium backdrop-blur-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+      <main className="container relative pt-6 pb-16 md:pt-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filteredProjects.map((project) => (
+              <div
+                key={project.title}
+                className="group relative overflow-hidden rounded-lg bg-card transition-all duration-300 hover:-translate-y-2"
+              >
+                {/* Thumbnail com overlay */}
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <Image
+                    src={project.thumbnail}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </div>
 
-                {/* Botão Ver Mais */}
-                <Link
-                  href={project.link || "#"}
-                  className="mt-4 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-                >
-                  Ver Projeto
-                  <ChevronRight className="ml-1.5 h-4 w-4" />
-                </Link>
+                {/* Conteúdo do card */}
+                <div className="absolute inset-0 flex flex-col justify-end p-5 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <h3 className="text-lg font-bold leading-tight">{project.title}</h3>
+                  <p className="mt-2 text-sm text-gray-200 line-clamp-3">{project.description}</p>
+                  
+                  {/* Tags */}
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full bg-white/20 px-2.5 py-0.5 text-xs font-medium backdrop-blur-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Botão Ver Mais */}
+                  <Link
+                    href={project.link || "#"}
+                    className="mt-4 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  >
+                    Ver Projeto
+                    <ChevronRight className="ml-1.5 h-4 w-4" />
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </section>
+      </main>
     </div>
   )
 }

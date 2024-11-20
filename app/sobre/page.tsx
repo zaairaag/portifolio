@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function SobrePage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background via-background to-accent/5">
+    <main className="container relative pt-6 pb-16 md:pt-8">
       <About />
     </main>
   );
