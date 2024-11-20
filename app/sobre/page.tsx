@@ -5,14 +5,13 @@ export const metadata: Metadata = {
   title: "Sobre Mim | Zaira Miranda - Desenvolvedora Full Stack",
   description: "Conheça minha jornada profissional, habilidades técnicas e experiência em desenvolvimento web moderno e SharePoint.",
   keywords: [
-    "desenvolvedora full stack",
-    "sharepoint",
-    "react",
-    "typescript",
-    "node.js",
-    "desenvolvimento web",
-    "Zaira Miranda"
-  ],
+    "Zaira Miranda",
+    "Desenvolvedora Full Stack",
+    "SharePoint",
+    "Experiência Profissional",
+    "Habilidades Técnicas",
+    "Desenvolvimento Web"
+  ]
 };
 
 export default function SobrePage() {

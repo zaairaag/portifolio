@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from 'framer-motion';
-import { BriefcaseIcon, WrenchIcon } from 'lucide-react';
+import { BriefcaseIcon, WrenchIcon, DownloadIcon } from 'lucide-react';
 import { Timeline } from '@/components/ui/timeline';
 import { SkillGrid } from '@/components/ui/skill-grid';
 import { technologies } from '@/data/technologies';
+import { Button } from "@/components/ui/button";
 
 const experiences = [
   {
@@ -79,13 +80,23 @@ export function About() {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <div className="flex items-center gap-4 mb-8">
-                <div className="p-3 rounded-xl bg-primary/10">
-                  <BriefcaseIcon className="w-6 h-6 text-primary" />
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-primary/10">
+                    <BriefcaseIcon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+                    Jornada Profissional
+                  </h2>
                 </div>
-                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
-                  Jornada Profissional
-                </h2>
+                <Button 
+                  variant="outline" 
+                  className="flex items-center gap-2 hover:bg-accent/50"
+                  onClick={() => window.open('/cv.pdf', '_blank')}
+                >
+                  <DownloadIcon className="w-4 h-4" />
+                  Baixar CV
+                </Button>
               </div>
               <Timeline items={experiences} />
             </motion.div>

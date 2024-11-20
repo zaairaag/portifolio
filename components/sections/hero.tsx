@@ -1,12 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { GithubIcon, LinkedinIcon, TwitterIcon, MousePointerClick } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { TypeAnimation } from 'react-type-animation';
 import { useTheme } from 'next-themes';
+import { TypeAnimation } from 'react-type-animation';
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -28,8 +28,7 @@ export function Hero() {
   return (
     <section 
       ref={ref} 
-      className="h-screen w-full flex items-center justify-center relative overflow-hidden" 
-      id="home"
+      className="container h-[50vh] flex flex-col items-center justify-center -mt-28 relative overflow-hidden"
     >
       {/* Interactive Cursor Effect */}
       <motion.div
@@ -48,7 +47,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/50 z-0" />
       
       <motion.div
-        className="container mx-auto px-4 z-20 flex flex-col items-center justify-center text-center gap-8 mt-16"
+        className="z-20 flex flex-col items-center justify-center text-center gap-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -76,7 +75,7 @@ export function Hero() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.01 }}
               >
-                {'Programadora de Software'.split('').map((char, index) => (
+                {'Olá, sou Zaira Gonçalves'.split('').map((char, index) => (
                   <motion.span
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
@@ -110,68 +109,27 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <motion.p
+        <motion.div
           className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          Criando experiências digitais únicas e inovadoras com tecnologias modernas
-        </motion.p>
-
-        <motion.div
-          className="flex gap-4 flex-wrap justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-        >
-          <Link href="/portfolio">
-            <Button 
-              size="lg"
-              className="group relative overflow-hidden"
-            >
-              <span className="relative z-10">Ver Projetos</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-primary/50 to-purple-500/50"
-                initial={{ x: "100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </Button>
-          </Link>
-          <Link href="/contato">
-            <Button 
-              size="lg" 
-              variant="outline"
-              className="group"
-            >
-              <span>Contato</span>
-              <MousePointerClick className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
-        </motion.div>
-
-        <motion.div 
-          className="flex gap-6 mt-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-        >
-          {[GithubIcon, LinkedinIcon, TwitterIcon].map((Icon, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full"
-              >
-                <Icon className="w-5 h-5" />
-              </Button>
-            </motion.div>
-          ))}
+          <TypeAnimation
+            sequence={[
+              'Programadora de Software',
+              2000,
+              'Marketing de Conteúdo',
+              2000,
+              'Profissional de SEO',
+              2000,
+              'Gestora de Automação',
+              2000,
+            ]}
+            wrapper="span"
+            speed={50}
+            repeat={Infinity}
+          />
         </motion.div>
       </motion.div>
 
