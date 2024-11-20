@@ -1,12 +1,21 @@
-"use client";
+'use client'
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { GithubIcon, LinkedinIcon, TwitterIcon, MailIcon, SendIcon, CalendarIcon } from 'lucide-react';
+import { motion } from 'framer-motion'
+import {
+  CalendarIcon,
+  GithubIcon,
+  LinkedinIcon,
+  MailIcon,
+  SendIcon,
+  TwitterIcon,
+} from 'lucide-react'
+
+import { useState } from 'react'
+
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 
 const socialLinks = [
   {
@@ -30,16 +39,16 @@ const socialLinks = [
   {
     name: 'Agendar',
     icon: CalendarIcon,
-    url: 'https://calendly.com/zairacandido',  // You'll need to replace this with your actual Calendly URL
+    url: 'https://calendly.com/zairacandido', // You'll need to replace this with your actual Calendly URL
     color: '#006BFF',
   },
-];
+]
 
 const formFields = [
   { name: 'name', label: 'Nome', type: 'text', placeholder: 'Seu nome' },
   { name: 'email', label: 'Email', type: 'email', placeholder: 'seu.email@exemplo.com' },
   { name: 'subject', label: 'Assunto', type: 'text', placeholder: 'Como posso ajudar?' },
-];
+]
 
 export function Contact() {
   const [formState, setFormState] = useState({
@@ -47,18 +56,18 @@ export function Contact() {
     email: '',
     subject: '',
     message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [hoveredIcon, setHoveredIcon] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    e.preventDefault()
+    setIsSubmitting(true)
     // Add your form submission logic here
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setFormState({ name: '', email: '', subject: '', message: '' });
-  };
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    setIsSubmitting(false)
+    setFormState({ name: '', email: '', subject: '', message: '' })
+  }
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -67,31 +76,31 @@ export function Contact() {
       y: 0,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.1
-      }
-    }
-  };
+        staggerChildren: 0.1,
+      },
+    },
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
+    visible: { opacity: 1, y: 0 },
+  }
 
   return (
     <section id="contact" className="py-20 relative overflow-hidden">
-      <motion.div 
+      <motion.div
         className="absolute inset-0 opacity-10"
         animate={{
           background: [
-            "radial-gradient(circle at 0% 0%, var(--primary) 0%, transparent 70%)",
-            "radial-gradient(circle at 100% 100%, var(--primary) 0%, transparent 70%)",
-            "radial-gradient(circle at 0% 0%, var(--primary) 0%, transparent 70%)",
-          ]
+            'radial-gradient(circle at 0% 0%, var(--primary) 0%, transparent 70%)',
+            'radial-gradient(circle at 100% 100%, var(--primary) 0%, transparent 70%)',
+            'radial-gradient(circle at 0% 0%, var(--primary) 0%, transparent 70%)',
+          ],
         }}
         transition={{
           duration: 15,
           repeat: Infinity,
-          repeatType: "reverse"
+          repeatType: 'reverse',
         }}
       />
 
@@ -103,10 +112,7 @@ export function Contact() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          <motion.div 
-            variants={itemVariants}
-            className="text-center mb-12 space-y-4"
-          >
+          <motion.div variants={itemVariants} className="text-center mb-12 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
               Entre em Contato
             </h2>
@@ -116,10 +122,7 @@ export function Contact() {
           </motion.div>
 
           <div className="grid md:grid-cols-5 gap-8">
-            <motion.div 
-              variants={itemVariants}
-              className="md:col-span-2 space-y-6"
-            >
+            <motion.div variants={itemVariants} className="md:col-span-2 space-y-6">
               <Card className="p-8 bg-background/50 backdrop-blur-sm border-primary/10 hover:border-primary/20 transition-colors duration-300">
                 <h3 className="text-2xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
                   Conecte-se
@@ -134,7 +137,8 @@ export function Contact() {
                       <div className="flex-1">
                         <h4 className="text-lg font-semibold mb-2">Agende uma Conversa</h4>
                         <p className="text-muted-foreground text-sm mb-3">
-                          Vamos discutir seu projeto ou oportunidade de trabalho em uma reunião virtual de 30 minutos.
+                          Vamos discutir seu projeto ou oportunidade de trabalho em uma reunião
+                          virtual de 30 minutos.
                         </p>
                         <motion.a
                           href="https://calendly.com/zairacandido" // Substitua com seu link do Calendly
@@ -161,7 +165,7 @@ export function Contact() {
                   <div className="flex flex-wrap gap-4">
                     {socialLinks
                       .filter(social => social.name !== 'Agendar')
-                      .map((social) => (
+                      .map(social => (
                         <motion.a
                           key={social.name}
                           href={social.url}
@@ -177,9 +181,11 @@ export function Contact() {
                           <motion.div
                             className="p-4 rounded-xl bg-background border-2 border-primary/20 shadow-lg"
                             animate={{
-                              backgroundColor: hoveredIcon === social.name ? social.color : "var(--background)",
-                              color: hoveredIcon === social.name ? "#fff" : "var(--foreground)",
-                              borderColor: hoveredIcon === social.name ? social.color : "var(--primary)/0.2",
+                              backgroundColor:
+                                hoveredIcon === social.name ? social.color : 'var(--background)',
+                              color: hoveredIcon === social.name ? '#fff' : 'var(--foreground)',
+                              borderColor:
+                                hoveredIcon === social.name ? social.color : 'var(--primary)/0.2',
                             }}
                             transition={{ duration: 0.2 }}
                           >
@@ -190,14 +196,14 @@ export function Contact() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{
                               opacity: hoveredIcon === social.name ? 1 : 0,
-                              y: hoveredIcon === social.name ? 0 : -10
+                              y: hoveredIcon === social.name ? 0 : -10,
                             }}
                             transition={{ duration: 0.2 }}
                           >
                             {social.name}
                           </motion.span>
                         </motion.a>
-                    ))}
+                      ))}
                   </div>
                 </div>
               </Card>
@@ -219,22 +225,15 @@ export function Contact() {
               </Card>
             </motion.div>
 
-            <motion.div 
-              variants={itemVariants}
-              className="md:col-span-3"
-            >
+            <motion.div variants={itemVariants} className="md:col-span-3">
               <Card className="p-8 bg-background/50 backdrop-blur-sm border-primary/10 hover:border-primary/20 transition-colors duration-300">
                 <h3 className="text-2xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
                   Envie uma Mensagem
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {formFields.map((field) => (
-                    <motion.div
-                      key={field.name}
-                      variants={itemVariants}
-                      className="space-y-2"
-                    >
-                      <label 
+                  {formFields.map(field => (
+                    <motion.div key={field.name} variants={itemVariants} className="space-y-2">
+                      <label
                         htmlFor={field.name}
                         className="text-sm font-medium text-muted-foreground"
                       >
@@ -245,7 +244,7 @@ export function Contact() {
                         type={field.type}
                         placeholder={field.placeholder}
                         value={formState[field.name as keyof typeof formState]}
-                        onChange={(e) => 
+                        onChange={e =>
                           setFormState(prev => ({ ...prev, [field.name]: e.target.value }))
                         }
                         className="bg-background/50 backdrop-blur-sm border-primary/10 focus:border-primary/30 transition-colors duration-300"
@@ -253,19 +252,14 @@ export function Contact() {
                     </motion.div>
                   ))}
                   <motion.div variants={itemVariants} className="space-y-2">
-                    <label 
-                      htmlFor="message"
-                      className="text-sm font-medium text-muted-foreground"
-                    >
+                    <label htmlFor="message" className="text-sm font-medium text-muted-foreground">
                       Mensagem
                     </label>
                     <Textarea
                       id="message"
                       placeholder="Sua mensagem aqui..."
                       value={formState.message}
-                      onChange={(e) => 
-                        setFormState(prev => ({ ...prev, message: e.target.value }))
-                      }
+                      onChange={e => setFormState(prev => ({ ...prev, message: e.target.value }))}
                       className="min-h-[120px] bg-background/50 backdrop-blur-sm border-primary/10 focus:border-primary/30 transition-colors duration-300"
                     />
                   </motion.div>
@@ -278,7 +272,7 @@ export function Contact() {
                       {isSubmitting ? (
                         <motion.div
                           animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                           className="mr-2"
                         >
                           <SendIcon className="w-4 h-4" />
@@ -298,5 +292,5 @@ export function Contact() {
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

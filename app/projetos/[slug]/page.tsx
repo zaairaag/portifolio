@@ -1,21 +1,24 @@
-import { projects } from '@/config/projects';
-import { Button } from '@/components/ui/button';
-import { ArrowLeftIcon } from 'lucide-react';
-import Link from 'next/link';
-import { ClientPage } from './client-page';
+import { projects } from '@/config/projects'
+import { ArrowLeftIcon } from 'lucide-react'
+
+import Link from 'next/link'
+
+import { Button } from '@/components/ui/button'
+
+import { ClientPage } from './client-page'
 
 interface Props {
   params: { slug: string }
 }
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({
+  return projects.map(project => ({
     slug: project.title.toLowerCase().replace(/\s+/g, '-'),
-  }));
+  }))
 }
 
 export default function ProjectPage({ params }: Props) {
-  const project = projects.find(p => p.title.toLowerCase().replace(/\s+/g, '-') === params.slug);
+  const project = projects.find(p => p.title.toLowerCase().replace(/\s+/g, '-') === params.slug)
 
   if (!project) {
     return (
@@ -28,8 +31,8 @@ export default function ProjectPage({ params }: Props) {
           </Button>
         </Link>
       </div>
-    );
+    )
   }
 
-  return <ClientPage project={project} />;
+  return <ClientPage project={project} />
 }

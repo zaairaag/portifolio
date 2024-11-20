@@ -1,8 +1,9 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
-import { DownloadIcon } from "lucide-react"
+import { motion } from 'framer-motion'
+import { DownloadIcon } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
 
 export function JourneyHeader() {
   return (
@@ -13,8 +14,8 @@ export function JourneyHeader() {
       className="flex items-center justify-between mb-6"
     >
       <h2 className="text-2xl font-bold">Jornada Profissional</h2>
-      <Button 
-        variant="outline" 
+      <Button
+        variant="outline"
         className="flex items-center gap-2 hover:bg-accent/50"
         onClick={() => window.open('/cv.pdf', '_blank')}
       >

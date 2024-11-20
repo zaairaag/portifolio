@@ -1,13 +1,25 @@
 'use client'
 
-import Image from "next/image"
-import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Calendar, Clock, Github, Instagram, Linkedin, Loader2, Mail, MessageSquare, Send } from "lucide-react"
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Calendar,
+  Clock,
+  Github,
+  Instagram,
+  Linkedin,
+  Loader2,
+  Mail,
+  MessageSquare,
+  Send,
+} from 'lucide-react'
+import * as z from 'zod'
 
-import { Button } from "@/components/ui/button"
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+
+import Image from 'next/image'
+
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -15,21 +27,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { toast } from "@/components/ui/use-toast"
-import { Separator } from "@/components/ui/separator"
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Separator } from '@/components/ui/separator'
+import { Textarea } from '@/components/ui/textarea'
+import { toast } from '@/components/ui/use-toast'
 
 const formSchema = z.object({
   name: z.string().min(2, {
-    message: "O nome deve ter pelo menos 2 caracteres.",
+    message: 'O nome deve ter pelo menos 2 caracteres.',
   }),
   email: z.string().email({
-    message: "Digite um email válido.",
+    message: 'Digite um email válido.',
   }),
   message: z.string().min(10, {
-    message: "A mensagem deve ter pelo menos 10 caracteres.",
+    message: 'A mensagem deve ter pelo menos 10 caracteres.',
   }),
 })
 
@@ -39,9 +51,9 @@ export default function ContactPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      message: "",
+      name: '',
+      email: '',
+      message: '',
     },
   })
 
@@ -51,15 +63,15 @@ export default function ContactPage() {
       // Simular envio
       await new Promise(resolve => setTimeout(resolve, 2000))
       toast({
-        title: "Mensagem enviada!",
-        description: "Obrigado pelo contato. Retornarei em breve.",
+        title: 'Mensagem enviada!',
+        description: 'Obrigado pelo contato. Retornarei em breve.',
       })
       form.reset()
     } catch (error) {
       toast({
-        variant: "destructive",
-        title: "Erro ao enviar mensagem",
-        description: "Por favor, tente novamente mais tarde.",
+        variant: 'destructive',
+        title: 'Erro ao enviar mensagem',
+        description: 'Por favor, tente novamente mais tarde.',
       })
     } finally {
       setIsSubmitting(false)
@@ -89,14 +101,14 @@ export default function ContactPage() {
               Contato
             </div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-              Vamos{" "}
+              Vamos{' '}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-500">
                 trabalhar juntos
               </span>
             </h1>
             <p className="text-lg text-muted-foreground">
-              Estou sempre aberta a novos projetos e oportunidades de colaboração.
-              Entre em contato e vamos transformar suas ideias em realidade.
+              Estou sempre aberta a novos projetos e oportunidades de colaboração. Entre em contato
+              e vamos transformar suas ideias em realidade.
             </p>
           </div>
         </div>
@@ -125,7 +137,7 @@ export default function ContactPage() {
                     <Mail className="h-6 w-6 group-hover:scale-110 transition-transform" />
                     <span className="text-sm font-medium">Email</span>
                   </a>
-                  <Button 
+                  <Button
                     className="flex flex-col items-center gap-2 p-4 h-auto bg-gradient-to-r from-primary to-violet-500 hover:opacity-90 text-primary-foreground"
                     onClick={() => window.open('https://calendly.com/seu-link', '_blank')}
                   >
@@ -221,11 +233,7 @@ export default function ContactPage() {
                       </FormItem>
                     )}
                   />
-                  <Button 
-                    type="submit" 
-                    className="w-full"
-                    disabled={isSubmitting}
-                  >
+                  <Button type="submit" className="w-full" disabled={isSubmitting}>
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -1,32 +1,36 @@
-"use client";
+'use client'
 
-import { motion } from 'framer-motion';
-import { BriefcaseIcon, WrenchIcon, DownloadIcon } from 'lucide-react';
-import { Timeline } from '@/components/ui/timeline';
-import { SkillGrid } from '@/components/ui/skill-grid';
-import { technologies } from '@/data/technologies';
-import { Button } from "@/components/ui/button";
+import { technologies } from '@/data/technologies'
+import { motion } from 'framer-motion'
+import { BriefcaseIcon, DownloadIcon, WrenchIcon } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
+import { SkillGrid } from '@/components/ui/skill-grid'
+import { Timeline } from '@/components/ui/timeline'
 
 const experiences = [
   {
     year: '2022 - Presente',
     role: 'Programadora de Software',
     company: 'Ímpar',
-    description: 'Desenvolvimento e manutenção de páginas estáticas e dinâmicas em ambientes SharePoint, utilizando tecnologias como Node.js e Microsoft SharePoint. Foco em soluções robustas e escaláveis.',
+    description:
+      'Desenvolvimento e manutenção de páginas estáticas e dinâmicas em ambientes SharePoint, utilizando tecnologias como Node.js e Microsoft SharePoint. Foco em soluções robustas e escaláveis.',
   },
   {
     year: '2022',
     role: 'Analista de Negócios',
     company: 'Deloitte Digital',
-    description: 'Desenvolvimento de Templates de Email Marketing e Implementação de Componentes na Plataforma AEM, utilizando Marketing Cloud da Salesforce e Adobe Experience Manager (AEM).',
+    description:
+      'Desenvolvimento de Templates de Email Marketing e Implementação de Componentes na Plataforma AEM, utilizando Marketing Cloud da Salesforce e Adobe Experience Manager (AEM).',
   },
   {
     year: '2019 - 2022',
     role: 'Analista de Sistema / Desenvolvedora Front-end',
     company: 'Ímpar',
-    description: 'Desenvolvimento e manutenção de páginas em SharePoint 2013 (Classic e Modern) utilizando HTML, CSS, JavaScript, jQuery, AngularJS, Vue.js, React.js e SharePoint REST API. Criação de webparts com SPFx, React.js e TypeScript.',
-  }
-];
+    description:
+      'Desenvolvimento e manutenção de páginas em SharePoint 2013 (Classic e Modern) utilizando HTML, CSS, JavaScript, jQuery, AngularJS, Vue.js, React.js e SharePoint REST API. Criação de webparts com SPFx, React.js e TypeScript.',
+  },
+]
 
 export function About() {
   return (
@@ -45,13 +49,13 @@ export function About() {
               Desenvolvedora Full Stack
             </div>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              Transformando{" "}
+              Transformando{' '}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-500">
                 desafios em soluções
               </span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Desenvolvedora de Software especializada em SharePoint e desenvolvimento web moderno, 
+              Desenvolvedora de Software especializada em SharePoint e desenvolvimento web moderno,
               com mais de 4 anos de experiência criando soluções digitais inovadoras.
             </p>
           </div>
@@ -89,8 +93,8 @@ export function About() {
                     Jornada Profissional
                   </h2>
                 </div>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="flex items-center gap-2 hover:bg-accent/50"
                   onClick={() => window.open('/cv.pdf', '_blank')}
                 >
@@ -122,5 +126,5 @@ export function About() {
         </div>
       </section>
     </>
-  );
+  )
 }

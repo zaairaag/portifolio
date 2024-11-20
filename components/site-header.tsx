@@ -1,6 +1,7 @@
-import { MainNav } from "@/components/main-nav"
-import { ModeToggle } from "@/components/mode-toggle"
-import { Logo } from "./ui/logo"
+import { MainNav } from '@/components/main-nav'
+import { ModeToggle } from '@/components/mode-toggle'
+
+import { Logo } from './ui/logo'
 
 export function SiteHeader() {
   return (

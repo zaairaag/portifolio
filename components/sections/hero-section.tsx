@@ -1,7 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+
+import Link from 'next/link'
 
 interface HeroSectionProps {
   badge?: string
@@ -35,9 +36,7 @@ export function HeroSection({ badge, title, subtitle, action }: HeroSectionProps
             </span>
           </h1>
           {subtitle && (
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {subtitle}
-            </p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
           )}
           {action && (
             <div className="pt-4">

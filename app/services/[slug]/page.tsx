@@ -1,7 +1,8 @@
-import { notFound } from "next/navigation"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
-import { services } from "@/data/services"
-import Link from "next/link"
+import { services } from '@/data/services'
+import { ArrowRight, CheckCircle2 } from 'lucide-react'
+
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
 
 interface ServicePageProps {
   params: {
@@ -10,7 +11,7 @@ interface ServicePageProps {
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const service = services.find((s) => s.slug === params.slug)
+  const service = services.find(s => s.slug === params.slug)
 
   if (!service) {
     notFound()
@@ -36,7 +37,7 @@ export default function ServicePage({ params }: ServicePageProps) {
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <h2 className="text-2xl font-bold mb-4">Sobre o Serviço</h2>
               <div dangerouslySetInnerHTML={{ __html: service.description }} />
-              
+
               <h2 className="text-2xl font-bold mt-8 mb-4">Nossa Abordagem</h2>
               <div dangerouslySetInnerHTML={{ __html: service.approach }} />
             </div>
@@ -80,9 +81,9 @@ export default function ServicePage({ params }: ServicePageProps) {
         <h2 className="text-2xl font-bold mb-8">Outros Serviços</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services
-            .filter((s) => s.slug !== service.slug)
+            .filter(s => s.slug !== service.slug)
             .slice(0, 3)
-            .map((relatedService) => (
+            .map(relatedService => (
               <Link
                 key={relatedService.slug}
                 href={`/services/${relatedService.slug}`}
@@ -101,9 +102,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                 {/* Service Info */}
                 <div className="flex-1 p-6">
                   <h3 className="text-xl font-semibold mb-3">{relatedService.title}</h3>
-                  <p className="text-muted-foreground text-sm">
-                    {relatedService.shortDescription}
-                  </p>
+                  <p className="text-muted-foreground text-sm">{relatedService.shortDescription}</p>
                 </div>
               </Link>
             ))}
@@ -114,7 +113,7 @@ export default function ServicePage({ params }: ServicePageProps) {
 }
 
 export function generateStaticParams() {
-  return services.map((service) => ({
+  return services.map(service => ({
     slug: service.slug,
   }))
 }

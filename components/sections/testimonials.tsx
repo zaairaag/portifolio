@@ -1,10 +1,12 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion'
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+
+import { useEffect, useState } from 'react'
+
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 
 const testimonials = [
   {
@@ -28,52 +30,50 @@ const testimonials = [
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400',
     text: 'An exceptional developer who brings both technical skill and creative insight to every project. The results speak for themselves.',
   },
-];
+]
 
 export function Testimonials() {
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [current, setCurrent] = useState(0)
+  const [direction, setDirection] = useState(0)
 
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
-      opacity: 0
+      opacity: 0,
     }),
     center: {
       zIndex: 1,
       x: 0,
-      opacity: 1
+      opacity: 1,
     },
     exit: (direction: number) => ({
       zIndex: 0,
       x: direction < 0 ? 1000 : -1000,
-      opacity: 0
-    })
-  };
+      opacity: 0,
+    }),
+  }
 
-  const swipeConfidenceThreshold = 10000;
+  const swipeConfidenceThreshold = 10000
   const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
-  };
+    return Math.abs(offset) * velocity
+  }
 
   const paginate = (newDirection: number) => {
-    setDirection(newDirection);
-    setCurrent((current + newDirection + testimonials.length) % testimonials.length);
-  };
+    setDirection(newDirection)
+    setCurrent((current + newDirection + testimonials.length) % testimonials.length)
+  }
 
   useEffect(() => {
     const timer = setInterval(() => {
-      paginate(1);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [current]);
+      paginate(1)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [current])
 
   return (
     <section id="testimonials" className="py-20">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Client Testimonials
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Client Testimonials</h2>
 
         <div className="relative max-w-4xl mx-auto">
           <AnimatePresence initial={false} custom={direction}>
@@ -85,19 +85,19 @@ export function Testimonials() {
               animate="center"
               exit="exit"
               transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.2 }
+                x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 },
               }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={1}
               onDragEnd={(e, { offset, velocity }) => {
-                const swipe = swipePower(offset.x, velocity.x);
+                const swipe = swipePower(offset.x, velocity.x)
 
                 if (swipe < -swipeConfidenceThreshold) {
-                  paginate(1);
+                  paginate(1)
                 } else if (swipe > swipeConfidenceThreshold) {
-                  paginate(-1);
+                  paginate(-1)
                 }
               }}
               className="absolute w-full"
@@ -115,9 +115,7 @@ export function Testimonials() {
                     <Quote className="h-8 w-8 text-primary mb-4" />
                     <p className="text-lg mb-4">{testimonials[current].text}</p>
                     <div>
-                      <div className="font-semibold">
-                        {testimonials[current].name}
-                      </div>
+                      <div className="font-semibold">{testimonials[current].name}</div>
                       <div className="text-sm text-muted-foreground">
                         {testimonials[current].role} at {testimonials[current].company}
                       </div>
@@ -156,8 +154,8 @@ export function Testimonials() {
             <button
               key={index}
               onClick={() => {
-                setDirection(index > current ? 1 : -1);
-                setCurrent(index);
+                setDirection(index > current ? 1 : -1)
+                setCurrent(index)
               }}
               className={`w-2 h-2 rounded-full transition-colors ${
                 index === current ? 'bg-primary' : 'bg-secondary'
@@ -167,5 +165,5 @@ export function Testimonials() {
         </div>
       </div>
     </section>
-  );
+  )
 }

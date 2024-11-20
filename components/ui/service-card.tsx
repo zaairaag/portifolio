@@ -1,27 +1,30 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import { FADE_UP_ANIMATION_VARIANTS } from "@/lib/constants";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, Check } from "lucide-react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { motion } from 'framer-motion'
+import { Check, ChevronDown } from 'lucide-react'
+
+import { useState } from 'react'
+
+import { Button } from '@/components/ui/button'
+
+import { FADE_UP_ANIMATION_VARIANTS } from '@/lib/constants'
+import { cn } from '@/lib/utils'
 
 interface Service {
-  title: string;
-  description: string;
-  longDescription: string;
-  features: string[];
-  deliverables: string[];
-  icon: React.ReactNode;
+  title: string
+  description: string
+  longDescription: string
+  features: string[]
+  deliverables: string[]
+  icon: React.ReactNode
 }
 
 interface ServiceCardProps {
-  service: Service;
+  service: Service
 }
 
 export function ServiceCard({ service }: ServiceCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <motion.div
@@ -35,12 +38,8 @@ export function ServiceCard({ service }: ServiceCardProps) {
             {service.icon}
           </div>
           <div className="space-y-1 flex-1">
-            <h3 className="font-semibold text-lg leading-tight">
-              {service.title}
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              {service.description}
-            </p>
+            <h3 className="font-semibold text-lg leading-tight">{service.title}</h3>
+            <p className="text-sm text-muted-foreground">{service.description}</p>
           </div>
         </div>
       </div>
@@ -56,33 +55,28 @@ export function ServiceCard({ service }: ServiceCardProps) {
           className="absolute -top-[14px] left-1/2 -translate-x-1/2 h-7 px-3 py-0 text-xs bg-background border border-border/50 hover:bg-accent/5"
           onClick={() => setIsExpanded(!isExpanded)}
         >
-          <ChevronDown 
-            className={cn(
-              "h-3 w-3 transition-transform duration-200",
-              isExpanded && "rotate-180"
-            )} 
+          <ChevronDown
+            className={cn('h-3 w-3 transition-transform duration-200', isExpanded && 'rotate-180')}
           />
-          <span className="ml-1">{isExpanded ? "Ver menos" : "Ver mais"}</span>
+          <span className="ml-1">{isExpanded ? 'Ver menos' : 'Ver mais'}</span>
         </Button>
 
         <div
           className={cn(
-            "grid transition-all duration-200",
-            isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            'grid transition-all duration-200',
+            isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
           )}
         >
           <div className="overflow-hidden">
             <div className="p-6 pt-4 space-y-6">
               {/* Descrição Detalhada */}
-              <p className="text-sm text-muted-foreground">
-                {service.longDescription}
-              </p>
+              <p className="text-sm text-muted-foreground">{service.longDescription}</p>
 
               {/* Features em Grid */}
               <div className="space-y-3">
                 <h4 className="text-sm font-medium">O que está incluído:</h4>
                 <div className="grid grid-cols-1 gap-2">
-                  {service.features.map((feature) => (
+                  {service.features.map(feature => (
                     <div
                       key={feature}
                       className="flex items-center gap-2 text-sm text-muted-foreground"
@@ -98,7 +92,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
               <div className="space-y-3">
                 <h4 className="text-sm font-medium">Você receberá:</h4>
                 <div className="grid grid-cols-1 gap-2">
-                  {service.deliverables.map((deliverable) => (
+                  {service.deliverables.map(deliverable => (
                     <div
                       key={deliverable}
                       className="flex items-center gap-2 text-sm text-muted-foreground"
@@ -114,5 +108,5 @@ export function ServiceCard({ service }: ServiceCardProps) {
         </div>
       </div>
     </motion.div>
-  );
+  )
 }

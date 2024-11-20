@@ -265,4 +265,5 @@ export function Navigation() {
       </div>
     </motion.nav>
   );
+}  )
 }

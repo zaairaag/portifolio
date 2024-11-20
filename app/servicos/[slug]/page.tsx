@@ -1,7 +1,8 @@
-import { Metadata } from "next"
-import { services } from "@/data/services"
-import { notFound } from "next/navigation"
-import { Check } from "lucide-react"
+import { services } from '@/data/services'
+import { Check } from 'lucide-react'
+
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 type Props = {
   params: {
@@ -11,22 +12,22 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = services.find(s => s.slug === params.slug)
-  
+
   if (!service) {
     return {
-      title: 'Serviço não encontrado'
+      title: 'Serviço não encontrado',
     }
   }
 
   return {
     title: `${service.title} | Zaira Miranda`,
-    description: service.description
+    description: service.description,
   }
 }
 
 export default function ServicePage({ params }: Props) {
   const service = services.find(s => s.slug === params.slug)
-  
+
   if (!service) {
     notFound()
   }
@@ -48,12 +49,8 @@ export default function ServicePage({ params }: Props) {
               <span className="text-primary">•</span>
               <span>{service.title}</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-              {service.title}
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {service.description}
-            </p>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{service.title}</h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{service.description}</p>
           </div>
         </div>
       </section>
@@ -63,9 +60,7 @@ export default function ServicePage({ params }: Props) {
         <div className="max-w-4xl mx-auto">
           {/* Long Description */}
           <div className="prose prose-gray dark:prose-invert max-w-none mb-16">
-            <p className="whitespace-pre-line text-lg">
-              {service.longDescription}
-            </p>
+            <p className="whitespace-pre-line text-lg">{service.longDescription}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -108,20 +103,18 @@ export default function ServicePage({ params }: Props) {
             </div>
 
             <div className="relative p-8 md:p-12 text-center space-y-6">
-              <h2 className="text-2xl md:text-3xl font-bold">
-                Pronto para começar seu projeto?
-              </h2>
+              <h2 className="text-2xl md:text-3xl font-bold">Pronto para começar seu projeto?</h2>
               <p className="text-muted-foreground">
                 Vamos trabalhar juntos para criar a solução digital ideal para seu negócio.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <a 
+                <a
                   href="mailto:seu-email@exemplo.com"
                   className="inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium h-10 px-6 bg-primary text-primary-foreground shadow transition-colors hover:bg-primary/90"
                 >
                   Solicitar Orçamento
                 </a>
-                <a 
+                <a
                   href="/contato"
                   className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 px-6 border border-input bg-background/50 shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground"
                 >

@@ -1,75 +1,78 @@
-import { Metadata } from "next"
-import { HeroSection } from "@/components/sections/hero-section"
-import { services } from "@/data/services"
-import Link from "next/link"
-import { ArrowRight, Lightbulb, Users, FileCheck, Rocket, MessageSquare, Zap } from "lucide-react"
+import { services } from '@/data/services'
+import { ArrowRight, FileCheck, Lightbulb, MessageSquare, Rocket, Users, Zap } from 'lucide-react'
+
+import { Metadata } from 'next'
+import Link from 'next/link'
+
+import { HeroSection } from '@/components/sections/hero-section'
 
 export const metadata: Metadata = {
   title: 'Serviços',
-  description: 'Desenvolvimento web profissional: sites, e-commerce, landing pages e mais. Soluções personalizadas para seu negócio crescer online.',
+  description:
+    'Desenvolvimento web profissional: sites, e-commerce, landing pages e mais. Soluções personalizadas para seu negócio crescer online.',
 }
 
 const workSteps = [
   {
     icon: <MessageSquare className="w-6 h-6" />,
-    title: "Reunião Inicial",
-    description: "Conversamos sobre seus objetivos, necessidades e expectativas para o projeto."
+    title: 'Reunião Inicial',
+    description: 'Conversamos sobre seus objetivos, necessidades e expectativas para o projeto.',
   },
   {
     icon: <Lightbulb className="w-6 h-6" />,
-    title: "Planejamento",
-    description: "Desenvolvo uma proposta detalhada com escopo, prazo e investimento."
+    title: 'Planejamento',
+    description: 'Desenvolvo uma proposta detalhada com escopo, prazo e investimento.',
   },
   {
     icon: <FileCheck className="w-6 h-6" />,
-    title: "Aprovação",
-    description: "Alinhamos todos os detalhes e aprovamos o plano de execução."
+    title: 'Aprovação',
+    description: 'Alinhamos todos os detalhes e aprovamos o plano de execução.',
   },
   {
     icon: <Zap className="w-6 h-6" />,
-    title: "Desenvolvimento",
-    description: "Executo o projeto com atualizações frequentes sobre o progresso."
+    title: 'Desenvolvimento',
+    description: 'Executo o projeto com atualizações frequentes sobre o progresso.',
   },
   {
     icon: <Users className="w-6 h-6" />,
-    title: "Feedback",
-    description: "Revisamos juntos e fazemos ajustes conforme necessário."
+    title: 'Feedback',
+    description: 'Revisamos juntos e fazemos ajustes conforme necessário.',
   },
   {
     icon: <Rocket className="w-6 h-6" />,
-    title: "Entrega",
-    description: "Projeto finalizado, testado e pronto para decolar."
-  }
+    title: 'Entrega',
+    description: 'Projeto finalizado, testado e pronto para decolar.',
+  },
 ]
 
 export default function Services() {
   return (
     <>
-      <HeroSection 
+      <HeroSection
         badge="Serviços"
         title="Soluções Web Profissionais"
         subtitle="Do planejamento à execução, crio soluções web que impulsionam seu negócio"
         action={{
-          text: "Ver Projetos Realizados",
-          href: "/portfolio"
+          text: 'Ver Projetos Realizados',
+          href: '/portfolio',
         }}
       />
-      
+
       {/* Services Section */}
       <section className="container py-6 md:py-8">
         <div className="max-w-6xl mx-auto">
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Link 
-                href={`/servicos/${service.slug}`} 
+              <Link
+                href={`/servicos/${service.slug}`}
                 key={index}
                 className="group block relative overflow-hidden"
               >
                 <div className="relative flex flex-col p-8 h-full bg-gradient-to-br from-card to-card/40 backdrop-blur-sm border border-border/50 rounded-3xl transition-all duration-300 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20">
                   {/* Background Accent */}
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/40 via-primary to-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
+
                   {/* Icon */}
                   <div className="relative mb-6">
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
@@ -80,9 +83,7 @@ export default function Services() {
 
                   {/* Content */}
                   <div className="flex-1 space-y-4 mb-8">
-                    <h3 className="text-2xl font-semibold tracking-tight">
-                      {service.title}
-                    </h3>
+                    <h3 className="text-2xl font-semibold tracking-tight">{service.title}</h3>
                     <p className="text-muted-foreground/90 leading-relaxed">
                       {service.shortDescription}
                     </p>
@@ -105,7 +106,7 @@ export default function Services() {
       {/* How We Work Section */}
       <section className="container py-24 border-y border-border/50">
         <div className="max-w-5xl mx-auto">
-          <HeroSection 
+          <HeroSection
             badge="Como Trabalhamos"
             title="Um processo transparente"
             subtitle="Do planejamento à entrega, com foco em resultados"
@@ -119,7 +120,7 @@ export default function Services() {
             {/* Steps */}
             <div className="space-y-12 relative">
               {workSteps.map((step, index) => (
-                <div 
+                <div
                   key={index}
                   className={`relative flex items-center gap-8 ${
                     index % 2 === 0 ? 'flex-row-reverse' : ''
@@ -127,27 +128,29 @@ export default function Services() {
                 >
                   {/* Content Side */}
                   <div className={`flex-1 ${index % 2 === 0 ? 'text-right' : ''}`}>
-                    <div className={`bg-gradient-to-br from-muted/80 to-muted/40 rounded-xl p-6 border border-border/50 relative group transition-all duration-300 hover:border-primary/50 ${
-                      index % 2 === 0 ? 'mr-4' : 'ml-4'
-                    }`}>
+                    <div
+                      className={`bg-gradient-to-br from-muted/80 to-muted/40 rounded-xl p-6 border border-border/50 relative group transition-all duration-300 hover:border-primary/50 ${
+                        index % 2 === 0 ? 'mr-4' : 'ml-4'
+                      }`}
+                    >
                       {/* Connecting Line */}
-                      <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-px bg-border/50 group-hover:bg-primary/50 transition-colors ${
-                        index % 2 === 0 ? '-right-4' : '-left-4'
-                      }`} />
+                      <div
+                        className={`absolute top-1/2 -translate-y-1/2 w-4 h-px bg-border/50 group-hover:bg-primary/50 transition-colors ${
+                          index % 2 === 0 ? '-right-4' : '-left-4'
+                        }`}
+                      />
 
-                      <div className={`flex items-center gap-4 mb-3 ${
-                        index % 2 === 0 ? 'flex-row-reverse' : ''
-                      }`}>
+                      <div
+                        className={`flex items-center gap-4 mb-3 ${
+                          index % 2 === 0 ? 'flex-row-reverse' : ''
+                        }`}
+                      >
                         <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
                           {step.icon}
                         </div>
-                        <h3 className="font-semibold text-xl">
-                          {step.title}
-                        </h3>
+                        <h3 className="font-semibold text-xl">{step.title}</h3>
                       </div>
-                      <p className="text-muted-foreground/90 leading-relaxed">
-                        {step.description}
-                      </p>
+                      <p className="text-muted-foreground/90 leading-relaxed">{step.description}</p>
                     </div>
                   </div>
 
@@ -180,10 +183,10 @@ export default function Services() {
         <div className="container relative">
           <div className="mx-auto max-w-4xl py-24 text-center">
             <h2 className="mb-4 text-4xl font-bold tracking-tight">
-              Pronto para{" "}
+              Pronto para{' '}
               <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
                 transformar suas ideias
-              </span>{" "}
+              </span>{' '}
               em realidade?
             </h2>
             <p className="mb-8 text-xl text-muted-foreground">

@@ -1,35 +1,40 @@
-'use client';
+'use client'
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from 'framer-motion'
+
+import { useEffect, useState } from 'react'
 
 interface LogoProps {
-  width?: number;
-  height?: number;
-  animated?: boolean;
+  width?: number
+  height?: number
+  animated?: boolean
 }
 
 export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   if (!mounted) {
     return (
       <div className="relative w-10 h-10">
         <div className="absolute inset-0 bg-primary/10 rounded-lg" />
       </div>
-    );
+    )
   }
 
   return (
     <motion.div
-      whileHover={animated ? {
-        scale: 1.05,
-        transition: { type: "spring", stiffness: 400, damping: 10 }
-      } : {}}
+      whileHover={
+        animated
+          ? {
+              scale: 1.05,
+              transition: { type: 'spring', stiffness: 400, damping: 10 },
+            }
+          : {}
+      }
       className="relative group"
       style={{ width, height }}
     >
@@ -51,12 +56,12 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{
             scale: [0.95, 1, 0.95],
             opacity: [0.5, 1, 0.5],
-            rotate: [0, 360]
+            rotate: [0, 360],
           }}
           transition={{
             duration: 8,
-            ease: "linear",
-            repeat: Infinity
+            ease: 'linear',
+            repeat: Infinity,
           }}
         />
 
@@ -69,12 +74,12 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{
             scale: [1, 0.95, 1],
             opacity: [1, 0.5, 1],
-            rotate: [360, 0]
+            rotate: [360, 0],
           }}
           transition={{
             duration: 8,
-            ease: "linear",
-            repeat: Infinity
+            ease: 'linear',
+            repeat: Infinity,
           }}
         />
 
@@ -88,10 +93,10 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 0.2,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -105,10 +110,10 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 0.4,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -122,10 +127,10 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 0.6,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -139,10 +144,10 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 0.8,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -156,10 +161,10 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 1,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -173,10 +178,10 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 1.2,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -190,10 +195,10 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 1.4,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -207,10 +212,10 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           animate={{ pathLength: 1, opacity: 1 }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             delay: 1.6,
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -223,13 +228,13 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
           initial={{ scale: 0, opacity: 0 }}
           animate={{
             scale: [0, 1, 0],
-            opacity: [0, 1, 0]
+            opacity: [0, 1, 0],
           }}
           transition={{
             duration: 2,
-            ease: "easeInOut",
+            ease: 'easeInOut',
             repeat: Infinity,
-            repeatType: "reverse"
+            repeatType: 'reverse',
           }}
         />
 
@@ -242,28 +247,28 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
             r="0.5"
             className="fill-primary/80"
             initial={{
-              x: Math.cos(angle * Math.PI / 180) * 12,
-              y: Math.sin(angle * Math.PI / 180) * 12
+              x: Math.cos((angle * Math.PI) / 180) * 12,
+              y: Math.sin((angle * Math.PI) / 180) * 12,
             }}
             animate={{
               x: [
-                Math.cos((angle + 0) * Math.PI / 180) * 12,
-                Math.cos((angle + 180) * Math.PI / 180) * 12,
-                Math.cos((angle + 360) * Math.PI / 180) * 12
+                Math.cos(((angle + 0) * Math.PI) / 180) * 12,
+                Math.cos(((angle + 180) * Math.PI) / 180) * 12,
+                Math.cos(((angle + 360) * Math.PI) / 180) * 12,
               ],
               y: [
-                Math.sin((angle + 0) * Math.PI / 180) * 12,
-                Math.sin((angle + 180) * Math.PI / 180) * 12,
-                Math.sin((angle + 360) * Math.PI / 180) * 12
+                Math.sin(((angle + 0) * Math.PI) / 180) * 12,
+                Math.sin(((angle + 180) * Math.PI) / 180) * 12,
+                Math.sin(((angle + 360) * Math.PI) / 180) * 12,
               ],
               scale: [1, 1.5, 1],
-              opacity: [0.3, 1, 0.3]
+              opacity: [0.3, 1, 0.3],
             }}
             transition={{
               duration: 3,
-              ease: "linear",
+              ease: 'linear',
               repeat: Infinity,
-              delay: i * 0.2
+              delay: i * 0.2,
             }}
           />
         ))}
@@ -277,7 +282,7 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
         transition={{
           duration: 3,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: 'easeInOut',
         }}
       />
 
@@ -311,5 +316,5 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
         ))}
       </motion.div>
     </motion.div>
-  );
+  )
 }

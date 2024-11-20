@@ -1,7 +1,8 @@
-"use client"
+'use client'
 
-import { motion } from "framer-motion"
-import { Badge } from "./badge"
+import { motion } from 'framer-motion'
+
+import { Badge } from './badge'
 
 interface TimelineItem {
   year: string

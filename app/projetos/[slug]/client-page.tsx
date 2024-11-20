@@ -1,16 +1,19 @@
-'use client';
+'use client'
 
-import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { ArrowLeftIcon, ExternalLinkIcon, GithubIcon, CheckCircle2 } from 'lucide-react';
-import Link from 'next/link';
-import { containerVariants, itemVariants } from './animation-variants';
-import type { Project } from '@/config/projects';
+import type { Project } from '@/config/projects'
+import { motion } from 'framer-motion'
+import { ArrowLeftIcon, CheckCircle2, ExternalLinkIcon, GithubIcon } from 'lucide-react'
+
+import Link from 'next/link'
+
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+
+import { containerVariants, itemVariants } from './animation-variants'
 
 interface Props {
-  project: Project;
+  project: Project
 }
 
 export function ClientPage({ project }: Props) {
@@ -60,15 +63,10 @@ export function ClientPage({ project }: Props) {
             animate={{ scale: 1 }}
             transition={{ duration: 0.6 }}
           />
-          <motion.div 
-            className="absolute bottom-0 left-0 right-0 p-8 z-20"
-            variants={itemVariants}
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">
-              {project.title}
-            </h1>
+          <motion.div className="absolute bottom-0 left-0 right-0 p-8 z-20" variants={itemVariants}>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">{project.title}</h1>
             <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
+              {project.tags.map(tag => (
                 <Badge
                   key={tag}
                   variant="secondary"
@@ -81,23 +79,15 @@ export function ClientPage({ project }: Props) {
           </motion.div>
         </motion.div>
 
-        <motion.div 
-          variants={itemVariants}
-          className="prose prose-lg dark:prose-invert max-w-none"
-        >
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            {project.description}
-          </p>
+        <motion.div variants={itemVariants} className="prose prose-lg dark:prose-invert max-w-none">
+          <p className="text-lg leading-relaxed text-muted-foreground">{project.description}</p>
         </motion.div>
 
         <motion.div variants={itemVariants}>
           <h2 className="text-2xl font-semibold mb-6">Destaques do Projeto</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {project.highlights.map((highlight, index) => (
-              <Card 
-                key={index}
-                className="p-4 bg-primary/5 border-primary/10 backdrop-blur-sm"
-              >
+              <Card key={index} className="p-4 bg-primary/5 border-primary/10 backdrop-blur-sm">
                 <motion.div
                   className="flex items-start gap-3"
                   initial={{ opacity: 0, x: -20 }}
@@ -112,10 +102,7 @@ export function ClientPage({ project }: Props) {
           </div>
         </motion.div>
 
-        <motion.div 
-          variants={itemVariants}
-          className="flex justify-center pt-8"
-        >
+        <motion.div variants={itemVariants} className="flex justify-center pt-8">
           <Link href="/projetos">
             <Button variant="outline" size="lg" className="group">
               <ArrowLeftIcon className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
@@ -125,5 +112,5 @@ export function ClientPage({ project }: Props) {
         </motion.div>
       </motion.div>
     </div>
-  );
+  )
 }

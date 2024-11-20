@@ -1,33 +1,36 @@
-'use client';
+'use client'
 
-import { motion } from 'framer-motion';
-import { GithubIcon, LinkedinIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useRef, useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useTheme } from 'next-themes';
-import { TypeAnimation } from 'react-type-animation';
+import { motion } from 'framer-motion'
+import { GithubIcon, LinkedinIcon } from 'lucide-react'
+
+import { useEffect, useRef, useState } from 'react'
+import { TypeAnimation } from 'react-type-animation'
+
+import { useTheme } from 'next-themes'
+import Link from 'next/link'
+
+import { Button } from '@/components/ui/button'
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { theme } = useTheme();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const ref = useRef<HTMLElement>(null)
+  const { theme } = useTheme()
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
         x: e.clientX,
-        y: e.clientY
-      });
-    };
+        y: e.clientY,
+      })
+    }
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
   return (
-    <section 
-      ref={ref} 
+    <section
+      ref={ref}
       className="container h-[50vh] flex flex-col items-center justify-center -mt-28 relative overflow-hidden"
     >
       {/* Interactive Cursor Effect */}
@@ -35,17 +38,15 @@ export function Hero() {
         className="pointer-events-none fixed inset-0 z-30"
         animate={{
           background: `radial-gradient(400px at ${mousePosition.x}px ${mousePosition.y}px, ${
-            theme === 'dark' 
-              ? 'rgba(255, 0, 128, 0.07)'
-              : 'rgba(0, 223, 216, 0.07)'
-          }, transparent 70%)`
+            theme === 'dark' ? 'rgba(255, 0, 128, 0.07)' : 'rgba(0, 223, 216, 0.07)'
+          }, transparent 70%)`,
         }}
-        transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+        transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
       />
 
       {/* Gradiente de fundo */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/50 z-0" />
-      
+
       <motion.div
         className="z-20 flex flex-col items-center justify-center text-center gap-6"
         initial={{ opacity: 0, y: 20 }}
@@ -67,9 +68,7 @@ export function Hero() {
             className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-xl"
           />
           <div className="relative overflow-hidden">
-            <motion.h1 
-              className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 relative whitespace-nowrap px-2 pb-2 pt-1"
-            >
+            <motion.h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 relative whitespace-nowrap px-2 pb-2 pt-1">
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -83,9 +82,9 @@ export function Hero() {
                     transition={{
                       duration: 0.2,
                       delay: index * 0.05,
-                      type: "spring",
+                      type: 'spring',
                       stiffness: 200,
-                      damping: 10
+                      damping: 10,
                     }}
                     className="inline-block"
                   >
@@ -97,12 +96,12 @@ export function Hero() {
                 className="inline-block w-[2px] h-[1em] bg-primary ml-1 align-middle"
                 animate={{
                   opacity: [1, 0],
-                  scaleY: [1, 1.1, 1]
+                  scaleY: [1, 1.1, 1],
                 }}
                 transition={{
                   duration: 0.8,
                   repeat: Infinity,
-                  ease: "linear"
+                  ease: 'linear',
                 }}
               />
             </motion.h1>
@@ -140,5 +139,5 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background/50" />
       </div>
     </section>
-  );
+  )
 }
