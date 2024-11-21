@@ -68,18 +68,18 @@ export function MainNav() {
                     Serviços
                   </NavigationMenuTrigger>
                 </Link>
-                <NavigationMenuContent>
-                  <ul className="min-w-[180px] p-2">
+                <NavigationMenuContent className="z-[9999]">
+                  <ul className="relative z-[9999] min-w-[180px] p-2 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-2xl rounded-md">
                     {services.map(service => (
                       <li key={service.slug}>
                         <NavigationMenuLink asChild>
                           <Link
                             href={`/servicos/${service.slug}`}
                             className={cn(
-                              'block select-none px-2 py-1.5 text-base no-underline outline-none transition-colors rounded-sm',
+                              'block select-none px-2 py-1.5 text-base no-underline outline-none transition-colors rounded-sm font-medium',
                               pathname === `/servicos/${service.slug}`
-                                ? 'text-primary font-medium'
-                                : 'text-muted-foreground hover:text-primary'
+                                ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white'
+                                : 'text-zinc-700 hover:bg-zinc-50 dark:text-zinc-200 dark:hover:bg-zinc-800/90 hover:text-zinc-900 dark:hover:text-white'
                             )}
                           >
                             {service.title}
