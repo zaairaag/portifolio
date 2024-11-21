@@ -1,34 +1,37 @@
+'use client'
+
 import { Person, WithContext } from 'schema-dts'
 
 export function JsonLd() {
   const jsonLd: WithContext<Person> = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Zaira Moraes',
-    url: 'https://zairamoraes.com.br',
+    name: 'Zaíra Gonçalves',
+    jobTitle: 'Desenvolvedora Front-end',
+    url: 'https://www.zairagoncalves.com/',
     sameAs: [
-      'https://github.com/zairamorales',
-      'https://www.linkedin.com/in/zairamorales',
-      'https://www.instagram.com/zairamorales',
+      'https://github.com/zaairaag',
+      // Adicione outros perfis sociais aqui
     ],
-    jobTitle: 'Desenvolvedora Full Stack',
-    image: 'https://zairamoraes.com.br/images/profile.jpg',
-    description:
-      'Desenvolvedora Full Stack apaixonada por criar soluções web inovadoras e eficientes.',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'São Paulo',
-      addressRegion: 'SP',
-      addressCountry: 'BR',
-    },
-    email: 'contato@zairamoraes.com.br',
+    image: 'https://www.zairagoncalves.com/profile.jpg',
+    description: 'Desenvolvedora Front-end apaixonada por criar experiências web incríveis. Especializada em React, Next.js e TypeScript.',
+    knowsAbout: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'HTML',
+      'CSS',
+      'Tailwind CSS',
+      'UI/UX Design',
+      'Web Development'
+    ]
   }
 
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      key="jsonld"
     />
   )
 }

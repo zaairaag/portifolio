@@ -1,62 +1,52 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { toast } from '@/components/ui/use-toast'
+
+declare global {
+  interface Window {
+    workbox: any
+  }
+}
 
 export function useServiceWorker() {
-  const [isReady, setIsReady] = useState(false)
-  const [updateAvailable, setUpdateAvailable] = useState(false)
-
   useEffect(() => {
     if (
       typeof window !== 'undefined' &&
-      'serviceWorker' in navigator &&
-      window.workbox !== undefined
+      'serviceWorker' in navigator
     ) {
       // Registra o service worker
       navigator.serviceWorker
         .register('/sw.js')
-        .then(registration => {
+        .then((registration) => {
           console.log('Service Worker registrado com sucesso:', registration)
-          setIsReady(true)
 
-          // Verifica atualizações
+          // Mostra notificação apenas quando há uma nova versão
           registration.addEventListener('updatefound', () => {
             const newWorker = registration.installing
             if (newWorker) {
               newWorker.addEventListener('statechange', () => {
                 if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  setUpdateAvailable(true)
+                  toast({
+                    title: 'Nova versão disponível',
+                    description: 'Atualize a página para ver as últimas alterações.',
+                    duration: 5000,
+                  })
                 }
               })
             }
           })
         })
-        .catch(error => {
-          console.error('Erro ao registrar Service Worker:', error)
+        .catch((error) => {
+          console.error('Erro ao registrar o Service Worker:', error)
         })
 
-      // Listener para atualização do service worker
-      let refreshing = false
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) {
-          refreshing = true
-          window.location.reload()
-        }
-      })
+      // Verifica por atualizações a cada 5 minutos
+      setInterval(() => {
+        navigator.serviceWorker.ready.then((registration) => {
+          registration.update()
+        })
+      }, 5 * 60 * 1000)
     }
   }, [])
-
-  // Função para atualizar o service worker
-  const updateServiceWorker = async () => {
-    const registration = await navigator.serviceWorker.ready
-    if (registration && registration.waiting) {
-      registration.waiting.postMessage({ type: 'SKIP_WAITING' })
-    }
-  }
-
-  return {
-    isReady,
-    updateAvailable,
-    updateServiceWorker,
-  }
 }

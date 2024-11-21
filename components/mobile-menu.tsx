@@ -49,7 +49,7 @@ export default function MobileMenu() {
                       }`}
                     >
                       <span className="absolute inset-y-0 -left-4 w-1 bg-primary opacity-0 transition-opacity group-hover:opacity-100" />
-                      <span className="relative">{item.label}</span>
+                      <span className="relative">{item.title}</span>
                       {isActive && (
                         <span className="absolute inset-y-4 -right-4 w-1 bg-primary" />
                       )}
@@ -62,3 +62,5 @@ export default function MobileMenu() {
         </nav>
       </SheetContent>
     </Sheet>
+  )
+}

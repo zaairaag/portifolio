@@ -75,15 +75,11 @@ export default function manifest(): MetadataRoute.Manifest {
         src: '/screenshots/desktop.png',
         sizes: '1920x1080',
         type: 'image/png',
-        form_factor: 'wide',
-        label: 'Desktop View',
       },
       {
         src: '/screenshots/mobile.png',
         sizes: '750x1334',
         type: 'image/png',
-        form_factor: 'narrow',
-        label: 'Mobile View',
       },
     ],
   }
