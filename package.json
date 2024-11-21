@@ -58,7 +58,6 @@
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.460.0",
     "next": "13.5.1",
-    "next-intl": "^3.25.1",
     "next-themes": "^0.3.0",
     "postcss": "8.4.30",
     "react": "18.2.0",

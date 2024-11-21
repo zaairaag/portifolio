@@ -13,8 +13,8 @@ export const navigationLinks: NavigationLink[] = [
     href: '/sobre',
   },
   {
-    title: 'Projetos',
-    href: '/projetos',
+    title: 'Portfólio',
+    href: '/portfolio',
   },
   {
     title: 'Serviços',

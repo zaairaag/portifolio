@@ -1,37 +1,52 @@
+'use client'
+
 import { services } from '@/data/services'
 import { ArrowRight } from 'lucide-react'
-import { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { WorkProcess } from '@/components/sections/work-process'
-
-export const metadata: Metadata = {
-  title: 'Serviços',
-  description:
-    'Desenvolvimento web profissional: sites, e-commerce, landing pages e mais. Soluções personalizadas para seu negócio crescer online.',
-}
+import Image from 'next/image'
 
 export default function Services() {
   return (
-    <>
-      {/* Seção de Cabeçalho */}
-      <section className="container py-16 md:py-24">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center justify-center px-4 py-1.5 mb-6 text-sm font-medium rounded-full bg-primary/10 text-primary">
-            Serviços
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="relative py-8 md:py-12 overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          {/* Background Decoration */}
+          <div className="absolute -top-1/2 right-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
+          <div className="absolute top-0 left-0 h-64 w-64 rounded-full bg-violet-500/5 blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/80" />
+          <Image
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+            alt="Background"
+            fill
+            className="object-cover opacity-10"
+            priority
+          />
+        </div>
+        <div className="container mx-auto max-w-5xl px-4 py-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-block rounded-full px-4 py-1.5 text-sm font-medium bg-accent/10 text-accent-foreground mb-4">
+              Serviços
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+              Criando{' '}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-500">
+                experiências excepcionais
+              </span>
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Uma seleção dos meus melhores projetos, demonstrando expertise em desenvolvimento web,
+              design de interfaces e soluções técnicas inovadoras.
+            </p>
+            <Button asChild size="lg">
+              <Link href="/portfolio">
+                Ver Projetos Realizados
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-            Soluções Web Profissionais
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Do planejamento à execução, crio soluções web que impulsionam seu negócio
-          </p>
-          <Button asChild size="lg">
-            <Link href="/portfolio">
-              Ver Projetos Realizados
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
         </div>
       </section>
 
@@ -49,22 +64,21 @@ export default function Services() {
                   {/* Destaque de Fundo */}
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/40 via-primary to-primary/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                  {/* Ícone */}
-                  <div className="relative mb-6">
-                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary">
-                      {service.icon}
-                    </div>
-                    <div className="absolute -inset-4 bg-primary/5 rounded-[32px] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Ícone removido para teste */}
+                  <div className="mb-6">
+                    {/* Ícone removido */}
                   </div>
 
                   {/* Conteúdo */}
-                  <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
-                  <p className="text-muted-foreground mb-6">{service.description}</p>
+                  <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                  <p className="text-muted-foreground mb-6 flex-grow">
+                    {service.description}
+                  </p>
 
                   {/* Link */}
                   <Link
                     href={`/servicos/${service.slug}`}
-                    className="mt-auto inline-flex items-center text-primary font-medium hover:underline"
+                    className="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-colors"
                   >
                     Saiba mais
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -76,52 +90,8 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Seção Como Trabalhamos */}
+      {/* Seção de Processo de Trabalho */}
       <WorkProcess />
-
-      {/* Seção de Chamada para Ação */}
-      <section className="relative overflow-hidden">
-        {/* Efeitos de Fundo */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background">
-          <div className="absolute inset-0 bg-grid-white/10 [mask-image:radial-gradient(white,transparent_70%)]" />
-          <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-          <div className="absolute -left-4 top-0 h-[400px] w-[400px] rounded-full bg-primary/30 blur-3xl opacity-20" />
-          <div className="absolute -right-4 bottom-0 h-[400px] w-[400px] rounded-full bg-primary/30 blur-3xl opacity-20" />
-        </div>
-
-        <div className="container relative">
-          <div className="mx-auto max-w-4xl py-24 text-center">
-            <h2 className="mb-4 text-4xl font-bold tracking-tight">
-              Pronto para{' '}
-              <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
-                transformar suas ideias
-              </span>{' '}
-              em realidade?
-            </h2>
-            <p className="mb-8 text-xl text-muted-foreground">
-              Vamos trabalhar juntos para criar soluções excepcionais que impulsionam seu negócio.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/contato"
-                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white transition-all rounded-full bg-gradient-to-r from-primary to-violet-500 hover:scale-105 hover:shadow-lg hover:shadow-primary/30"
-              >
-                Iniciar Projeto
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium transition-all rounded-full text-primary bg-primary/10 hover:bg-primary/20"
-              >
-                Ver Portfolio
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Linha de Gradiente Inferior */}
-        <div className="absolute left-0 right-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-      </section>
-    </>
+    </div>
   )
 }

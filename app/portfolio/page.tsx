@@ -4,12 +4,9 @@ import { projects } from '@/data/projects'
 import { motion } from 'framer-motion'
 import { ArrowRight, ExternalLink, Github } from 'lucide-react'
 import { ChevronRight } from 'lucide-react'
-
 import { useState } from 'react'
-
 import Image from 'next/image'
 import Link from 'next/link'
-
 import { cn } from '@/lib/utils'
 
 const categories = [

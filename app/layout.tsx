@@ -1,18 +1,25 @@
-'use client'
-
 import './globals.css'
-import type { Metadata } from 'next'
+import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Providers } from './providers'
+import { Navigation } from '@/components/navigation'
 import { Toaster } from '@/components/ui/sonner'
-import { SiteHeader } from '@/components/site-header'
-import { cn } from '@/lib/utils'
-import { LazyFooter } from '@/lib/lazy-loading'
-import { SkipLink } from '@/components/skip-link'
-import { Suspense } from 'react'
-import { ScrollProgress } from '@/components/ui/scroll-progress'
-import { ThemeProvider } from '@/components/theme-provider'
+import { Footer } from '@/components/footer-new'
 
 const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: 'Zaíra Gonçalves | Programadora de Software',
+  description: 'Desenvolvedora Full Stack apaixonada por criar soluções inovadoras.',
+  icons: {
+    icon: [
+      {
+        url: '/favicon.svg',
+        type: 'image/svg+xml',
+      }
+    ],
+  }
+}
 
 export default function RootLayout({
   children,
@@ -20,29 +27,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt" suppressHydrationWarning>
       <head />
-      <body
-        className={cn(
-          'min-h-screen bg-background font-sans antialiased',
-          inter.className
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
-          disableTransitionOnChange={true}
-        >
-          <Suspense fallback={null}>
-            <SkipLink />
-            <ScrollProgress />
-            <SiteHeader />
-            <main>{children}</main>
-            <LazyFooter />
-            <Toaster />
-          </Suspense>
-        </ThemeProvider>
+      <body className={inter.className}>
+        <Providers>
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   )
