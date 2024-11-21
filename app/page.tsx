@@ -18,7 +18,7 @@ const navigationCards = [
     title: "Portfólio",
     description: "Explore meus projetos",
     icon: FolderKanban,
-    href: "/projetos",
+    href: "/portfolio",
     gradient: "from-violet-500 to-purple-500"
   },
   {

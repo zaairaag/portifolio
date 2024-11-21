@@ -44,9 +44,6 @@ export function Hero() {
         transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
       />
 
-      {/* Gradiente de fundo */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background/50 z-0" />
-
       <motion.div
         className="z-20 flex flex-col items-center justify-center text-center gap-6"
         initial={{ opacity: 0, y: 20 }}
@@ -134,9 +131,7 @@ export function Hero() {
 
       {/* Grid de fundo */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/50" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-50" />
       </div>
     </section>
   )

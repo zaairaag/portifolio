@@ -8,6 +8,13 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -77,10 +84,20 @@ const config: Config = {
             height: '0',
           },
         },
+        'border-glow': {
+          "0%, 100%": {
+            "box-shadow": "0 0 25px rgba(var(--primary),0.2), inset 0 0 25px rgba(var(--primary),0.2)",
+          },
+          "50%": {
+            "box-shadow": "0 0 35px rgba(var(--primary),0.3), inset 0 0 35px rgba(var(--primary),0.3)",
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "border-glow": "border-glow 3s ease-in-out infinite",
       },
     },
   },

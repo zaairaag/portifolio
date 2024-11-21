@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import cn from 'classnames'
+import React, { useEffect, useState } from 'react'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 interface TimelineItem {
   year: string
@@ -14,88 +14,102 @@ interface TimelineItem {
 
 interface TimelineProps {
   items: TimelineItem[]
-  alternating?: boolean
 }
 
-export function Timeline({ items, alternating = false }: TimelineProps) {
+export function Timeline({ items }: TimelineProps) {
+  const cursorX = useMotionValue(0)
+  const cursorY = useMotionValue(0)
+
+  const springConfig = { damping: 25, stiffness: 700 }
+  const cursorXSpring = useSpring(cursorX, springConfig)
+  const cursorYSpring = useSpring(cursorY, springConfig)
+
+  useEffect(() => {
+    const moveCursor = (e: MouseEvent) => {
+      cursorX.set(e.clientX)
+      cursorY.set(e.clientY)
+    }
+
+    window.addEventListener('mousemove', moveCursor)
+    return () => {
+      window.removeEventListener('mousemove', moveCursor)
+    }
+  }, [])
+
   return (
     <div className="relative">
-      {/* Linha Central */}
-      <div className="absolute inset-0 flex justify-center">
-        <div className="w-[1px] bg-gradient-to-b from-primary/20 via-border to-border/0" />
-      </div>
-
-      {/* Items */}
-      <div className="space-y-16 relative">
+      <motion.div 
+        className="pointer-events-none fixed inset-0 z-30 opacity-50 mix-blend-soft-light"
+        style={{
+          background: `radial-gradient(600px circle at ${cursorXSpring}px ${cursorYSpring}px, rgba(var(--primary-rgb), 0.15), transparent 80%)`
+        }}
+      />
+      <div className="space-y-12">
         {items.map((item, index) => (
           <motion.div
             key={index}
-            className={cn(
-              "relative flex items-center md:gap-16 gap-8",
-              alternating && index % 2 === 1 && "flex-row-reverse"
-            )}
-            initial={{ opacity: 0, x: alternating ? (index % 2 === 0 ? -20 : 20) : -20 }}
+            className="relative pl-8 before:absolute before:left-0 before:top-[24px] before:h-[calc(100%-24px)] before:w-[1px] before:bg-gradient-to-b before:from-primary/50 before:to-transparent last:before:hidden"
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
+            transition={{ 
+              type: "spring",
+              stiffness: 100,
+              damping: 15,
+              delay: index * 0.1 
+            }}
           >
-            {/* Ícone */}
+            {/* Dot indicator with glow effect */}
             <motion.div
-              className="relative z-10 shrink-0"
-              initial={{ opacity: 0, scale: 0.5 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              className="absolute left-[-4.5px] top-1.5 h-2.5 w-2.5 rounded-full bg-primary ring-[3px] ring-background"
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 + 0.2 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+                delay: index * 0.1 + 0.2 
+              }}
             >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/0 flex items-center justify-center text-primary border border-border/50 shadow-sm">
-                {item.icon}
-              </div>
-              <div className="absolute -inset-4 bg-primary/5 rounded-[28px] blur-2xl" />
+              {/* Glow effect */}
+              <div className="absolute inset-0 rounded-full bg-primary animate-pulse opacity-20 blur-sm" />
             </motion.div>
 
-            {/* Conteúdo */}
-            <div className={cn(
-              "flex-1 space-y-3",
-              alternating && index % 2 === 1 && "text-right"
-            )}>
+            {/* Content */}
+            <div className="group">
+              {/* Year badge */}
               <motion.div
-                className={cn(
-                  "inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium rounded-full",
-                  "bg-primary/10 text-primary border border-primary/10",
-                  "shadow-sm shadow-primary/5"
-                )}
-                initial={{ opacity: 0, scale: 0.9 }}
+                className="inline-flex items-center rounded-full border border-primary/20 px-3 py-1 text-sm font-medium text-primary"
+                initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 + 0.2 }}
+                transition={{ delay: index * 0.1 + 0.1 }}
               >
                 {item.year}
               </motion.div>
-              <motion.h3
-                className="text-xl font-semibold"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 + 0.3 }}
-              >
-                {item.role}
-                {item.company && (
-                  <span className="text-muted-foreground font-normal"> • {item.company}</span>
-                )}
-              </motion.h3>
-              <motion.p
-                className="text-muted-foreground text-[15px] leading-relaxed"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 + 0.4 }}
-              >
-                {item.description}
-              </motion.p>
-            </div>
 
-            {/* Espaçador */}
-            <div className="flex-1" />
+              {/* Role and company */}
+              <motion.div 
+                className="mt-3 flex flex-col gap-1"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 + 0.2 }}
+              >
+                <h3 className="text-lg font-semibold tracking-tight">
+                  {item.role}
+                  {item.company && (
+                    <span className="text-muted-foreground font-normal ml-2">
+                      • {item.company}
+                    </span>
+                  )}
+                </h3>
+                <p className="text-muted-foreground text-[15px] leading-relaxed max-w-2xl">
+                  {item.description}
+                </p>
+              </motion.div>
+            </div>
           </motion.div>
         ))}
       </div>
