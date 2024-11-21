@@ -60,7 +60,7 @@ export default function ServicePage({ params }: Props) {
         <div className="max-w-4xl mx-auto">
           {/* Long Description */}
           <div className="prose prose-gray dark:prose-invert max-w-none mb-16">
-            <p className="whitespace-pre-line text-lg">{service.longDescription}</p>
+            <p className="whitespace-pre-line text-lg">{service.description}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">

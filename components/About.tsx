@@ -7,12 +7,12 @@ import {
   SiNextdotjs,
   SiNodedotjs,
   SiTailwindcss,
-  SiSharepoint,
-  SiMicrosoftoffice,
+  SiMicrosoftsharepoint,
+  SiMicrosoft,
   SiGit,
   SiDocker,
   SiAzuredevops,
-  SiAmazonaws,
+  SiAmazon,
 } from 'react-icons/si';
 
 const About = () => {
@@ -32,20 +32,18 @@ const About = () => {
       { name: 'Node.js', icon: <SiNodedotjs /> },
     ],
     microsoft: [
-      { name: 'SharePoint', icon: <SiSharepoint /> },
-      { name: 'Office 365', icon: <SiMicrosoftoffice /> },
+      { name: 'SharePoint', icon: <SiMicrosoftsharepoint /> },
+      { name: 'Office 365', icon: <SiMicrosoft /> },
     ],
     cloud: [
       { name: 'Git', icon: <SiGit /> },
       { name: 'Docker', icon: <SiDocker /> },
       { name: 'Azure DevOps', icon: <SiAzuredevops /> },
-      { name: 'AWS', icon: <SiAmazonaws /> },
+      { name: 'AWS', icon: <SiAmazon /> },
     ],
   };
 
-  const experienceItems = t('about.experience.items', [], {
-    returnObjects: true,
-  }) as Array<{
+  const experienceItems = (t('about.experience.items') || []) as Array<{
     year: string;
     role: string;
     company: string;
