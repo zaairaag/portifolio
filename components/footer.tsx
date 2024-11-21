@@ -52,7 +52,7 @@ export function Footer() {
           {/* Copyright centralizado */}
           <div className="flex justify-center">
             <span className="text-muted-foreground">
-              {currentYear} Zaira Candido
+              {currentYear} Zaíra Gonçalves
             </span>
           </div>
 

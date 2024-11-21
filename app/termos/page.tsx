@@ -22,7 +22,7 @@ export default function TermsOfService() {
           <h2 className="text-2xl font-semibold mb-4">2. Propriedade Intelectual</h2>
           <p>
             Todo o conteúdo presente neste site, incluindo textos, imagens, logotipos, designs e códigos,
-            são de propriedade exclusiva de Zaira Candido ou utilizados com permissão.
+            são de propriedade exclusiva de Zaíra Gonçalves ou utilizados com permissão.
             A reprodução, distribuição ou modificação deste conteúdo sem autorização prévia é proibida.
           </p>
         </section>
