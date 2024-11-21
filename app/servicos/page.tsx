@@ -41,8 +41,7 @@ export default function Services() {
           {/* Grid de Serviços */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Link
-                href={`/servicos/${service.slug}`}
+              <div
                 key={index}
                 className="group block relative overflow-hidden"
               >
@@ -63,12 +62,15 @@ export default function Services() {
                   <p className="text-muted-foreground mb-6">{service.description}</p>
 
                   {/* Link */}
-                  <div className="mt-auto inline-flex items-center text-primary font-medium">
+                  <Link
+                    href={`/servicos/${service.slug}`}
+                    className="mt-auto inline-flex items-center text-primary font-medium hover:underline"
+                  >
                     Saiba mais
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </div>
+                  </Link>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>

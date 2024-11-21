@@ -99,6 +99,7 @@ export function WorkProcess() {
               description: step.description,
               icon: step.icon
             }))}
+            alternating={true}
           />
         </motion.div>
       </div>

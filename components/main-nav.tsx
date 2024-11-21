@@ -1,7 +1,6 @@
 'use client'
 
 import { services } from '@/data/services'
-import { ChevronDown } from 'lucide-react'
 
 import * as React from 'react'
 
@@ -65,7 +64,6 @@ export function MainNav() {
                 )}
               >
                 Serviços
-                <ChevronDown className="relative top-[1px] h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180" />
               </NavigationMenuTrigger>
             </Link>
             <NavigationMenuContent>
