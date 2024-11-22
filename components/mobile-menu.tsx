@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from '@/components/ui/sheet'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Logo } from '@/components/ui/logo'
 import { cn } from '@/lib/utils'
@@ -26,13 +26,16 @@ export function MobileMenu() {
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full sm:w-[300px] px-6">
+        <SheetTitle>Menu</SheetTitle>
+        
         <div className="flex justify-between items-center pt-4 pb-8">
           <Link
             href="/"
             className="flex items-center"
             onClick={() => setOpen(false)}
+            aria-label="Voltar para a página inicial"
           >
-            <Logo width={60} height={60} />
+            <Logo width={60} height={60} className="relative group" />
           </Link>
         </div>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10">
@@ -48,13 +51,14 @@ export function MobileMenu() {
                     ? 'text-primary'
                     : 'text-muted-foreground'
                 )}
+                aria-current={pathname === item.href ? 'page' : undefined}
               >
                 {item.label}
               </Link>
             ))}
 
             {/* Serviços com submenu */}
-            <div className="py-2">
+            <div className="py-2" role="navigation" aria-label="Menu de serviços">
               <div className="text-base font-medium mb-2">Serviços</div>
               <div className="pl-4 space-y-2">
                 {services.map((service) => {
@@ -70,8 +74,9 @@ export function MobileMenu() {
                           ? 'text-primary'
                           : 'text-muted-foreground'
                       )}
+                      aria-current={pathname === `/servicos/${service.slug}` ? 'page' : undefined}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className="h-4 w-4" aria-hidden="true" />
                       <span>{service.title}</span>
                     </Link>
                   )

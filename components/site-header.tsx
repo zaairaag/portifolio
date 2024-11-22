@@ -1,7 +1,7 @@
 'use client'
 
 import { MainNav } from '@/components/main-nav'
-import MobileMenu from '@/components/mobile-menu'
+import { MobileMenu } from '@/components/mobile-menu'
 
 export function SiteHeader() {
   return (

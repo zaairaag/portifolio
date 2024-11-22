@@ -1,16 +1,16 @@
 'use client'
 
 import { motion } from 'framer-motion'
-
 import { useEffect, useState } from 'react'
 
 interface LogoProps {
   width?: number
   height?: number
   animated?: boolean
+  className?: string
 }
 
-export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
+export function Logo({ width = 32, height = 32, animated = true, className }: LogoProps) {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function Logo({ width = 32, height = 32, animated = true }: LogoProps) {
             }
           : {}
       }
-      className="relative group"
+      className={className}
       style={{ width, height }}
     >
       {/* Container do logo */}
