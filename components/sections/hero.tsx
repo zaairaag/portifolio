@@ -10,20 +10,24 @@ import { useTheme } from 'next-themes'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
+import Image from 'next/image'
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null)
   const { theme } = useTheme()
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = (e: MouseEvent) => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect()
       setMousePosition({
-        x: e.clientX,
-        y: e.clientY,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
       })
     }
+  }
 
+  useEffect(() => {
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
@@ -31,11 +35,11 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="container h-[50vh] flex flex-col items-center justify-center -mt-28 relative overflow-hidden"
+      className="container min-h-[50vh] flex flex-col items-center justify-center pt-20 md:pt-32 pb-8 relative overflow-hidden px-4"
     >
       {/* Interactive Cursor Effect */}
       <motion.div
-        className="pointer-events-none fixed inset-0 z-30"
+        className="pointer-events-none fixed inset-0 z-30 opacity-0 md:opacity-100"
         animate={{
           background: `radial-gradient(400px at ${mousePosition.x}px ${mousePosition.y}px, ${
             theme === 'dark' ? 'rgba(255, 0, 128, 0.07)' : 'rgba(0, 223, 216, 0.07)'
@@ -45,7 +49,7 @@ export function Hero() {
       />
 
       <motion.div
-        className="z-20 flex flex-col items-center justify-center text-center gap-6"
+        className="z-20 flex flex-col items-center justify-center text-center gap-4 md:gap-6 max-w-full"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -65,13 +69,14 @@ export function Hero() {
             className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-xl"
           />
           <div className="relative overflow-hidden">
-            <motion.h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 relative whitespace-nowrap px-2 pb-2 pt-1">
+            <motion.h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500 relative whitespace-normal md:whitespace-nowrap px-2 pb-2 pt-1">
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.01 }}
+                className="block md:inline"
               >
-                {'Olá, sou Zaira Gonçalves'.split('').map((char, index) => (
+                {'Olá, sou'.split('').map((char, index) => (
                   <motion.span
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
@@ -79,6 +84,30 @@ export function Hero() {
                     transition={{
                       duration: 0.2,
                       delay: index * 0.05,
+                      type: 'spring',
+                      stiffness: 200,
+                      damping: 10,
+                    }}
+                    className="inline-block"
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </motion.span>
+                ))}
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.01, delay: 0.5 }}
+                className="block md:inline md:ml-2"
+              >
+                {'Zaira Gonçalves'.split('').map((char, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.2,
+                      delay: 0.5 + index * 0.05,
                       type: 'spring',
                       stiffness: 200,
                       damping: 10,
@@ -105,34 +134,41 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <motion.div
-          className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto"
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl"
         >
           <TypeAnimation
             sequence={[
-              'Programadora de Software',
+              'Desenvolvedora Front-end',
               2000,
-              'Marketing de Conteúdo',
+              'UI/UX Designer',
               2000,
-              'Profissional de SEO',
-              2000,
-              'Gestora de Automação',
+              'Freelancer',
               2000,
             ]}
             wrapper="span"
             speed={50}
             repeat={Infinity}
           />
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.5 }}
+          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-2"
+        >
+          <Button asChild variant="default" size="lg" className="rounded-full w-full sm:w-auto">
+            <Link href="/contato">Entre em contato</Link>
+          </Button>
+          <Button asChild variant="ghost" size="lg" className="rounded-full w-full sm:w-auto">
+            <Link href="/portfolio">Ver portfólio</Link>
+          </Button>
         </motion.div>
       </motion.div>
-
-      {/* Grid de fundo */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-50" />
-      </div>
     </section>
   )
 }

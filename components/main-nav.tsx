@@ -1,7 +1,5 @@
 'use client'
 
-import { services } from '@/data/services'
-import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -15,12 +13,9 @@ import {
 import { cn } from '@/lib/utils'
 import { Logo } from './ui/logo'
 import { ModeToggle } from './mode-toggle'
-
-const menuItems = [
-  { href: '/', label: 'Home' },
-  { href: '/sobre', label: 'Sobre' },
-  { href: '/portfolio', label: 'Portfólio' },
-]
+import { MobileMenu } from './mobile-menu'
+import { services } from '@/config/services'
+import { menuItems } from '@/config/menu'
 
 export function MainNav() {
   const pathname = usePathname()
@@ -29,11 +24,13 @@ export function MainNav() {
     'inline-flex items-center text-base transition-colors hover:text-primary relative after:absolute after:left-0 after:bottom-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300'
 
   return (
-    <div className="flex items-center justify-between w-full max-w-5xl mx-auto px-4 py-6">
-      <Logo width={80} height={80} />
+    <div className="flex items-center justify-between w-full max-w-5xl mx-auto px-6 sm:px-8 md:px-4 py-4 md:py-6">
+      <Link href="/" className="transition-transform hover:scale-105 pl-4 sm:pl-6 md:pl-8">
+        <Logo width={80} height={80} className="sm:w-[120px] sm:h-[120px] md:w-[150px] md:h-[150px]" />
+      </Link>
       
-      <div className="flex items-center gap-6">
-        <nav className="flex items-center gap-4 py-1.5">
+      <div className="hidden md:flex items-center gap-8">
+        <nav className="flex items-center gap-6 py-1.5">
           {menuItems.map(item => (
             <Link
               key={item.href}
@@ -69,24 +66,30 @@ export function MainNav() {
                   </NavigationMenuTrigger>
                 </Link>
                 <NavigationMenuContent className="z-[9999]">
-                  <ul className="relative z-[9999] min-w-[180px] p-2 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-2xl rounded-md">
-                    {services.map(service => (
-                      <li key={service.slug}>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href={`/servicos/${service.slug}`}
-                            className={cn(
-                              'block select-none px-2 py-1.5 text-base no-underline outline-none transition-colors rounded-sm font-medium',
-                              pathname === `/servicos/${service.slug}`
-                                ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white'
-                                : 'text-zinc-700 hover:bg-zinc-50 dark:text-zinc-200 dark:hover:bg-zinc-800/90 hover:text-zinc-900 dark:hover:text-white'
-                            )}
-                          >
-                            {service.title}
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
+                  <ul className="relative z-[9999] min-w-[220px] p-2 bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 shadow-2xl rounded-md">
+                    {services.map(service => {
+                      const Icon = service.icon
+                      return (
+                        <li key={service.slug}>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={`/servicos/${service.slug}`}
+                              className={cn(
+                                'block select-none px-3 py-2 text-base no-underline outline-none transition-colors rounded-sm',
+                                pathname === `/servicos/${service.slug}`
+                                  ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white'
+                                  : 'text-zinc-700 hover:bg-zinc-50 dark:text-zinc-200 dark:hover:bg-zinc-800/90 hover:text-zinc-900 dark:hover:text-white'
+                              )}
+                            >
+                              <div className="flex items-center gap-2">
+                                <Icon className="h-4 w-4" />
+                                <span className="font-medium">{service.title}</span>
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      )
+                    })}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -107,6 +110,11 @@ export function MainNav() {
           </Link>
         </nav>
         <ModeToggle />
+      </div>
+
+      <div className="flex md:hidden items-center gap-4 pr-4">
+        <ModeToggle />
+        <MobileMenu />
       </div>
     </div>
   )

@@ -36,7 +36,7 @@ export function ProjectCard({
     >
       {/* Header - Sempre visível */}
       <div 
-        className="flex items-center gap-4 p-4 cursor-pointer"
+        className="flex items-center gap-3 p-3 cursor-pointer"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         {/* Título e Tags */}
@@ -44,7 +44,7 @@ export function ProjectCard({
           <div className="flex items-center gap-2">
             <motion.h3 
               layout="position" 
-              className="text-lg font-semibold truncate"
+              className="text-base font-medium truncate"
             >
               {demoUrl ? (
                 <Link 
@@ -62,17 +62,17 @@ export function ProjectCard({
               )}
             </motion.h3>
           </div>
-          <div className="flex flex-wrap gap-2 mt-2">
-            <Badge variant="secondary" className="bg-primary/10 text-primary border-0">
+          <div className="flex flex-wrap gap-1.5 mt-1.5">
+            <Badge variant="secondary" className="bg-primary/10 text-primary border-0 text-xs">
               {category}
             </Badge>
             {tags.slice(0, 2).map((tag) => (
-              <Badge key={tag} variant="outline" className="bg-muted/50">
+              <Badge key={tag} variant="outline" className="bg-muted/50 text-xs">
                 {tag}
               </Badge>
             ))}
             {tags.length > 2 && (
-              <Badge variant="outline" className="bg-muted/50">
+              <Badge variant="outline" className="bg-muted/50 text-xs">
                 +{tags.length - 2}
               </Badge>
             )}
@@ -103,45 +103,39 @@ export function ProjectCard({
             exit={{ 
               height: 0, 
               opacity: 0,
-              transition: { duration: 0.2, ease: [0.4, 0, 1, 1] }
+              transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] }
             }}
+            className="border-t"
           >
-            <div className="px-4 pb-4">
-              <div className="w-full rounded-lg overflow-hidden">
-                <div className="relative aspect-video">
-                  <Image
-                    src={image}
-                    alt={title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/20 to-transparent" />
-                </div>
+            {/* Imagem */}
+            <div className="relative aspect-video">
+              <Image
+                src={image}
+                alt={title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+
+            {/* Descrição e Links */}
+            <div className="p-3 space-y-3">
+              <p className="text-sm text-muted-foreground">{description}</p>
+              
+              {/* Tags completas */}
+              <div className="flex flex-wrap gap-1.5">
+                {tags.map((tag) => (
+                  <Badge key={tag} variant="outline" className="bg-muted/50 text-xs">
+                    {tag}
+                  </Badge>
+                ))}
               </div>
 
-              {/* Descrição e tags completas */}
-              <div className="space-y-4 mt-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  {description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <Badge 
-                      key={tag} 
-                      variant="secondary"
-                      className="bg-muted hover:bg-muted/80 transition-colors"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Botões de ação */}
+              {/* Botões */}
+              <div className="flex gap-2 pt-1">
                 {(demoUrl || githubUrl) && (
                   <div 
-                    className="flex gap-3 pt-2 border-t border-border/50" 
+                    className="flex gap-3" 
                     onClick={(e) => e.stopPropagation()}
                   >
                     {githubUrl && (

@@ -72,14 +72,14 @@ const socialLinks = [
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background flex flex-col items-center justify-center">
-      <div className="flex-1 w-full flex flex-col items-center justify-center">
+    <main className="min-h-screen bg-background flex flex-col items-center">
+      <div className="flex-1 w-full flex flex-col items-center">
         <Hero />
         
         {/* Navigation Cards */}
-        <section className="container -mt-12">
-          <div className="max-w-3xl mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+        <section className="container px-8 sm:px-10 md:px-6 mt-12 md:mt-16 mb-16 md:mb-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
               {navigationCards.map((card, index) => (
                 <motion.div
                   key={card.title}
@@ -90,31 +90,23 @@ export default function HomePage() {
                 >
                   <Link 
                     href={card.href}
-                    className="relative block overflow-hidden"
+                    className="relative block overflow-hidden h-full"
                   >
-                    <div className="relative rounded-2xl bg-gradient-to-br from-background to-accent/5 backdrop-blur-sm border border-border/50 p-6">
+                    <div className="relative rounded-2xl bg-gradient-to-br from-background to-accent/5 backdrop-blur-sm border border-border/50 p-6 sm:p-8 h-full">
                       {/* Gradient Overlay */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-0 group-hover:opacity-10 transition-all duration-500 rounded-2xl`} />
                       
                       {/* Content */}
-                      <div className="relative flex flex-col items-center text-center space-y-4">
+                      <div className="relative flex flex-col items-center text-center space-y-4 sm:space-y-5">
                         {/* Icon Container */}
-                        <div className="relative">
-                          {/* Background blur effect */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-background to-accent/10 blur-xl" />
-                          
-                          {/* Icon Circle */}
-                          <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-background to-accent/10 flex items-center justify-center ring-1 ring-border/20 group-hover:ring-border/40 transition-all duration-300">
-                            <card.icon className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-300" />
-                          </div>
+                        <div className="p-3 sm:p-4 rounded-xl bg-background/80 border border-border/50 shadow-lg">
+                          <card.icon className="w-6 h-6 sm:w-7 sm:h-7" />
                         </div>
                         
                         {/* Text Content */}
-                        <div className="space-y-1.5">
-                          <h3 className="text-base font-semibold tracking-tight group-hover:text-primary transition-colors duration-300">
-                            {card.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground group-hover:text-muted-foreground/80 transition-colors duration-300">
+                        <div>
+                          <h3 className="font-semibold text-lg sm:text-xl">{card.title}</h3>
+                          <p className="text-base sm:text-lg text-muted-foreground mt-2">
                             {card.description}
                           </p>
                         </div>
@@ -127,34 +119,43 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Social Media Links */}
-        <motion.div
-          className="flex flex-col items-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-        >
-          <h2 className="text-lg font-semibold mb-4 text-primary">Conecte-se Comigo</h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {socialLinks.map((social, index) => (
-              <Link key={social.label} href={social.href} target="_blank">
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="rounded-full hover:scale-110 transition-transform relative group"
+        {/* Social Links */}
+        <section className="container px-8 sm:px-10 md:px-6 pb-16 md:pb-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+              {socialLinks.map((social, index) => (
+                <motion.div
+                  key={social.label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <social.icon className="w-5 h-5" />
-                  <span className="sr-only">{social.label}</span>
-                  
-                  {/* Tooltip */}
-                  <span className="absolute -bottom-8 scale-0 group-hover:scale-100 transition-transform text-xs bg-accent/50 backdrop-blur-sm px-2 py-1 rounded-full">
-                    {social.label}
-                  </span>
-                </Button>
-              </Link>
-            ))}
+                  <Button
+                    asChild
+                    variant="ghost"
+                    size="icon"
+                    className="relative group rounded-xl hover:bg-accent/50"
+                  >
+                    <Link href={social.href} target="_blank" rel="noopener noreferrer" className="relative">
+                      <social.icon className="w-5 h-5 transition-transform duration-200 group-hover:scale-125" />
+                      <span className="sr-only">{social.label}</span>
+                      
+                      {/* Tooltip */}
+                      <span 
+                        className="absolute -bottom-9 left-1/2 -translate-x-1/2 px-2.5 py-1 text-xs font-medium 
+                        bg-background/80 backdrop-blur-sm border border-border/50 rounded-full
+                        opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                        transition-all duration-200 whitespace-nowrap"
+                      >
+                        {social.label}
+                      </span>
+                    </Link>
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </motion.div>
+        </section>
       </div>
     </main>
   )

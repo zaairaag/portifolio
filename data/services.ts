@@ -1,4 +1,4 @@
-import { Code2, LayoutGrid, Smartphone, Globe2, Palette, LineChart } from 'lucide-react'
+import { Code2, Globe2, ShoppingCart, Layout, Search, LineChart } from 'lucide-react'
 import { FC } from 'react'
 
 export interface Service {
@@ -12,99 +12,105 @@ export interface Service {
 
 export const services: Service[] = [
   {
-    icon: Code2,
-    title: "Desenvolvimento Web",
-    description: "Desenvolvimento de sites e aplicações web modernas, responsivas e otimizadas para performance.",
-    slug: "desenvolvimento-web",
+    icon: Layout,
+    title: "Landing Pages",
+    description: "Landing Pages otimizadas para converter visitantes em clientes. Design moderno, carregamento rápido e estrutura focada em resultados.",
+    slug: "landing-pages",
     features: [
-      "Design responsivo",
-      "Otimização para SEO",
-      "Integração com APIs",
+      "Design moderno e atraente",
+      "Otimização para conversão",
+      "Carregamento rápido",
+      "Mobile-first"
     ],
     deliverables: [
-      "Código fonte",
-      "Documentação",
-      "Manutenção",
-    ]
-  },
-  {
-    icon: LayoutGrid,
-    title: "Design de Interface",
-    description: "Criação de interfaces intuitivas e atraentes que proporcionam a melhor experiência para seus usuários.",
-    slug: "design-interface",
-    features: [
-      "Wireframes e protótipos",
-      "Design centrado no usuário",
-      "Testes de usabilidade",
-    ],
-    deliverables: [
-      "Protótipos",
-      "Design final",
-      "Guia de estilo",
-    ]
-  },
-  {
-    icon: Smartphone,
-    title: "Aplicações Responsivas",
-    description: "Desenvolvimento de aplicações que se adaptam perfeitamente a qualquer dispositivo ou tamanho de tela.",
-    slug: "aplicacoes-responsivas",
-    features: [
-      "Layout fluido",
-      "Compatibilidade cross-browser",
-      "Desempenho otimizado",
-    ],
-    deliverables: [
-      "Aplicativo completo",
-      "Suporte pós-lançamento",
-      "Atualizações",
+      "Página otimizada para conversão",
+      "Integração com analytics",
+      "Relatório de performance"
     ]
   },
   {
     icon: Globe2,
-    title: "SEO e Performance",
-    description: "Otimização para mecanismos de busca e melhorias de performance para maior visibilidade online.",
-    slug: "seo-performance",
+    title: "Sites Institucionais",
+    description: "Sites institucionais completos que estabelecem autoridade e geram credibilidade para sua marca online.",
+    slug: "sites-institucionais",
     features: [
-      "Análise de palavras-chave",
-      "Melhorias de tempo de carregamento",
-      "SEO técnico",
+      "Design profissional",
+      "Páginas institucionais",
+      "Blog integrado",
+      "Área administrativa"
     ],
     deliverables: [
-      "Relatório de SEO",
-      "Estratégia de melhorias",
-      "Consultoria contínua",
+      "Site completo",
+      "Painel administrativo",
+      "Treinamento da equipe"
     ]
   },
   {
-    icon: Palette,
-    title: "Design System",
-    description: "Criação e implementação de sistemas de design consistentes e escaláveis para sua marca.",
-    slug: "design-system",
+    icon: ShoppingCart,
+    title: "E-commerce",
+    description: "Plataformas de e-commerce completas e seguras para vender online com eficiência.",
+    slug: "ecommerce",
     features: [
-      "Biblioteca de componentes",
-      "Guia de estilo",
-      "Documentação abrangente",
+      "Catálogo de produtos",
+      "Carrinho de compras",
+      "Gateway de pagamento",
+      "Gestão de estoque"
     ],
     deliverables: [
-      "Sistema de design completo",
-      "Documentação",
-      "Treinamento",
+      "Loja virtual completa",
+      "Integração com pagamentos",
+      "Painel administrativo"
+    ]
+  },
+  {
+    icon: Code2,
+    title: "WordPress",
+    description: "Sites em WordPress customizados com temas exclusivos e funcionalidades sob medida.",
+    slug: "wordpress",
+    features: [
+      "Tema personalizado",
+      "Plugins otimizados",
+      "Painel customizado",
+      "Backup automático"
+    ],
+    deliverables: [
+      "Site WordPress completo",
+      "Tema exclusivo",
+      "Treinamento"
+    ]
+  },
+  {
+    icon: Search,
+    title: "Otimização e SEO",
+    description: "Otimização técnica e estratégias de SEO para melhorar seu posicionamento nos buscadores.",
+    slug: "otimizacao-seo",
+    features: [
+      "Análise técnica",
+      "Otimização on-page",
+      "Link building",
+      "Monitoramento"
+    ],
+    deliverables: [
+      "Relatório de otimizações",
+      "Implementação técnica",
+      "Relatórios mensais"
     ]
   },
   {
     icon: LineChart,
-    title: "Consultoria Técnica",
-    description: "Assessoria especializada para escolhas tecnológicas e melhores práticas de desenvolvimento.",
-    slug: "consultoria-tecnica",
+    title: "Consultoria Web",
+    description: "Consultoria especializada em desenvolvimento web, arquitetura e estratégia digital.",
+    slug: "consultoria-web",
     features: [
-      "Revisão de código",
-      "Consultoria em arquitetura",
-      "Planejamento de projetos",
+      "Análise de projetos",
+      "Definição de arquitetura",
+      "Escolha de tecnologias",
+      "Mentoria técnica"
     ],
     deliverables: [
-      "Relatório de consultoria",
-      "Plano de ação",
-      "Acompanhamento",
+      "Relatório de recomendações",
+      "Documentação técnica",
+      "Suporte contínuo"
     ]
   }
 ]

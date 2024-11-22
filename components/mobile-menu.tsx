@@ -1,65 +1,85 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { useState } from 'react'
+import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
-import { navigationLinks } from '@/config/navigation'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Logo } from '@/components/ui/logo'
+import { cn } from '@/lib/utils'
+import { services } from '@/config/services'
+import { menuItems } from '@/config/menu'
 
-export default function MobileMenu() {
+export function MobileMenu() {
+  const [open, setOpen] = useState(false)
   const pathname = usePathname()
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">Abrir menu</span>
+        <Button variant="ghost" size="icon" className="md:hidden p-2">
+          <Menu className="h-6 w-6" />
+          <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-full border-l sm:max-w-lg">
-        <SheetHeader>
-          <SheetTitle>Navegação</SheetTitle>
-        </SheetHeader>
-        <nav className="mt-8">
-          <ul className="-my-2 divide-y divide-muted">
-            {navigationLinks.map((item) => {
-              const isActive = pathname === item.href
+      <SheetContent side="right" className="w-full sm:w-[300px] px-6">
+        <div className="flex justify-between items-center pt-4 pb-8">
+          <Link
+            href="/"
+            className="flex items-center"
+            onClick={() => setOpen(false)}
+          >
+            <Logo width={60} height={60} />
+          </Link>
+        </div>
+        <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10">
+          <div className="flex flex-col space-y-3">
+            {menuItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className={cn(
+                  'flex py-2 text-base font-medium transition-colors hover:text-primary',
+                  pathname === item.href
+                    ? 'text-primary'
+                    : 'text-muted-foreground'
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
 
-              return (
-                <li key={item.href}>
-                  <SheetClose asChild>
+            {/* Serviços com submenu */}
+            <div className="py-2">
+              <div className="text-base font-medium mb-2">Serviços</div>
+              <div className="pl-4 space-y-2">
+                {services.map((service) => {
+                  const Icon = service.icon
+                  return (
                     <Link
-                      href={item.href}
-                      prefetch={true}
-                      className={`group relative flex items-center py-4 ${
-                        isActive
-                          ? 'text-foreground'
-                          : 'text-muted-foreground hover:text-foreground'
-                      }`}
-                    >
-                      <span className="absolute inset-y-0 -left-4 w-1 bg-primary opacity-0 transition-opacity group-hover:opacity-100" />
-                      <span className="relative">{item.title}</span>
-                      {isActive && (
-                        <span className="absolute inset-y-4 -right-4 w-1 bg-primary" />
+                      key={service.slug}
+                      href={`/servicos/${service.slug}`}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        'flex items-center gap-2 py-1.5 text-base transition-colors hover:text-primary',
+                        pathname === `/servicos/${service.slug}`
+                          ? 'text-primary'
+                          : 'text-muted-foreground'
                       )}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{service.title}</span>
                     </Link>
-                  </SheetClose>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   )
