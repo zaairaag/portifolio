@@ -3,8 +3,6 @@ import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Image from 'next/image';
 import Link from 'next/link';
-import { DateFilter } from '@/components/blog/DateFilter';
-import { Suspense } from 'react';
 import { siteConfig } from '@/config/site';
 import { Metadata } from 'next';
 
@@ -120,23 +118,10 @@ function PostCard({
   );
 }
 
-export default async function BlogPage({
-  searchParams,
-}: {
-  searchParams: { date?: string };
-}) {
+export default async function BlogPage() {
   const posts = await getDatabase();
-  const dates = posts.map((post) => post.date).filter(Boolean) as string[];
   const tags = getAllTags(posts);
   const mostReadPosts = getMostReadPosts(posts);
-
-  // Filtra os posts pelo mês/ano selecionado
-  const filteredPosts = searchParams.date
-    ? posts.filter((post) => {
-        if (!post.date) return false;
-        return post.date.startsWith(searchParams.date!);
-      })
-    : posts;
 
   return (
     <div className="min-h-screen">
@@ -156,20 +141,10 @@ export default async function BlogPage({
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Lista de Posts */}
           <div className="lg:w-2/3">
-            <div className="mb-8">
-              <Suspense fallback={<div>Carregando filtros...</div>}>
-                <DateFilter dates={dates} />
-              </Suspense>
-            </div>
             <div className="space-y-8">
-              {filteredPosts.map((post) => (
+              {posts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}
-              {filteredPosts.length === 0 && (
-                <div className="text-center py-12 text-muted-foreground">
-                  Nenhum post encontrado para este período.
-                </div>
-              )}
             </div>
           </div>
 
