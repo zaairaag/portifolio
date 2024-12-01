@@ -1,24 +1,31 @@
 import './globals.css'
-import { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Providers } from './providers'
 import { Navigation } from '@/components/navigation'
-import { Toaster } from '@/components/ui/sonner'
 import { Footer } from '@/components/footer'
+import { Toaster } from 'sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Zaíra Gonçalves | Programadora de Software',
-  description: 'Desenvolvedora Full Stack apaixonada por criar soluções inovadoras.',
-  icons: {
-    icon: [
-      {
-        url: '/favicon.svg',
-        type: 'image/svg+xml',
-      }
-    ],
-  }
+export const metadata = {
+  title: 'Zaira Gonçalves - Portfolio',
+  description: 'Portfolio de Zaira Gonçalves - Desenvolvedora Full Stack',
+  keywords: [
+    'portfolio',
+    'desenvolvedor',
+    'full stack',
+    'web developer',
+    'react',
+    'next.js',
+    'typescript',
+  ],
+  authors: [
+    {
+      name: 'Zaira Gonçalves',
+      url: 'https://zairagoncalves.com',
+    },
+  ],
+  creator: 'Zaira Gonçalves',
 }
 
 export default function RootLayout({
@@ -28,13 +35,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt" suppressHydrationWarning>
-      <head />
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={inter.className}>
         <Providers>
           <Navigation />
           <main>{children}</main>
           <Footer />
-          <Toaster />
+          <Toaster richColors position="top-right" />
         </Providers>
       </body>
     </html>

@@ -70,11 +70,29 @@ export function StepsProcess() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      console.log(values)
-      toast.success("Mensagem enviada com sucesso!")
+      console.log('Enviando dados do formulário:', values)
+      const response = await fetch('/api/servicos', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          message: `Solicitação de Serviço da Página Como Trabalhamos
+
+${values.message}`
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error()
+      }
+
       form.reset()
+      toast.success("Mensagem enviada com sucesso! Entrarei em contato em breve.")
     } catch (error) {
+      console.error('Erro ao enviar formulário:', error)
       toast.error("Erro ao enviar mensagem. Tente novamente.")
     }
   }
@@ -215,7 +233,7 @@ export function StepsProcess() {
                                   <div className="relative">
                                     <Input 
                                       placeholder="Seu nome" 
-                                      className="h-14 px-6 bg-background border-primary/10 rounded-2xl transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary group-hover:border-primary/50" 
+                                      className="h-14 px-6 bg-background/50 border-primary/10 rounded-2xl transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary group-hover:border-primary/50" 
                                       {...field} 
                                     />
                                   </div>
@@ -235,7 +253,7 @@ export function StepsProcess() {
                                   <div className="relative">
                                     <Input 
                                       placeholder="seu.email@exemplo.com" 
-                                      className="h-14 px-6 bg-background border-primary/10 rounded-2xl transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary group-hover:border-primary/50" 
+                                      className="h-14 px-6 bg-background/50 border-primary/10 rounded-2xl transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary group-hover:border-primary/50" 
                                       {...field} 
                                     />
                                   </div>
@@ -255,7 +273,7 @@ export function StepsProcess() {
                               <FormControl>
                                 <Textarea 
                                   placeholder="Descreva brevemente seu projeto ou ideia..."
-                                  className="min-h-[120px] px-6 py-4 bg-background border-primary/10 rounded-2xl resize-none transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary group-hover:border-primary/50"
+                                  className="min-h-[120px] px-6 py-4 bg-background/50 border-primary/10 rounded-2xl resize-none transition-colors focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary group-hover:border-primary/50"
                                   {...field}
                                 />
                               </FormControl>
