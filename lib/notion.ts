@@ -59,7 +59,8 @@ export const getDatabase = async () => {
         date,
         slug,
         tags: properties.Tags?.multi_select?.map((tag) => tag.name) || [],
-        featuredImage
+        featuredImage,
+        views: properties.views?.number || 0
       };
     });
   } catch (error) {

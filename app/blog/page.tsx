@@ -54,7 +54,9 @@ function getAllTags(posts: any[]) {
 }
 
 function getMostReadPosts(posts: any[]) {
-  return posts.slice(0, 5);
+  return posts
+    .sort((a, b) => (b.views || 0) - (a.views || 0))
+    .slice(0, 5);
 }
 
 function generateSchemaOrgBlogPosting(post: any) {
@@ -185,6 +187,7 @@ function PostCard({
 
 export default async function BlogPage() {
   const allPosts = await getDatabase();
+  console.log('Posts com views:', allPosts.map(p => ({ title: p.title, views: p.views })));
   const initialPosts = allPosts.slice(0, POSTS_PER_PAGE);
   const tags = getAllTags(allPosts);
   const mostReadPosts = getMostReadPosts(allPosts);
@@ -270,14 +273,19 @@ export default async function BlogPage() {
                           <h3 className="font-medium text-purple-400">
                             {post.title}
                           </h3>
-                          {post.date && (
-                            <time 
-                              dateTime={post.date}
-                              className="text-sm text-pink-500/80 mt-1 block"
-                            >
-                              {format(parseISO(post.date), "d 'de' MMM", { locale: ptBR })}
-                            </time>
-                          )}
+                          <div className="flex items-center gap-2 mt-1">
+                            {post.date && (
+                              <time 
+                                dateTime={post.date}
+                                className="text-sm text-pink-500/80"
+                              >
+                                {format(parseISO(post.date), "d 'de' MMM", { locale: ptBR })}
+                              </time>
+                            )}
+                            <span className="text-sm text-primary/80">
+                              • {post.views || 0} views
+                            </span>
+                          </div>
                         </div>
                       </Link>
                     ))}

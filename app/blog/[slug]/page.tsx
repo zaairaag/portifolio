@@ -13,6 +13,7 @@ import { RelatedPosts } from '@/components/blog/RelatedPosts';
 import { AuthorCard } from '@/components/blog/AuthorCard';
 import { CategoryPosts } from '@/components/blog/CategoryPosts';
 import { PostNavigation } from '@/components/blog/PostNavigation';
+import { ViewCounter } from '@/components/blog/ViewCounter';
 import { siteConfig } from '@/config/site';
 
 export const revalidate = 3600;
@@ -175,6 +176,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   return (
     <>
+      <ViewCounter pageId={post.id} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
