@@ -187,7 +187,6 @@ function PostCard({
 
 export default async function BlogPage() {
   const allPosts = await getDatabase();
-  console.log('Posts com views:', allPosts.map(p => ({ title: p.title, views: p.views })));
   const initialPosts = allPosts.slice(0, POSTS_PER_PAGE);
   const tags = getAllTags(allPosts);
   const mostReadPosts = getMostReadPosts(allPosts);
