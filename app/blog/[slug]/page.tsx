@@ -12,6 +12,8 @@ import { SocialShare } from '@/components/blog/SocialShare';
 import { RelatedPosts } from '@/components/blog/RelatedPosts';
 import { AuthorCard } from '@/components/blog/AuthorCard';
 import { CategoryPosts } from '@/components/blog/CategoryPosts';
+import { PostNavigation } from '@/components/blog/PostNavigation';
+import { siteConfig } from '@/config/site';
 
 export const revalidate = 3600;
 
@@ -26,16 +28,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   const ogImage = post.featuredImage || '/images/default-og.png';
+  const url = `${siteConfig.url}/blog/${params.slug}`;
 
   return {
-    title: `${post.title} | Blog`,
+    title: `${post.title} | Blog ${siteConfig.name}`,
     description: post.description,
+    keywords: post.tags,
+    authors: [{ name: siteConfig.author.name }],
     openGraph: {
       title: post.title,
       description: post.description,
       type: 'article',
       publishedTime: post.date,
-      authors: ['Zaira Moraes'],
+      modifiedTime: post.last_edited_time,
+      authors: [siteConfig.author.name],
+      tags: post.tags,
       images: [
         {
           url: ogImage,
@@ -44,12 +51,29 @@ export async function generateMetadata({ params }: { params: { slug: string } })
           alt: post.title,
         },
       ],
+      url,
+      siteName: siteConfig.openGraph.siteName,
+      locale: siteConfig.openGraph.locale,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.description,
       images: [ogImage],
+    },
+    alternates: {
+      canonical: url,
+      types: {
+        'application/rss+xml': `${siteConfig.url}/feed.xml`,
+      },
+    },
+    manifest: '/manifest.json',
+    icons: {
+      icon: '/favicon.ico',
+      apple: '/icons/apple-touch-icon.png',
+    },
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
     },
   };
 }
@@ -63,7 +87,8 @@ export async function generateStaticParams() {
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const posts = await getDatabase();
-  const post = posts.find((p) => p.slug === params.slug);
+  const currentIndex = posts.findIndex((p) => p.slug === params.slug);
+  const post = posts[currentIndex];
 
   if (!post) {
     notFound();
@@ -84,9 +109,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     : null;
   
   const readingTime = calculateReadingTime(blocks);
-
-  // Pega a primeira tag do post para mostrar posts relacionados
   const mainTag = post.tags?.[0];
+  const url = `${siteConfig.url}/blog/${params.slug}`;
+
+  // Navigation between posts
+  const previousPost = currentIndex > 0 ? posts[currentIndex - 1] : undefined;
+  const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : undefined;
 
   // Generate JSON-LD structured data
   const jsonLd = {
@@ -96,19 +124,53 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     description: post.description,
     image: post.featuredImage,
     datePublished: post.date,
+    dateModified: page.last_edited_time,
     author: {
       '@type': 'Person',
-      name: 'Zaira Moraes',
-      url: 'https://zairamoraes.com',
+      name: siteConfig.author.name,
+      url: siteConfig.url,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Zaira Moraes',
+      name: siteConfig.name,
       logo: {
         '@type': 'ImageObject',
-        url: 'https://zairamoraes.com/logo.png',
+        url: `${siteConfig.url}/logo.png`,
       },
     },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    keywords: post.tags.join(', '),
+    articleBody: blocks
+      .filter(block => block.type === 'paragraph')
+      .map(block => block.paragraph?.rich_text?.[0]?.plain_text)
+      .join(' '),
+    wordCount: blocks
+      .filter(block => block.type === 'paragraph')
+      .reduce((acc, block) => {
+        return acc + (block.paragraph?.rich_text?.[0]?.plain_text?.split(/\s+/).length || 0);
+      }, 0),
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Blog',
+        item: `${siteConfig.url}/blog`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: post.title,
+        item: url,
+      },
+    ],
   };
 
   return (
@@ -117,12 +179,16 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <ProgressBar />
       <div className="min-h-screen">
-        <article className="container mx-auto px-4 py-12 lg:py-16">
+        <article className="container mx-auto px-4 py-12 lg:py-16" itemScope itemType="https://schema.org/BlogPosting">
           <header className="max-w-4xl mx-auto mb-12 relative">
             {post.featuredImage && (
-              <div className="relative aspect-[21/9] mb-8 rounded-xl overflow-hidden shadow-2xl">
+              <figure className="relative aspect-[21/9] mb-8 rounded-xl overflow-hidden shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
                 <Image
                   src={post.featuredImage}
@@ -130,21 +196,39 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                   fill
                   priority
                   className="object-cover hover:scale-105 transition-transform duration-700"
+                  itemProp="image"
                 />
-              </div>
+              </figure>
             )}
             <div className="space-y-4 relative z-20">
-              <h1 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+              <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground mb-4">
+                <ol className="flex items-center space-x-2">
+                  <li>
+                    <a href="/blog" className="hover:text-primary transition-colors">
+                      Blog
+                    </a>
+                  </li>
+                  <li>/</li>
+                  <li>
+                    <span className="text-foreground">{post.title}</span>
+                  </li>
+                </ol>
+              </nav>
+              <h1 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent" itemProp="headline">
                 {post.title}
               </h1>
               {post.description && (
-                <p className="text-xl text-muted-foreground leading-relaxed">
+                <p className="text-xl text-muted-foreground leading-relaxed" itemProp="description">
                   {post.description}
                 </p>
               )}
               <div className="flex items-center gap-4 text-sm">
                 {formattedDate && (
-                  <time className="flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 text-primary">
+                  <time 
+                    dateTime={post.date}
+                    className="flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 text-primary"
+                    itemProp="datePublished"
+                  >
                     <span className="sr-only">Data de publicação:</span>
                     {formattedDate}
                   </time>
@@ -153,6 +237,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 <span className="px-3 py-1 rounded-full bg-primary/10 text-primary">
                   {readingTime} min de leitura
                 </span>
+                <meta itemProp="author" content={siteConfig.author.name} />
               </div>
             </div>
           </header>
@@ -184,6 +269,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
           <footer className="max-w-4xl mx-auto mt-16 space-y-16">
             <AuthorCard />
+            <PostNavigation previousPost={previousPost} nextPost={nextPost} />
             <RelatedPosts posts={relatedPosts} />
           </footer>
         </article>

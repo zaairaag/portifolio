@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { LinkedinIcon, GithubIcon } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 
 export function AuthorCard() {
+  const { author, links } = siteConfig;
+
   return (
     <div className="relative border rounded-xl p-8 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/10 to-background" />
@@ -10,8 +13,8 @@ export function AuthorCard() {
         <div className="relative">
           <div className="absolute -inset-1 bg-gradient-to-br from-primary to-purple-500 rounded-full blur-sm" />
           <Image
-            src="/images/avatar.jpg"
-            alt="Zaira Moraes"
+            src={author.image}
+            alt={author.name}
             width={80}
             height={80}
             className="relative rounded-full ring-2 ring-background"
@@ -20,16 +23,15 @@ export function AuthorCard() {
         <div className="space-y-3">
           <div>
             <h3 className="font-semibold text-lg bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-              Zaira Moraes
+              {author.name}
             </h3>
             <p className="text-muted-foreground">
-              Desenvolvedora Full Stack apaixonada por criar experiências web incríveis.
-              Compartilhando conhecimento e experiências sobre desenvolvimento web, tecnologia e carreira.
+              {author.bio}
             </p>
           </div>
           <div className="flex gap-2">
             <a
-              href="https://linkedin.com/in/zairamoraes"
+              href={links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -43,7 +45,7 @@ export function AuthorCard() {
               </Button>
             </a>
             <a
-              href="https://github.com/zairamoraes"
+              href={links.github}
               target="_blank"
               rel="noopener noreferrer"
             >
