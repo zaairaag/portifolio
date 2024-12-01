@@ -3,35 +3,35 @@ import { cache } from 'react';
 import { Post } from './types';
 import { GetPageResponse } from '@notionhq/client/build/src/api-endpoints';
 
-if (!process.env.NOTION_TOKEN) {
-  throw new Error('NOTION_TOKEN não está definido');
-}
-
-if (!process.env.NOTION_DATABASE_ID) {
-  throw new Error('NOTION_DATABASE_ID não está definido');
-}
-
-console.log('Inicializando cliente Notion...');
-console.log('Token disponível:', !!process.env.NOTION_TOKEN);
-console.log('Database ID:', process.env.NOTION_DATABASE_ID);
-
-export const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
+// Inicializa o cliente Notion apenas se as variáveis de ambiente estiverem disponíveis
+const notionClient = process.env.NOTION_TOKEN && process.env.NOTION_DATABASE_ID
+  ? new Client({ auth: process.env.NOTION_TOKEN })
+  : null;
 
 // Cache dos posts por 1 hora
 export const getDatabase = cache(async (): Promise<Post[]> => {
+  if (!notionClient || !process.env.NOTION_DATABASE_ID) {
+    console.warn('Variáveis de ambiente do Notion não configuradas');
+    return [];
+  }
+
   try {    
     console.log('\n=== Iniciando busca de posts ===');
     
-    const response = await notion.databases.query({
-      database_id: process.env.NOTION_DATABASE_ID!,
+    const response = await notionClient.databases.query({
+      database_id: process.env.NOTION_DATABASE_ID,
       sorts: [
         {
           property: "date",
-          direction: "descending"
-        }
-      ]
+          direction: "descending",
+        },
+      ],
+      filter: {
+        property: "status",
+        status: {
+          equals: "Published",
+        },
+      },
     });
 
     console.log('\n=== Posts encontrados ===');
@@ -65,32 +65,33 @@ export const getDatabase = cache(async (): Promise<Post[]> => {
       });
     }
 
-    return publishedPosts.map((page: any) => {
-      const properties = page.properties;
-      const title = properties.Title?.title?.[0]?.plain_text || 'Sem título';
-      const slug = properties.Slug?.rich_text?.[0]?.plain_text || 
-        title.toLowerCase()
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
-          .replace(/[^\w\s-]/g, '')
-          .replace(/\s+/g, '-')
-          .replace(/-+/g, '-')
-          .trim();
+    return response.results
+      .filter((page) => 'properties' in page)
+      .map((page) => {
+        const properties = page.properties;
+        const title = properties.Title?.title?.[0]?.plain_text || 'Sem título';
+        const slug = properties.Slug?.rich_text?.[0]?.plain_text || 
+          title.toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim();
 
-      return {
-        id: page.id,
-        title,
-        description: properties.description?.rich_text?.[0]?.plain_text || '',
-        date: properties.date?.date?.start || page.created_time.split('T')[0],
-        slug,
-        tags: properties.Tags?.multi_select?.map((tag: any) => tag.name) || [],
-        views: properties.views?.number || 0,
-        featuredImage: properties.featuredImage?.url || null,
-        last_edited_time: page.last_edited_time
-      };
-    });
-
-  } catch (error: any) {
+        return {
+          id: page.id,
+          title,
+          description: properties.description?.rich_text?.[0]?.plain_text || '',
+          date: properties.date?.date?.start || page.created_time.split('T')[0],
+          slug,
+          tags: properties.Tags?.multi_select?.map((tag: any) => tag.name) || [],
+          views: properties.views?.number || 0,
+          featuredImage: properties.featuredImage?.url || null,
+          last_edited_time: page.last_edited_time
+        } as Post;
+      });
+  } catch (error) {
     console.error('\n=== Erro ao buscar posts ===');
     console.error('Mensagem:', error.message);
     if (error.code) {
@@ -102,29 +103,39 @@ export const getDatabase = cache(async (): Promise<Post[]> => {
     if (error.body) {
       console.error('Corpo:', error.body);
     }
-    throw error;
+    return [];
   }
 });
 
 // Cache da página por 1 hora
 export const getPage = cache(async (pageId: string): Promise<GetPageResponse> => {
+  if (!notionClient) {
+    console.warn('Cliente Notion não inicializado');
+    return null;
+  }
+
   try {
-    const page = await notion.pages.retrieve({ page_id: pageId });
+    const page = await notionClient.pages.retrieve({ page_id: pageId });
     return page;
   } catch (error) {
     console.error('Erro ao buscar página:', error);
-    throw error;
+    return null;
   }
 });
 
 // Cache dos blocos por 1 hora
 export const getBlocks = cache(async (blockId: string) => {
+  if (!notionClient) {
+    console.warn('Cliente Notion não inicializado');
+    return null;
+  }
+
   const blocks = [];
   let cursor;
   
   try {
     do {
-      const { results, next_cursor }: any = await notion.blocks.children.list({
+      const { results, next_cursor }: any = await notionClient.blocks.children.list({
         block_id: blockId,
         page_size: 100,
         start_cursor: cursor,
@@ -137,12 +148,17 @@ export const getBlocks = cache(async (blockId: string) => {
     return blocks;
   } catch (error) {
     console.error('Erro ao buscar blocos:', error);
-    throw error;
+    return null;
   }
 });
 
 // Função para buscar página e blocos em paralelo
 export async function getPostContent(pageId: string) {
+  if (!notionClient) {
+    console.warn('Cliente Notion não inicializado');
+    return null;
+  }
+
   try {
     const [page, blocks] = await Promise.all([
       getPage(pageId),
@@ -155,6 +171,6 @@ export async function getPostContent(pageId: string) {
     };
   } catch (error) {
     console.error('Erro ao buscar conteúdo do post:', error);
-    throw error;
+    return null;
   }
 }
