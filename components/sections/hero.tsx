@@ -76,7 +76,7 @@ export function Hero() {
                 transition={{ duration: 0.01 }}
                 className="block md:inline"
               >
-                {'Olá, sou'.split('').map((char, index) => (
+                {'Olá, sou '.split('').map((char, index) => (
                   <motion.span
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
@@ -142,11 +142,17 @@ export function Hero() {
         >
           <TypeAnimation
             sequence={[
-              'Desenvolvedora Front-end',
+              'Desenvolvedora Full Stack,',
               2000,
-              'UI/UX Designer',
+              'Desenvolvedora low code/no code,',
               2000,
-              'Freelancer',
+              'Analista de web analytics,',
+              2000,
+              'Analista de SEO,',
+              2000,
+              'Analista IA Generativa,',
+              2000,
+              'Engenheira de Prompt.',
               2000,
             ]}
             wrapper="span"
