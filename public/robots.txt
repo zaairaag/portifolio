@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /projetos/
+Allow: /sobre/
+Allow: /contato/
+
+# Sitemap
+Sitemap: https://zairagoncalves.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10
+
+# Directories
+Disallow: /api/
+Disallow: /_next/
+Disallow: /*?

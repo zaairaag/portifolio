@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { siteConfig } from '@/config/site';
 
 const title = 'Zaira Gonçalves - Desenvolvedora Frontend e UI Designer';
-const description = 'Desenvolvedora Frontend especializada em React, Next.js e UI Design. Criando experiências digitais únicas e interfaces intuitivas.';
+const description = 'Desenvolvedora Frontend especializada em React, Next.js e UI Design. Criando experiências digitais únicas e interfaces intuitivas com foco em performance e acessibilidade. Portfolio com projetos e artigos sobre desenvolvimento web moderno.';
 
 export const sharedMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -13,9 +13,9 @@ export const sharedMetadata: Metadata = {
   description,
   keywords: [
     'Desenvolvimento Web',
-    'Frontend',
-    'React',
-    'Next.js',
+    'Frontend Developer',
+    'React Developer',
+    'Next.js Expert',
     'UI Design',
     'UX Design',
     'Desenvolvimento Frontend',
@@ -27,7 +27,21 @@ export const sharedMetadata: Metadata = {
     'Blog Tecnologia',
     'Desenvolvimento React',
     'JavaScript',
-    'TypeScript'
+    'TypeScript',
+    'Performance Web',
+    'Acessibilidade Web',
+    'SEO Optimization',
+    'Web Components',
+    'Responsive Design',
+    'Mobile First',
+    'Frontend Architecture',
+    'Design System',
+    'User Interface',
+    'User Experience',
+    'Frontend Brasil',
+    'Desenvolvedora Web',
+    'Portfolio Desenvolvedor',
+    'Frontend Portfolio'
   ],
   authors: [
     {

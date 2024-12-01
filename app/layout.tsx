@@ -4,8 +4,15 @@ import { Providers } from './providers'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { Toaster } from 'sonner'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
-const inter = Inter({ subsets: ['latin'] })
+// Otimização de fonte com display swap
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
 export const metadata = {
   title: 'Zaira Gonçalves - Portfolio',
@@ -26,18 +33,6 @@ export const metadata = {
     },
   ],
   creator: 'Zaira Gonçalves',
-  icons: {
-    icon: '/favicon.svg',
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
-    other: [
-      {
-        rel: 'icon',
-        type: 'image/svg+xml',
-        url: '/favicon.svg',
-      }
-    ],
-  },
 }
 
 export default function RootLayout({
@@ -46,14 +41,46 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#000000" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Zaira Gonçalves",
+              "url": "https://zairagoncalves.com",
+              "jobTitle": "Desenvolvedora Frontend",
+              "knowsAbout": ["React", "Next.js", "TypeScript", "UI Design", "Frontend Development"],
+              "sameAs": [
+                "https://github.com/zairagoncalves",
+                "https://linkedin.com/in/zairagoncalves"
+              ]
+            })
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <Providers>
           <Navigation />
-          <main>{children}</main>
+          <main id="main-content">
+            {children}
+          </main>
           <Footer />
-          <Toaster richColors position="top-right" />
+          <Toaster />
         </Providers>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
