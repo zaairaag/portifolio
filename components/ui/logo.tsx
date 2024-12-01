@@ -134,7 +134,7 @@ export function Logo({ width = 32, height = 32, animated = true, className }: Lo
           }}
         />
 
-        {/* G - arco superior */}
+        {/* G - parte superior */}
         <motion.path
           d="M20 10H26"
           className="stroke-primary"
@@ -151,7 +151,7 @@ export function Logo({ width = 32, height = 32, animated = true, className }: Lo
           }}
         />
 
-        {/* G - linha vertical esquerda */}
+        {/* G - lateral */}
         <motion.path
           d="M20 10V22"
           className="stroke-primary"
@@ -168,7 +168,7 @@ export function Logo({ width = 32, height = 32, animated = true, className }: Lo
           }}
         />
 
-        {/* G - linha inferior */}
+        {/* G - parte inferior */}
         <motion.path
           d="M20 22H26"
           className="stroke-primary"
@@ -185,7 +185,7 @@ export function Logo({ width = 32, height = 32, animated = true, className }: Lo
           }}
         />
 
-        {/* G - linha vertical direita */}
+        {/* G - traço vertical */}
         <motion.path
           d="M26 16V22"
           className="stroke-primary"
@@ -202,7 +202,7 @@ export function Logo({ width = 32, height = 32, animated = true, className }: Lo
           }}
         />
 
-        {/* G - linha horizontal meio */}
+        {/* G - traço horizontal */}
         <motion.path
           d="M23 16H26"
           className="stroke-primary"
@@ -219,53 +219,45 @@ export function Logo({ width = 32, height = 32, animated = true, className }: Lo
           }}
         />
 
-        {/* Ponto decorativo central */}
+        {/* Ponto */}
         <motion.circle
           cx="19"
           cy="16"
           r="1"
           className="fill-primary"
           initial={{ scale: 0, opacity: 0 }}
-          animate={{
-            scale: [0, 1, 0],
-            opacity: [0, 1, 0],
-          }}
+          animate={{ scale: 1, opacity: 1 }}
           transition={{
-            duration: 2,
-            ease: 'easeInOut',
+            duration: 1,
+            ease: 'easeOut',
+            delay: 1.8,
             repeat: Infinity,
             repeatType: 'reverse',
           }}
         />
 
-        {/* Pontos decorativos orbitais */}
-        {[0, 72, 144, 216, 288].map((angle, i) => (
+        {/* Partículas */}
+        {[...Array(5)].map((_, i) => (
           <motion.circle
-            key={angle}
+            key={i}
             cx="16"
             cy="16"
             r="0.5"
             className="fill-primary/80"
-            initial={{
-              x: Math.cos((angle * Math.PI) / 180) * 12,
-              y: Math.sin((angle * Math.PI) / 180) * 12,
-            }}
+            initial={{ x: 0, y: 0, scale: 0 }}
             animate={{
               x: [
-                Math.cos(((angle + 0) * Math.PI) / 180) * 12,
-                Math.cos(((angle + 180) * Math.PI) / 180) * 12,
-                Math.cos(((angle + 360) * Math.PI) / 180) * 12,
+                Math.cos((i * Math.PI * 2) / 5) * 10,
+                Math.cos(((i + 1) * Math.PI * 2) / 5) * 10,
               ],
               y: [
-                Math.sin(((angle + 0) * Math.PI) / 180) * 12,
-                Math.sin(((angle + 180) * Math.PI) / 180) * 12,
-                Math.sin(((angle + 360) * Math.PI) / 180) * 12,
+                Math.sin((i * Math.PI * 2) / 5) * 10,
+                Math.sin(((i + 1) * Math.PI * 2) / 5) * 10,
               ],
-              scale: [1, 1.5, 1],
-              opacity: [0.3, 1, 0.3],
+              scale: [1, 1.5],
             }}
             transition={{
-              duration: 3,
+              duration: 4,
               ease: 'linear',
               repeat: Infinity,
               delay: i * 0.2,
@@ -273,48 +265,6 @@ export function Logo({ width = 32, height = 32, animated = true, className }: Lo
           />
         ))}
       </svg>
-
-      {/* Efeito de brilho no hover */}
-      <motion.div
-        className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-50 transition-opacity duration-300"
-        initial={false}
-        animate={{ scale: [0.8, 1.2, 0.8] }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-
-      {/* Partículas de fundo */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-primary/30 rounded-full"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -10, 0],
-              x: [0, Math.random() * 10 - 5, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 2 + Math.random() * 2,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-          />
-        ))}
-      </motion.div>
     </motion.div>
   )
 }

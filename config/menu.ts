@@ -11,4 +11,8 @@ export const menuItems = [
     href: "/portfolio",
     label: "Portfólio",
   },
+  {
+    href: "/blog",
+    label: "Blog",
+  },
 ]
