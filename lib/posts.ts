@@ -1,6 +1,11 @@
 import { Post } from '@/lib/types';
 import { notion } from '@/lib/notion';
 import { cache } from 'react';
+import { PageObjectResponse, PartialPageObjectResponse, DatabaseObjectResponse, PartialDatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
+function isFullPage(page: PageObjectResponse | PartialPageObjectResponse | DatabaseObjectResponse | PartialDatabaseObjectResponse): page is PageObjectResponse {
+  return !!(page as PageObjectResponse).properties;
+}
 
 export const getAllPosts = cache(async (): Promise<Post[]> => {
   try {
@@ -20,16 +25,19 @@ export const getAllPosts = cache(async (): Promise<Post[]> => {
       ],
     });
 
-    return response.results.map((page: any) => ({
-      id: page.id,
-      slug: page.properties.Slug.rich_text[0]?.plain_text || '',
-      title: page.properties.Title.title[0]?.plain_text || '',
-      description: page.properties.Description.rich_text[0]?.plain_text || '',
-      date: page.properties.Date.date?.start || '',
-      featuredImage: page.properties.FeaturedImage.files[0]?.file?.url || page.properties.FeaturedImage.files[0]?.external?.url || '',
-      tags: page.properties.Tags.multi_select.map((tag: any) => tag.name),
-      views: page.properties.Views?.number || 0,
-    }));
+    return response.results
+      .filter(isFullPage)
+      .map((page) => ({
+        id: page.id,
+        slug: (page.properties.Slug as any).rich_text[0]?.plain_text || '',
+        title: (page.properties.Title as any).title[0]?.plain_text || '',
+        description: (page.properties.Description as any).rich_text[0]?.plain_text || '',
+        date: (page.properties.Date as any).date?.start || '',
+        last_edited_time: page.last_edited_time,
+        featuredImage: (page.properties.FeaturedImage as any).files[0]?.file?.url || (page.properties.FeaturedImage as any).files[0]?.external?.url || '',
+        tags: (page.properties.Tags as any).multi_select.map((tag: any) => tag.name),
+        views: (page.properties.Views as any)?.number || 0,
+      }));
   } catch (error) {
     console.error('Error fetching posts:', error);
     return [];

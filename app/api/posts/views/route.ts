@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Client } from '@notionhq/client';
+import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -17,8 +18,9 @@ export async function POST(request: Request) {
     }
 
     // Busca a página atual para pegar o número de views
-    const page = await notion.pages.retrieve({ page_id: pageId });
-    const currentViews = page.properties.views?.number || 0;
+    const page = await notion.pages.retrieve({ page_id: pageId }) as PageObjectResponse;
+    const viewsProperty = page.properties.views as { type: 'number'; number: number | null };
+    const currentViews = viewsProperty?.number || 0;
 
     // Atualiza o contador de views
     await notion.pages.update({

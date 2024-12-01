@@ -16,13 +16,14 @@ import { PostNavigation } from '@/components/blog/PostNavigation';
 import { ViewCounter } from '@/components/blog/ViewCounter';
 import { siteConfig } from '@/config/site';
 import { Suspense } from 'react';
+import { Post } from '@/lib/types';
 
 // Aumentando o tempo de revalidação para 24 horas
 export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const posts = await getDatabase();
-  const post = posts.find((p) => p.slug === params.slug);
+  const post = posts.find((p): p is Post => p.slug === params.slug);
 
   if (!post) {
     return {
@@ -90,8 +91,8 @@ export async function generateStaticParams() {
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const posts = await getDatabase();
-  const currentIndex = posts.findIndex((p) => p.slug === params.slug);
-  const post = posts[currentIndex];
+  const currentIndex = posts.findIndex((p): p is Post => p.slug === params.slug);
+  const post: Post = posts[currentIndex];
 
   if (!post) {
     notFound();
@@ -122,9 +123,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.description,
-    image: post.featuredImage,
+    ...(post.featuredImage ? { image: post.featuredImage } : {}),
     datePublished: post.date,
-    dateModified: page.last_edited_time,
+    dateModified: post.last_edited_time,
     author: {
       '@type': 'Person',
       name: siteConfig.author.name,

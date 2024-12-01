@@ -38,7 +38,7 @@ export function MainNav() {
               className={cn(
                 linkClasses,
                 'px-3 py-2',
-                pathname === item.href
+                pathname && pathname === item.href
                   ? 'text-primary font-medium after:w-full'
                   : 'text-muted-foreground after:w-0 hover:after:w-full'
               )}
@@ -56,7 +56,7 @@ export function MainNav() {
                       linkClasses,
                       'px-3 py-2 gap-1',
                       'data-[state=open]:text-primary data-[state=open]:font-medium data-[state=open]:after:w-full',
-                      pathname === '/servicos' || pathname.startsWith('/servicos/')
+                      pathname && (pathname === '/servicos' || pathname.startsWith('/servicos/'))
                         ? 'text-primary font-medium after:w-full'
                         : 'text-muted-foreground after:w-0 hover:after:w-full',
                       'bg-transparent hover:bg-transparent focus:bg-transparent'
@@ -76,7 +76,7 @@ export function MainNav() {
                               href={`/servicos/${service.slug}`}
                               className={cn(
                                 'block select-none px-3 py-2 text-base no-underline outline-none transition-colors rounded-sm',
-                                pathname === `/servicos/${service.slug}`
+                                pathname && pathname === `/servicos/${service.slug}`
                                   ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white'
                                   : 'text-zinc-700 hover:bg-zinc-50 dark:text-zinc-200 dark:hover:bg-zinc-800/90 hover:text-zinc-900 dark:hover:text-white'
                               )}
@@ -101,7 +101,7 @@ export function MainNav() {
             className={cn(
               linkClasses,
               'px-3 py-2',
-              pathname === '/contato'
+              pathname && pathname === '/contato'
                 ? 'text-primary font-medium after:w-full'
                 : 'text-muted-foreground after:w-0 hover:after:w-full'
             )}

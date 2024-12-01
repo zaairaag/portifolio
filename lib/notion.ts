@@ -1,5 +1,7 @@
 import { Client } from '@notionhq/client';
 import { cache } from 'react';
+import { Post } from './types';
+import { GetPageResponse } from '@notionhq/client/build/src/api-endpoints';
 
 if (!process.env.NOTION_TOKEN) {
   throw new Error('NOTION_TOKEN não está definido');
@@ -13,12 +15,12 @@ console.log('Inicializando cliente Notion...');
 console.log('Token disponível:', !!process.env.NOTION_TOKEN);
 console.log('Database ID:', process.env.NOTION_DATABASE_ID);
 
-const notion = new Client({
+export const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
 // Cache dos posts por 1 hora
-export const getDatabase = cache(async () => {
+export const getDatabase = cache(async (): Promise<Post[]> => {
   try {    
     console.log('\n=== Iniciando busca de posts ===');
     
@@ -82,7 +84,9 @@ export const getDatabase = cache(async () => {
         date: properties.date?.date?.start || page.created_time.split('T')[0],
         slug,
         tags: properties.Tags?.multi_select?.map((tag: any) => tag.name) || [],
-        views: properties.views?.number || 0
+        views: properties.views?.number || 0,
+        featuredImage: properties.featuredImage?.url || null,
+        last_edited_time: page.last_edited_time
       };
     });
 
@@ -103,10 +107,10 @@ export const getDatabase = cache(async () => {
 });
 
 // Cache da página por 1 hora
-export const getPage = cache(async (pageId: string) => {
+export const getPage = cache(async (pageId: string): Promise<GetPageResponse> => {
   try {
     const page = await notion.pages.retrieve({ page_id: pageId });
-    return { page };
+    return page;
   } catch (error) {
     console.error('Erro ao buscar página:', error);
     throw error;
@@ -140,13 +144,13 @@ export const getBlocks = cache(async (blockId: string) => {
 // Função para buscar página e blocos em paralelo
 export async function getPostContent(pageId: string) {
   try {
-    const [pageData, blocks] = await Promise.all([
+    const [page, blocks] = await Promise.all([
       getPage(pageId),
       getBlocks(pageId)
     ]);
 
     return {
-      page: pageData.page,
+      page,
       blocks
     };
   } catch (error) {

@@ -19,13 +19,13 @@ export default function manifest(): MetadataRoute.Manifest {
         src: '/android-chrome-192x192.png',
         sizes: '192x192',
         type: 'image/png',
-        purpose: 'any maskable',
+        purpose: 'any',
       },
       {
         src: '/android-chrome-512x512.png',
         sizes: '512x512',
         type: 'image/png',
-        purpose: 'any maskable',
+        purpose: 'maskable',
       },
       {
         src: '/apple-touch-icon.png',
@@ -50,21 +50,18 @@ export default function manifest(): MetadataRoute.Manifest {
       {
         src: '/screenshots/home.jpg',
         sizes: '1920x1080',
-        type: 'image/jpeg',
-        label: 'Homepage do site',
+        type: 'image/jpeg'
       },
       {
         src: '/screenshots/portfolio.jpg',
         sizes: '1920x1080',
-        type: 'image/jpeg',
-        label: 'Página de portfolio',
+        type: 'image/jpeg'
       },
       {
         src: '/screenshots/blog.jpg',
         sizes: '1920x1080',
-        type: 'image/jpeg',
-        label: 'Blog com artigos sobre desenvolvimento',
-      },
+        type: 'image/jpeg'
+      }
     ],
     shortcuts: [
       {
@@ -90,7 +87,6 @@ export default function manifest(): MetadataRoute.Manifest {
       },
     ],
     prefer_related_applications: false,
-    dir: 'ltr',
-    iarc_rating_id: process.env.NEXT_PUBLIC_IARC_RATING_ID,
+    dir: 'ltr'
   };
 }

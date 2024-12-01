@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Client } from '@notionhq/client';
+import { PageObjectResponse, PartialPageObjectResponse, DatabaseObjectResponse, PartialDatabaseObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+
+function isFullPage(page: PageObjectResponse | PartialPageObjectResponse | DatabaseObjectResponse | PartialDatabaseObjectResponse): page is PageObjectResponse {
+  return !!(page as PageObjectResponse).properties;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -23,14 +28,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       database_id: process.env.NOTION_DATABASE_ID!
     });
 
+    const firstResult = response.results[0];
+
     // Retorna informações úteis
     res.status(200).json({
       env: envCheck,
       success: true,
       resultCount: response.results.length,
-      firstResult: response.results[0] ? {
-        id: response.results[0].id,
-        properties: Object.keys(response.results[0].properties)
+      firstResult: firstResult && isFullPage(firstResult) ? {
+        id: firstResult.id,
+        properties: Object.keys(firstResult.properties)
       } : null
     });
 

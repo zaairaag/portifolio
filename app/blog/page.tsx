@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${siteConfig.url}/blog`,
   },
-  authors: [{ name: siteConfig.author.name, url: siteConfig.author.github }],
+  authors: [{ name: siteConfig.author.name, url: siteConfig.links.github }],
   openGraph: {
     title: `Blog | ${siteConfig.name}`,
     description: 'Compartilhando conhecimento e experiências sobre desenvolvimento web, tecnologia e carreira.',
@@ -77,7 +77,7 @@ function generateSchemaOrgBlogPosting(post: any) {
     'author': {
       '@type': 'Person',
       'name': siteConfig.author.name,
-      'url': siteConfig.author.github,
+      'url': siteConfig.links.github,
     },
     'image': post.featuredImage ? [post.featuredImage] : undefined,
     'url': `${siteConfig.url}/blog/${post.slug}`,
@@ -238,7 +238,7 @@ export default async function BlogPage({
     'author': {
       '@type': 'Person',
       'name': siteConfig.author.name,
-      'url': siteConfig.author.github,
+      'url': siteConfig.links.github,
     },
     'blogPost': posts.map(generateSchemaOrgBlogPosting),
   };

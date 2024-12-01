@@ -77,8 +77,14 @@ export const sharedMetadata: Metadata = {
     },
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-    bing: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION,
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    } : {}),
+    ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ? {
+      other: {
+        'msvalidate.01': process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      }
+    } : {})
   },
   category: 'technology',
   manifest: '/manifest.json',
@@ -107,13 +113,15 @@ export const sharedMetadata: Metadata = {
     ],
   },
   other: {
-    'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID,
+    ...(process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID ? {
+      'google-adsense-account': process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID
+    } : {}),
     'msapplication-TileColor': '#da532c',
     'theme-color': '#ffffff',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'default',
     'apple-mobile-web-app-title': siteConfig.name,
     'mobile-web-app-capable': 'yes',
-    'msapplication-config': '/browserconfig.xml',
+    'msapplication-config': '/browserconfig.xml'
   },
 };
