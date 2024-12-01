@@ -200,3 +200,29 @@ p, li {
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.03);
 }
+
+@layer components {
+  .date-filter-button {
+    @apply px-3 py-1 rounded-full text-sm transition-colors relative group;
+  }
+
+  .date-filter-button[data-selected="true"] {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .date-filter-button[data-selected="false"] {
+    @apply bg-accent hover:bg-primary/10 hover:text-primary;
+  }
+
+  .date-filter-count {
+    @apply ml-1 px-1.5 py-0.5 rounded-full text-xs inline-flex items-center justify-center;
+  }
+
+  .date-filter-count[data-selected="true"] {
+    @apply bg-primary-foreground/10 text-primary-foreground;
+  }
+
+  .date-filter-count[data-selected="false"] {
+    @apply bg-muted text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary;
+  }
+}

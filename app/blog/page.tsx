@@ -1,9 +1,23 @@
 import { getDatabase } from '@/lib/notion';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import Image from 'next/image';
 import Link from 'next/link';
+import { DateFilter } from '@/components/blog/DateFilter';
+import { Suspense } from 'react';
+import { siteConfig } from '@/config/site';
+import { Metadata } from 'next';
 
-export const revalidate = 3600;
+export const metadata: Metadata = {
+  title: `Blog | ${siteConfig.name}`,
+  description: 'Compartilhando conhecimento e experiências sobre desenvolvimento web, tecnologia e carreira.',
+  openGraph: {
+    title: `Blog | ${siteConfig.name}`,
+    description: 'Compartilhando conhecimento e experiências sobre desenvolvimento web, tecnologia e carreira.',
+    type: 'website',
+    url: `${siteConfig.url}/blog`,
+  },
+};
 
 function getAllTags(posts: any[]) {
   const tags = posts.flatMap(post => post.tags);
@@ -20,10 +34,109 @@ function getMostReadPosts(posts: any[]) {
   return posts.slice(0, 5);
 }
 
-export default async function BlogPage() {
+function PostCard({
+  post,
+}: {
+  post: {
+    slug: string;
+    title: string;
+    description?: string;
+    date?: string;
+    featuredImage?: string;
+    tags?: string[];
+  };
+}) {
+  return (
+    <article className="group relative glass p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] hover:border-primary/20 border border-transparent bg-gradient-to-br from-primary/5 via-purple-500/5 to-pink-500/5">
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-purple-500/10 to-pink-500/10 rounded-lg opacity-50" />
+      
+      <Link href={`/blog/${post.slug}`} className="block space-y-3 relative">
+        {post.featuredImage && (
+          <div className="relative aspect-[21/9] rounded-lg overflow-hidden">
+            <Image
+              src={post.featuredImage}
+              alt={post.title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
+        )}
+        <div className="flex items-center gap-3 text-sm">
+          {post.date && (
+            <time className="text-primary/80">
+              {format(parseISO(post.date), "d 'de' MMMM 'de' yyyy", { locale: ptBR })}
+            </time>
+          )}
+          {post.tags && post.tags.length > 0 && (
+            <>
+              <span className="text-purple-400">•</span>
+              <div className="flex gap-2">
+                {post.tags.slice(0, 2).map((tag) => (
+                  <span key={tag} className="text-pink-500">
+                    {tag}
+                  </span>
+                ))}
+                {post.tags.length > 2 && (
+                  <span className="text-purple-400">
+                    +{post.tags.length - 2}
+                  </span>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+        
+        <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+          {post.title}
+        </h2>
+        
+        {post.description && (
+          <p className="text-muted-foreground leading-relaxed group-hover:text-muted-foreground/80 transition-colors">
+            {post.description}
+          </p>
+        )}
+        
+        <div className="pt-4 flex items-center text-sm">
+          <span className="text-primary group-hover:translate-x-1 transition-transform">
+            Ler mais
+          </span>
+          <svg 
+            className="ml-2 w-4 h-4 text-primary transition-all duration-300 group-hover:translate-x-2" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: { date?: string };
+}) {
   const posts = await getDatabase();
+  const dates = posts.map((post) => post.date).filter(Boolean) as string[];
   const tags = getAllTags(posts);
   const mostReadPosts = getMostReadPosts(posts);
+
+  // Filtra os posts pelo mês/ano selecionado
+  const filteredPosts = searchParams.date
+    ? posts.filter((post) => {
+        if (!post.date) return false;
+        return post.date.startsWith(searchParams.date!);
+      })
+    : posts;
 
   return (
     <div className="min-h-screen">
@@ -43,84 +156,27 @@ export default async function BlogPage() {
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Lista de Posts */}
           <div className="lg:w-2/3">
-            <div className="space-y-12">
-              {posts.map((post) => {
-                const postDate = post.date ? parseISO(post.date) : null;
-                const formattedDate = postDate 
-                  ? format(postDate, "d 'de' MMMM 'de' yyyy", { locale: ptBR })
-                  : null;
-
-                return (
-                  <article 
-                    key={post.id} 
-                    className="group relative glass p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] hover:border-primary/20 border border-transparent bg-gradient-to-br from-primary/5 via-purple-500/5 to-pink-500/5"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-purple-500/10 to-pink-500/10 rounded-lg opacity-50" />
-                    
-                    <Link href={`/blog/${post.slug}`} className="block space-y-3 relative">
-                      <div className="flex items-center gap-3 text-sm">
-                        <time className="text-primary/80">{formattedDate}</time>
-                        {post.tags.length > 0 && (
-                          <>
-                            <span className="text-purple-400">•</span>
-                            <div className="flex gap-2">
-                              {post.tags.slice(0, 2).map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="text-pink-500"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                              {post.tags.length > 2 && (
-                                <span className="text-purple-400">
-                                  +{post.tags.length - 2}
-                                </span>
-                              )}
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      
-                      <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                        {post.title}
-                      </h2>
-                      
-                      {post.description && (
-                        <p className="text-muted-foreground leading-relaxed group-hover:text-muted-foreground/80 transition-colors">
-                          {post.description}
-                        </p>
-                      )}
-                      
-                      <div className="pt-4 flex items-center text-sm">
-                        <span className="text-primary group-hover:translate-x-1 transition-transform">
-                          Ler mais
-                        </span>
-                        <svg 
-                          className="ml-2 w-4 h-4 text-primary transition-all duration-300 group-hover:translate-x-2" 
-                          fill="none" 
-                          viewBox="0 0 24 24" 
-                          stroke="currentColor"
-                        >
-                          <path 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round" 
-                            strokeWidth={2} 
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </div>
-                    </Link>
-                  </article>
-                );
-              })}
+            <div className="mb-8">
+              <Suspense fallback={<div>Carregando filtros...</div>}>
+                <DateFilter dates={dates} />
+              </Suspense>
+            </div>
+            <div className="space-y-8">
+              {filteredPosts.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
+              {filteredPosts.length === 0 && (
+                <div className="text-center py-12 text-muted-foreground">
+                  Nenhum post encontrado para este período.
+                </div>
+              )}
             </div>
           </div>
 
           {/* Sidebar */}
           <div className="lg:w-1/3 space-y-8">
-            {/* Categorias */}
             <div className="glass p-6 rounded-lg sticky top-24 border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-purple-500/5 to-pink-500/5">
+              {/* Categorias */}
               <h2 className="text-xl font-semibold mb-6 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 Categorias
               </h2>
