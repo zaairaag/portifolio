@@ -1,4 +1,4 @@
-import { getDatabase, getPage, getBlocks } from '@/lib/notion';
+import { getDatabase, getPostContent } from '@/lib/notion';
 import { RenderBlock } from '@/components/notion/RenderBlock';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -15,8 +15,10 @@ import { CategoryPosts } from '@/components/blog/CategoryPosts';
 import { PostNavigation } from '@/components/blog/PostNavigation';
 import { ViewCounter } from '@/components/blog/ViewCounter';
 import { siteConfig } from '@/config/site';
+import { Suspense } from 'react';
 
-export const revalidate = 3600;
+// Aumentando o tempo de revalidação para 24 horas
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const posts = await getDatabase();
@@ -95,11 +97,8 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     notFound();
   }
 
-  const { page } = await getPage(post.id);
-  const blocks = await getBlocks(post.id);
-  const relatedPosts = posts
-    .filter((p) => p.slug !== params.slug)
-    .slice(0, 3);
+  // Busca página e blocos em paralelo
+  const { page, blocks } = await getPostContent(post.id);
 
   if (!page || !blocks) {
     notFound();
@@ -176,7 +175,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   return (
     <>
-      <ViewCounter pageId={post.id} />
+      <Suspense>
+        <ViewCounter pageId={post.id} />
+      </Suspense>
+      
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -186,6 +188,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ProgressBar />
+
       <div className="min-h-screen">
         <article className="container mx-auto px-4 py-12 lg:py-16" itemScope itemType="https://schema.org/BlogPosting">
           <header className="max-w-4xl mx-auto mb-12 relative">
@@ -257,23 +260,38 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
           <div className="max-w-4xl mx-auto">
             <div className="lg:grid lg:grid-cols-[auto,300px] lg:gap-8">
-              <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 prose-headings:font-bold prose-headings:tracking-tight prose-headings:bg-gradient-to-r prose-headings:from-primary prose-headings:to-purple-500 prose-headings:bg-clip-text prose-headings:text-transparent prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
-                {blocks.map((block) => (
-                  <RenderBlock key={block.id} block={block} />
-                ))}
-              </div>
+              <Suspense fallback={
+                <div className="space-y-4">
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="h-4 w-full animate-pulse rounded bg-muted" />
+                  ))}
+                </div>
+              }>
+                <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 prose-headings:font-bold prose-headings:tracking-tight prose-headings:bg-gradient-to-r prose-headings:from-primary prose-headings:to-purple-500 prose-headings:bg-clip-text prose-headings:text-transparent prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
+                  {blocks.map((block) => (
+                    <RenderBlock key={block.id} block={block} />
+                  ))}
+                </div>
+              </Suspense>
+              
               <aside className="hidden lg:flex lg:flex-col gap-8">
                 <div className="sticky top-8 space-y-8 p-6 rounded-2xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
-                  <TableOfContents blocks={blocks} />
-                  <SocialShare title={post.title} slug={params.slug} />
+                  <Suspense>
+                    <TableOfContents blocks={blocks} />
+                  </Suspense>
+                  <Suspense>
+                    <SocialShare title={post.title} slug={params.slug} />
+                  </Suspense>
                 </div>
                 {mainTag && posts.filter(p => p.tags.includes(mainTag)).length > 1 && (
                   <div className="sticky top-[400px] p-6 rounded-2xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
-                    <CategoryPosts
-                      currentPostSlug={params.slug}
-                      tag={mainTag}
-                      posts={posts}
-                    />
+                    <Suspense>
+                      <CategoryPosts
+                        currentPostSlug={params.slug}
+                        tag={mainTag}
+                        posts={posts}
+                      />
+                    </Suspense>
                   </div>
                 )}
               </aside>
@@ -281,8 +299,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </div>
 
           <footer className="max-w-4xl mx-auto mt-16 space-y-16">
-            <AuthorCard />
-            <PostNavigation previousPost={previousPost} nextPost={nextPost} />
+            <Suspense>
+              <AuthorCard />
+            </Suspense>
+            <Suspense>
+              <PostNavigation previousPost={previousPost} nextPost={nextPost} />
+            </Suspense>
           </footer>
         </article>
       </div>

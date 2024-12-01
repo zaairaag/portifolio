@@ -1,4 +1,5 @@
 import { Client } from '@notionhq/client';
+import { cache } from 'react';
 
 if (!process.env.NOTION_TOKEN) {
   throw new Error('NOTION_TOKEN não está definido');
@@ -16,8 +17,9 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-export const getDatabase = async () => {
-  try {
+// Cache dos posts por 1 hora
+export const getDatabase = cache(async () => {
+  try {    
     console.log('\n=== Iniciando busca de posts ===');
     
     const response = await notion.databases.query({
@@ -41,7 +43,6 @@ export const getDatabase = async () => {
       );
     });
 
-    // Filtra os posts publicados
     const publishedPosts = response.results.filter((page: any) => {
       const properties = page.properties;
       const published = properties['Published ']?.checkbox;
@@ -62,7 +63,7 @@ export const getDatabase = async () => {
       });
     }
 
-    const mappedPosts = publishedPosts.map((page: any) => {
+    return publishedPosts.map((page: any) => {
       const properties = page.properties;
       const title = properties.Title?.title?.[0]?.plain_text || 'Sem título';
       const slug = properties.Slug?.rich_text?.[0]?.plain_text || 
@@ -85,8 +86,6 @@ export const getDatabase = async () => {
       };
     });
 
-    return mappedPosts;
-
   } catch (error: any) {
     console.error('\n=== Erro ao buscar posts ===');
     console.error('Mensagem:', error.message);
@@ -101,43 +100,57 @@ export const getDatabase = async () => {
     }
     throw error;
   }
-};
+});
 
-export const getPage = async (pageId: string) => {
+// Cache da página por 1 hora
+export const getPage = cache(async (pageId: string) => {
   try {
     const page = await notion.pages.retrieve({ page_id: pageId });
-    const blocks = await notion.blocks.children.list({
-      block_id: pageId,
-      page_size: 100,
-    });
-
-    return {
-      page,
-      blocks: blocks.results,
-    };
+    return { page };
   } catch (error) {
     console.error('Erro ao buscar página:', error);
     throw error;
   }
-};
+});
 
-export const getBlocks = async (blockId: string) => {
+// Cache dos blocos por 1 hora
+export const getBlocks = cache(async (blockId: string) => {
   const blocks = [];
   let cursor;
   
-  while (true) {
-    const { results, next_cursor } = await notion.blocks.children.list({
-      start_cursor: cursor,
-      block_id: blockId,
-    });
-    
-    blocks.push(...results);
-    
-    if (!next_cursor) {
-      break;
-    }
-    cursor = next_cursor;
+  try {
+    do {
+      const { results, next_cursor }: any = await notion.blocks.children.list({
+        block_id: blockId,
+        page_size: 100,
+        start_cursor: cursor,
+      });
+
+      blocks.push(...results);
+      cursor = next_cursor;
+    } while (cursor);
+
+    return blocks;
+  } catch (error) {
+    console.error('Erro ao buscar blocos:', error);
+    throw error;
   }
-  
-  return blocks;
-};
+});
+
+// Função para buscar página e blocos em paralelo
+export async function getPostContent(pageId: string) {
+  try {
+    const [pageData, blocks] = await Promise.all([
+      getPage(pageId),
+      getBlocks(pageId)
+    ]);
+
+    return {
+      page: pageData.page,
+      blocks
+    };
+  } catch (error) {
+    console.error('Erro ao buscar conteúdo do post:', error);
+    throw error;
+  }
+}
