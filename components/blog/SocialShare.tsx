@@ -8,6 +8,7 @@ import {
   CheckIcon 
 } from 'lucide-react';
 import { useState } from 'react';
+import cn from 'classnames';
 
 interface SocialShareProps {
   title: string;
@@ -35,14 +36,20 @@ export function SocialShare({ title, slug }: SocialShareProps) {
 
   return (
     <div className="space-y-4">
-      <h2 className="font-semibold">Compartilhar</h2>
+      <h2 className="font-semibold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+        Compartilhar
+      </h2>
       <div className="flex gap-2">
         <a
           href={shareLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="outline" size="icon">
+          <Button
+            variant="outline"
+            size="icon"
+            className="bg-background/50 backdrop-blur-sm hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-colors"
+          >
             <TwitterIcon className="h-4 w-4" />
             <span className="sr-only">Compartilhar no Twitter</span>
           </Button>
@@ -52,7 +59,11 @@ export function SocialShare({ title, slug }: SocialShareProps) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Button variant="outline" size="icon">
+          <Button
+            variant="outline"
+            size="icon"
+            className="bg-background/50 backdrop-blur-sm hover:bg-primary/10 hover:text-primary hover:border-primary/50 transition-colors"
+          >
             <LinkedinIcon className="h-4 w-4" />
             <span className="sr-only">Compartilhar no LinkedIn</span>
           </Button>
@@ -61,9 +72,15 @@ export function SocialShare({ title, slug }: SocialShareProps) {
           variant="outline"
           size="icon"
           onClick={copyToClipboard}
+          className={cn(
+            "bg-background/50 backdrop-blur-sm transition-colors",
+            copied
+              ? "border-green-500 text-green-500"
+              : "hover:bg-primary/10 hover:text-primary hover:border-primary/50"
+          )}
         >
           {copied ? (
-            <CheckIcon className="h-4 w-4 text-green-500" />
+            <CheckIcon className="h-4 w-4" />
           ) : (
             <LinkIcon className="h-4 w-4" />
           )}

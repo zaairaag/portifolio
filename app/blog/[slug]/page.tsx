@@ -11,6 +11,7 @@ import { ProgressBar } from '@/components/blog/ProgressBar';
 import { SocialShare } from '@/components/blog/SocialShare';
 import { RelatedPosts } from '@/components/blog/RelatedPosts';
 import { AuthorCard } from '@/components/blog/AuthorCard';
+import { CategoryPosts } from '@/components/blog/CategoryPosts';
 
 export const revalidate = 3600;
 
@@ -84,6 +85,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   
   const readingTime = calculateReadingTime(blocks);
 
+  // Pega a primeira tag do post para mostrar posts relacionados
+  const mainTag = post.tags?.[0];
+
   // Generate JSON-LD structured data
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -116,48 +120,64 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       <ProgressBar />
       <div className="min-h-screen">
         <article className="container mx-auto px-4 py-12 lg:py-16">
-          <header className="max-w-4xl mx-auto mb-12">
+          <header className="max-w-4xl mx-auto mb-12 relative">
             {post.featuredImage && (
-              <div className="relative aspect-[21/9] mb-8">
+              <div className="relative aspect-[21/9] mb-8 rounded-xl overflow-hidden shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
                 <Image
                   src={post.featuredImage}
                   alt={post.title}
                   fill
                   priority
-                  className="object-cover rounded-xl"
+                  className="object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
             )}
-            <div className="space-y-4">
-              <h1 className="text-4xl lg:text-5xl font-bold tracking-tight">{post.title}</h1>
+            <div className="space-y-4 relative z-20">
+              <h1 className="text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
+                {post.title}
+              </h1>
               {post.description && (
-                <p className="text-xl text-muted-foreground leading-relaxed">{post.description}</p>
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  {post.description}
+                </p>
               )}
-              <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-4 text-sm">
                 {formattedDate && (
-                  <time className="flex items-center gap-1">
+                  <time className="flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 text-primary">
                     <span className="sr-only">Data de publicação:</span>
                     {formattedDate}
                   </time>
                 )}
-                <span>•</span>
-                <span>{readingTime} min de leitura</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary">
+                  {readingTime} min de leitura
+                </span>
               </div>
             </div>
           </header>
 
           <div className="max-w-4xl mx-auto">
-            <div className="lg:grid lg:grid-cols-[auto,250px] lg:gap-8">
-              <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20">
+            <div className="lg:grid lg:grid-cols-[auto,300px] lg:gap-8">
+              <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 prose-headings:font-bold prose-headings:tracking-tight prose-headings:bg-gradient-to-r prose-headings:from-primary prose-headings:to-purple-500 prose-headings:bg-clip-text prose-headings:text-transparent">
                 {blocks.map((block) => (
                   <RenderBlock key={block.id} block={block} />
                 ))}
               </div>
-              <aside className="hidden lg:block">
-                <div className="sticky top-8 space-y-8">
+              <aside className="hidden lg:flex lg:flex-col gap-8">
+                <div className="sticky top-8 space-y-8 p-6 rounded-xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
                   <TableOfContents blocks={blocks} />
                   <SocialShare title={post.title} slug={params.slug} />
                 </div>
+                {mainTag && (
+                  <div className="sticky top-[400px] p-6 rounded-xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
+                    <CategoryPosts
+                      currentPostSlug={params.slug}
+                      tag={mainTag}
+                      posts={posts}
+                    />
+                  </div>
+                )}
               </aside>
             </div>
           </div>
