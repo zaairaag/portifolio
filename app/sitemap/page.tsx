@@ -1,18 +1,20 @@
 import Link from "next/link";
 import { ArrowRightIcon } from "lucide-react";
 import { services } from "@/data/services";
+import { PageHeader } from '@/components/ui/page-header'
 import Image from "next/image";
 
 export default function Sitemap() {
-  const routes = [
+  const sections = [
     {
       title: "Principal",
       description: "Navegue pelas seções principais do site",
       links: [
         { name: "Início", href: "/" },
-        { name: "Sobre", href: "/#about" },
-        { name: "Projetos", href: "/#projects" },
-        { name: "Experiência", href: "/#experience" },
+        { name: "Sobre", href: "/sobre" },
+        { name: "Projetos", href: "/projetos" },
+        { name: "Experiência", href: "/experiencia" },
+        { name: "Blog", href: "/blog" },
       ],
     },
     {
@@ -65,46 +67,52 @@ export default function Sitemap() {
         </div>
 
         <div className="container mx-auto px-4 py-16 relative">
-          {/* Cabeçalho */}
-          <div className="text-center mb-16">
-            <div className="inline-block rounded-full px-4 py-1.5 text-sm font-medium bg-accent/10 text-accent-foreground mb-4">
-              Mapa do Site
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              Encontre o que{' '}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-500">
-                você procura
-              </span>
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Uma visão completa de todas as páginas e recursos disponíveis em nosso site
-            </p>
-          </div>
+          <PageHeader
+            badge="Mapa do Site"
+            title="Encontre o que"
+            titleHighlight="você procura"
+            description="Uma visão completa de todas as páginas e recursos disponíveis em nosso site"
+          />
 
-          {/* Grid de Seções */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {routes.map((section) => (
-              <div key={section.title} className="group relative p-6 rounded-2xl border border-border/50 bg-background/50 backdrop-blur-sm hover:border-primary/50 transition-all duration-300">
+            {sections.map((section, index) => (
+              <div 
+                key={index} 
+                className={`group relative p-6 rounded-2xl border ${
+                  section.title === "Principal" 
+                    ? "border-primary/20 bg-card" 
+                    : "border-border/50 bg-background/50 backdrop-blur-sm hover:border-primary/50"
+                } transition-all duration-300`}
+              >
                 <div className="space-y-4">
-                  <h2 className="text-xl font-semibold text-primary group-hover:text-primary/80 transition-colors">
+                  <h2 className={`text-xl font-semibold ${
+                    section.title === "Principal" ? "text-primary" : "text-primary group-hover:text-primary/80"
+                  } transition-colors`}>
                     {section.title}
                   </h2>
                   <p className="text-sm text-muted-foreground">
                     {section.description}
                   </p>
-                  <ul className="space-y-2 pt-4 border-t border-border/50">
-                    {section.links.map((link) => (
-                      <li key={link.name}>
-                        <Link
-                          href={link.href}
-                          className="group/link flex items-center text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
-                        >
-                          <ArrowRightIcon className="h-4 w-4 mr-2 opacity-0 group-hover/link:opacity-100 transition-all duration-200 -translate-x-2 group-hover/link:translate-x-0" />
-                          {link.name}
-                        </Link>
-                      </li>
+                  <div className={`space-y-4 pt-4 ${
+                    section.title === "Principal" 
+                      ? "border-t border-primary/10" 
+                      : "border-t border-border/50"
+                  }`}>
+                    {section.links.map((link, linkIndex) => (
+                      <Link
+                        key={linkIndex}
+                        href={link.href}
+                        className={`flex items-center ${
+                          section.title === "Principal"
+                            ? "text-base hover:text-primary"
+                            : "text-sm text-muted-foreground hover:text-primary"
+                        } transition-colors`}
+                      >
+                        <span>{link.name}</span>
+                        <ArrowRightIcon className="w-4 h-4 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                      </Link>
                     ))}
-                  </ul>
+                  </div>
                 </div>
 
                 {/* Decorative corner */}

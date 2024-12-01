@@ -1,86 +1,96 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
+import { siteConfig } from '@/config/site';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Zaíra Gonçalves - Portfolio',
-    short_name: 'Zaíra Dev',
-    description:
-      'Desenvolvedora Full Stack especializada em criar experiências web modernas e aplicações de alta performance.',
+    name: siteConfig.name,
+    short_name: 'Zaira Gonçalves',
+    description: 'Desenvolvedora Frontend especializada em React, Next.js e UI Design. Criando experiências digitais únicas e interfaces intuitivas.',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#000000',
+    theme_color: '#ffffff',
     orientation: 'portrait',
     scope: '/',
-    prefer_related_applications: false,
-    categories: ['portfolio', 'development', 'technology'],
+    lang: 'pt-BR',
+    categories: ['business', 'technology', 'education', 'development'],
     icons: [
       {
-        src: '/icons/icon-72x72.png',
-        sizes: '72x72',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/icons/icon-96x96.png',
-        sizes: '96x96',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/icons/icon-128x128.png',
-        sizes: '128x128',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/icons/icon-144x144.png',
-        sizes: '144x144',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/icons/icon-152x152.png',
-        sizes: '152x152',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/icons/icon-192x192.png',
+        src: '/android-chrome-192x192.png',
         sizes: '192x192',
         type: 'image/png',
-        purpose: 'any',
+        purpose: 'any maskable',
       },
       {
-        src: '/icons/icon-384x384.png',
-        sizes: '384x384',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/icons/icon-512x512.png',
+        src: '/android-chrome-512x512.png',
         sizes: '512x512',
         type: 'image/png',
+        purpose: 'any maskable',
+      },
+      {
+        src: '/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png',
         purpose: 'any',
       },
       {
-        src: '/icons/maskable-icon.png',
-        sizes: '512x512',
+        src: '/favicon-32x32.png',
+        sizes: '32x32',
         type: 'image/png',
-        purpose: 'maskable',
+        purpose: 'any',
+      },
+      {
+        src: '/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
+        purpose: 'any',
       },
     ],
     screenshots: [
       {
-        src: '/screenshots/desktop.png',
+        src: '/screenshots/home.jpg',
         sizes: '1920x1080',
-        type: 'image/png',
+        type: 'image/jpeg',
+        label: 'Homepage do site',
       },
       {
-        src: '/screenshots/mobile.png',
-        sizes: '750x1334',
-        type: 'image/png',
+        src: '/screenshots/portfolio.jpg',
+        sizes: '1920x1080',
+        type: 'image/jpeg',
+        label: 'Página de portfolio',
+      },
+      {
+        src: '/screenshots/blog.jpg',
+        sizes: '1920x1080',
+        type: 'image/jpeg',
+        label: 'Blog com artigos sobre desenvolvimento',
       },
     ],
-  }
+    shortcuts: [
+      {
+        name: 'Blog',
+        url: '/blog',
+        description: 'Leia os últimos artigos sobre desenvolvimento web',
+      },
+      {
+        name: 'Portfolio',
+        url: '/portfolio',
+        description: 'Veja meus projetos mais recentes',
+      },
+      {
+        name: 'Contato',
+        url: '/contato',
+        description: 'Entre em contato comigo',
+      },
+    ],
+    related_applications: [
+      {
+        platform: 'web',
+        url: siteConfig.url,
+      },
+    ],
+    prefer_related_applications: false,
+    dir: 'ltr',
+    iarc_rating_id: process.env.NEXT_PUBLIC_IARC_RATING_ID,
+  };
 }
