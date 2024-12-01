@@ -41,9 +41,9 @@ export default function Sitemap() {
       title: "Social",
       description: "Conecte-se através das redes sociais",
       links: [
-        { name: "GitHub", href: "https://github.com/zairamiranda" },
-        { name: "LinkedIn", href: "https://www.linkedin.com/in/zaira-miranda/" },
-        { name: "Instagram", href: "https://www.instagram.com/" },
+        { name: "GitHub", href: "https://github.com/zaairaag" },
+        { name: "LinkedIn", href: "https://www.linkedin.com/in/zaira-goncalves/" },
+        { name: "Instagram", href: "https://www.instagram.com/zairagpc/" },
       ],
     },
   ];

@@ -6,32 +6,32 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { SendIcon, CheckIcon, GithubIcon, LinkedinIcon, XIcon, CalendarIcon, ArrowRight } from 'lucide-react';
+import { SendIcon, CheckIcon, GithubIcon, LinkedinIcon, XIcon, CalendarIcon, ArrowRight, TwitterIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const socialLinks = [
   {
-    name: 'GitHub',
-    href: 'https://github.com/zairagoncalves',
-    icon: GithubIcon,
-    color: 'hover:text-[#333]',
-    username: '@zairagoncalves'
-  },
-  {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/in/zairagoncalves',
+    href: 'https://www.linkedin.com/in/zaira-goncalves/',
     icon: LinkedinIcon,
     color: 'hover:text-[#0077b5]',
     username: '@zairagoncalves'
   },
   {
-    name: 'Twitter',
-    href: 'https://twitter.com/zairagoncalves',
-    icon: XIcon,
-    color: 'hover:text-[#1da1f2]',
-    username: '@zairagoncalves'
+    name: 'GitHub',
+    href: 'https://github.com/zaairaag',
+    icon: GithubIcon,
+    color: 'hover:text-[#333]',
+    username: '@zaairaag'
   },
+  {
+    name: 'Twitter',
+    href: 'https://x.com/ZaairaaG',
+    icon: TwitterIcon,
+    color: 'hover:text-[#1da1f2]',
+    username: '@ZaairaaG'
+  }
 ];
 
 interface FormData {
@@ -50,6 +50,8 @@ export function ContactForm() {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [email, setEmail] = useState('contato@zairagoncalves.com');
+  const [name, setName] = useState('Zaíra Gonçalves');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +76,7 @@ export function ContactForm() {
   };
 
   const handleScheduleMeeting = () => {
-    window.open('https://calendly.com/zairagoncalves', '_blank');
+    window.open('https://calendly.com/zaairaag43', '_blank');
   };
 
   const handleChange = (

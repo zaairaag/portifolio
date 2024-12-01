@@ -1,7 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { GithubIcon, LinkedinIcon, InstagramIcon, ArrowUpIcon } from "lucide-react";
+import { 
+  Github as GithubIcon, 
+  Linkedin as LinkedinIcon, 
+  ArrowUp as ArrowUpIcon 
+} from "lucide-react";
 import { Button } from "./ui/button";
 
 export function Footer() {
@@ -10,6 +14,23 @@ export function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const socialLinks = [
+    {
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/zaira-goncalves/',
+      icon: LinkedinIcon,
+      color: 'hover:text-[#0077b5]',
+      username: '@zairagoncalves'
+    },
+    {
+      name: 'GitHub',
+      href: 'https://github.com/zaairaag',
+      icon: GithubIcon,
+      color: 'hover:text-[#333]',
+      username: '@zaairaag'
+    }
+  ];
 
   return (
     <footer className="relative border-t border-border/40 bg-background/50 backdrop-blur-sm">
@@ -58,33 +79,18 @@ export function Footer() {
 
           {/* Redes Sociais à direita */}
           <div className="flex items-center justify-center md:justify-end gap-2 order-3">
-            <a
-              href="https://github.com/zairamiranda"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group p-2 hover:text-primary transition-colors duration-200"
-              aria-label="GitHub"
-            >
-              <GithubIcon className="h-4 w-4" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/zaira-miranda/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group p-2 hover:text-primary transition-colors duration-200"
-              aria-label="LinkedIn"
-            >
-              <LinkedinIcon className="h-4 w-4" />
-            </a>
-            <a
-              href="https://www.instagram.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group p-2 hover:text-primary transition-colors duration-200"
-              aria-label="Instagram"
-            >
-              <InstagramIcon className="h-4 w-4" />
-            </a>
+            {socialLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group p-2 ${link.color} transition-colors duration-200`}
+                aria-label={link.name}
+              >
+                <link.icon className="h-4 w-4" />
+              </a>
+            ))}
           </div>
         </div>
       </div>

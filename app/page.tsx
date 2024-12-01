@@ -40,32 +40,32 @@ const navigationCards = [
 const socialLinks = [
   {
     icon: GithubIcon,
-    href: "https://github.com/zairamiranda",
+    href: "https://github.com/zaairaag",
     label: "GitHub"
   },
   {
     icon: LinkedinIcon,
-    href: "https://www.linkedin.com/in/zaira-miranda/",
+    href: "https://www.linkedin.com/in/zaira-goncalves/",
     label: "LinkedIn"
   },
   {
     icon: TwitterIcon,
-    href: "https://twitter.com/zairamiranda",
+    href: "https://x.com/ZaairaaG",
     label: "Twitter"
   },
   {
     icon: InstagramIcon,
-    href: "https://instagram.com/zairamiranda",
+    href: "https://www.instagram.com/zairagpc/",
     label: "Instagram"
   },
   {
     icon: MailIcon,
-    href: "mailto:zaira.miranda@gmail.com",
+    href: "mailto:contato@zairagoncalves.com",
     label: "Email"
   },
   {
     icon: Music2Icon,
-    href: "https://open.spotify.com/user/zairamiranda",
+    href: "https://open.spotify.com/user/vtyrhbzh8xfnbc0cfozv7en05",
     label: "Spotify"
   }
 ]
