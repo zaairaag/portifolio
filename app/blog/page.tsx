@@ -199,23 +199,29 @@ export default async function BlogPage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const posts = await getDatabase();
+  console.log('Posts carregados:', posts.length);
+
   const selectedTag = typeof searchParams.categoria === 'string' 
-    ? decodeURIComponent(searchParams.categoria)
+    ? decodeURIComponent(searchParams.categoria).toLowerCase()
     : undefined;
+
+  console.log('Categoria selecionada:', selectedTag);
 
   // Filtra os posts se houver uma categoria selecionada
   const filteredPosts = selectedTag
     ? posts.filter(post => 
         post.tags.some(tag => 
-          tag.toLowerCase() === selectedTag.toLowerCase()
+          tag.toLowerCase() === selectedTag
         )
       )
     : posts;
 
+  console.log('Posts filtrados:', filteredPosts.length);
+
   // Encontra a tag com o case original para exibição
   const displayTag = selectedTag
-    ? posts.find(post => post.tags.some(t => t.toLowerCase() === selectedTag))
-      ?.tags.find(t => t.toLowerCase() === selectedTag)
+    ? posts.flatMap(post => post.tags)
+        .find(tag => tag.toLowerCase() === selectedTag)
     : undefined;
 
   // Prepara as tags e posts populares
@@ -264,7 +270,11 @@ export default async function BlogPage({
                 <PostCard key={post.slug} post={post} />
               ))
             ) : (
-              <p className="text-muted-foreground">Nenhum post encontrado para esta categoria.</p>
+              <p className="text-muted-foreground">
+                {selectedTag 
+                  ? `Nenhum post encontrado para a categoria "${displayTag || selectedTag}".`
+                  : "Nenhum post publicado ainda."}
+              </p>
             )}
           </div>
           <aside className="space-y-8">

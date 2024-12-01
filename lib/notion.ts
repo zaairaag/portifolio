@@ -8,63 +8,97 @@ if (!process.env.NOTION_DATABASE_ID) {
   throw new Error('NOTION_DATABASE_ID não está definido');
 }
 
+console.log('Inicializando cliente Notion...');
+console.log('Token disponível:', !!process.env.NOTION_TOKEN);
+console.log('Database ID:', process.env.NOTION_DATABASE_ID);
+
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
 export const getDatabase = async () => {
   try {
-    console.log('Buscando posts do Notion...');
+    console.log('\n=== Iniciando busca de posts ===');
     
     const response = await notion.databases.query({
-      database_id: process.env.NOTION_DATABASE_ID,
+      database_id: process.env.NOTION_DATABASE_ID!,
+      sorts: [
+        {
+          property: "date",
+          direction: "descending"
+        }
+      ]
     });
 
-    return response.results.map((page) => {
+    console.log('\n=== Posts encontrados ===');
+    response.results.forEach((page: any) => {
+      const props = page.properties;
+      const published = props['Published ']?.checkbox;
+      console.log(`\nPost: "${props.Title?.title?.[0]?.plain_text || 'Sem título'}"
+        - Published: ${published}
+        - Data: ${props.date?.date?.start || 'Não definida'}
+        - Tags: ${props.Tags?.multi_select?.map((t: any) => t.name).join(', ') || 'Sem tags'}`
+      );
+    });
+
+    // Filtra os posts publicados
+    const publishedPosts = response.results.filter((page: any) => {
       const properties = page.properties;
+      const published = properties['Published ']?.checkbox;
+      const title = properties.Title?.title?.[0]?.plain_text;
+      console.log(`Verificando post "${title}": Published = ${published}`);
+      return published === true;
+    });
 
-      // Extrai o título
+    console.log('\n=== Resumo ===');
+    console.log(`Total de posts: ${response.results.length}`);
+    console.log(`Posts publicados: ${publishedPosts.length}`);
+
+    if (publishedPosts.length > 0) {
+      console.log('\n=== Posts que serão exibidos ===');
+      publishedPosts.forEach((page: any) => {
+        const props = page.properties;
+        console.log(`- ${props.Title?.title?.[0]?.plain_text || 'Sem título'}`);
+      });
+    }
+
+    const mappedPosts = publishedPosts.map((page: any) => {
+      const properties = page.properties;
       const title = properties.Title?.title?.[0]?.plain_text || 'Sem título';
-
-      // Extrai a descrição corretamente
-      const description = properties.description?.rich_text?.[0]?.plain_text || '';
-
-      // Usa a data diretamente do Notion sem conversão UTC
-      const date = properties.date?.date?.start || page.created_time.split('T')[0];
-
-      // Gera o slug a partir do campo Slug ou do título
-      let slug;
-      if (properties.Slug?.rich_text?.[0]?.plain_text) {
-        // Se tiver um slug definido no Notion, usa ele
-        slug = properties.Slug.rich_text[0].plain_text;
-      } else {
-        // Se não tiver slug, gera a partir do título
-        slug = title
-          .toLowerCase()
+      const slug = properties.Slug?.rich_text?.[0]?.plain_text || 
+        title.toLowerCase()
           .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '') // Remove acentos
-          .replace(/[^\w\s-]/g, '') // Remove caracteres especiais
-          .replace(/\s+/g, '-') // Substitui espaços por hífens
-          .replace(/-+/g, '-') // Remove hífens duplicados
+          .replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^\w\s-]/g, '')
+          .replace(/\s+/g, '-')
+          .replace(/-+/g, '-')
           .trim();
-      }
-
-      // Extrai a URL da imagem de destaque
-      const featuredImage = getFeaturedImageUrl(properties['Featured Image']);
 
       return {
         id: page.id,
         title,
-        description,
-        date,
+        description: properties.description?.rich_text?.[0]?.plain_text || '',
+        date: properties.date?.date?.start || page.created_time.split('T')[0],
         slug,
-        tags: properties.Tags?.multi_select?.map((tag) => tag.name) || [],
-        featuredImage,
+        tags: properties.Tags?.multi_select?.map((tag: any) => tag.name) || [],
         views: properties.views?.number || 0
       };
     });
-  } catch (error) {
-    console.error('Erro ao buscar posts:', error);
+
+    return mappedPosts;
+
+  } catch (error: any) {
+    console.error('\n=== Erro ao buscar posts ===');
+    console.error('Mensagem:', error.message);
+    if (error.code) {
+      console.error('Código:', error.code);
+    }
+    if (error.status) {
+      console.error('Status:', error.status);
+    }
+    if (error.body) {
+      console.error('Corpo:', error.body);
+    }
     throw error;
   }
 };
@@ -106,22 +140,4 @@ export const getBlocks = async (blockId: string) => {
   }
   
   return blocks;
-};
-
-// Função auxiliar para extrair URL da imagem
-const getFeaturedImageUrl = (imageProperty: any) => {
-  if (!imageProperty) return null;
-  
-  // Para propriedades do tipo files
-  if (imageProperty.files && imageProperty.files[0]) {
-    const file = imageProperty.files[0];
-    return file.file?.url || file.external?.url || null;
-  }
-  
-  // Para propriedades do tipo url
-  if (imageProperty.url) {
-    return imageProperty.url;
-  }
-  
-  return null;
 };
