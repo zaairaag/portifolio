@@ -26,6 +26,18 @@ export const metadata = {
     },
   ],
   creator: 'Zaira Gonçalves',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+    other: [
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        url: '/favicon.svg',
+      }
+    ],
+  },
 }
 
 export default function RootLayout({
