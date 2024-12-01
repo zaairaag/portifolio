@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { siteConfig } from '@/config/site';
 import { Metadata } from 'next';
 import { PostsList } from '@/components/blog/PostsList';
+import { Categories } from '@/components/blog/Categories';
+import { PopularPosts } from '@/components/blog/PopularPosts';
 
 const POSTS_PER_PAGE = 4;
 
@@ -43,12 +45,18 @@ export const metadata: Metadata = {
 };
 
 function getAllTags(posts: any[]) {
-  const tags = posts.flatMap(post => post.tags);
-  const tagCount = tags.reduce((acc: Record<string, number>, tag: string) => {
-    acc[tag] = (acc[tag] || 0) + 1;
-    return acc;
-  }, {});
-  return Object.entries(tagCount)
+  const tagCounts: Record<string, number> = {};
+  posts.forEach(post => {
+    post.tags.forEach((tag: string) => {
+      const normalizedTag = tag.trim();
+      if (normalizedTag) {
+        tagCounts[normalizedTag] = (tagCounts[normalizedTag] || 0) + 1;
+      }
+    });
+  });
+  
+  return Object.entries(tagCounts)
+    .filter(([, count]) => count > 0)
     .sort((a, b) => b[1] - a[1])
     .map(([tag, count]) => ({ tag, count }));
 }
@@ -185,11 +193,34 @@ function PostCard({
   );
 }
 
-export default async function BlogPage() {
-  const allPosts = await getDatabase();
-  const initialPosts = allPosts.slice(0, POSTS_PER_PAGE);
-  const tags = getAllTags(allPosts);
-  const mostReadPosts = getMostReadPosts(allPosts);
+export default async function BlogPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const posts = await getDatabase();
+  const selectedTag = typeof searchParams.categoria === 'string' 
+    ? decodeURIComponent(searchParams.categoria)
+    : undefined;
+
+  // Filtra os posts se houver uma categoria selecionada
+  const filteredPosts = selectedTag
+    ? posts.filter(post => 
+        post.tags.some(tag => 
+          tag.toLowerCase() === selectedTag.toLowerCase()
+        )
+      )
+    : posts;
+
+  // Encontra a tag com o case original para exibição
+  const displayTag = selectedTag
+    ? posts.find(post => post.tags.some(t => t.toLowerCase() === selectedTag))
+      ?.tags.find(t => t.toLowerCase() === selectedTag)
+    : undefined;
+
+  // Prepara as tags e posts populares
+  const allTags = getAllTags(posts);
+  const popularPosts = getMostReadPosts(posts);
 
   // Schema.org JSON-LD
   const schemaOrg = {
@@ -203,7 +234,7 @@ export default async function BlogPage() {
       'name': siteConfig.author.name,
       'url': siteConfig.author.github,
     },
-    'blogPost': allPosts.map(generateSchemaOrgBlogPosting),
+    'blogPost': posts.map(generateSchemaOrgBlogPosting),
   };
 
   return (
@@ -212,8 +243,8 @@ export default async function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
       />
-      <div className="min-h-screen">
-        <div className="container py-8">
+      <div className="container max-w-7xl py-6 lg:py-10">
+        <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <header className="max-w-2xl mx-auto text-center mb-16">
             <span className="text-sm font-mono text-primary">Blog</span>
             <h1 className="text-4xl font-bold mt-2">
@@ -225,74 +256,21 @@ export default async function BlogPage() {
               Ideias, tutoriais e reflexões sobre desenvolvimento web, tecnologia e carreira
             </p>
           </header>
-
-          <div className="flex flex-col lg:flex-row gap-12">
-            <main className="lg:w-2/3">
-              <PostsList initialPosts={initialPosts} totalPosts={allPosts} />
-            </main>
-
-            <aside className="lg:w-1/3 space-y-8">
-              <div className="glass p-6 rounded-lg sticky top-24 border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-purple-500/5 to-pink-500/5">
-                <nav aria-label="Categorias">
-                  <h2 className="text-xl font-semibold mb-6 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                    Categorias
-                  </h2>
-                  <ul className="space-y-3">
-                    {tags.map(({ tag, count }) => (
-                      <li 
-                        key={tag} 
-                        className="flex items-center justify-between group"
-                      >
-                        <span className="text-purple-400">
-                          {tag}
-                        </span>
-                        <span className="text-sm px-2 py-1 rounded-full bg-gradient-to-r from-primary/20 via-purple-500/20 to-pink-500/20 text-pink-500">
-                          {count}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-
-                <section aria-label="Posts Populares">
-                  <h2 className="text-xl font-semibold mt-12 mb-6 bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                    Posts Populares
-                  </h2>
-                  <div className="space-y-6">
-                    {mostReadPosts.map((post, index) => (
-                      <Link 
-                        key={post.id} 
-                        href={`/blog/${post.slug}`}
-                        className="group flex gap-4 items-start transition-all duration-300 hover:translate-x-1"
-                      >
-                        <span className="text-4xl font-bold bg-gradient-to-r from-primary/30 via-purple-500/30 to-pink-500/30 bg-clip-text text-transparent">
-                          {(index + 1).toString().padStart(2, '0')}
-                        </span>
-                        <div>
-                          <h3 className="font-medium text-purple-400">
-                            {post.title}
-                          </h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            {post.date && (
-                              <time 
-                                dateTime={post.date}
-                                className="text-sm text-pink-500/80"
-                              >
-                                {format(parseISO(post.date), "d 'de' MMM", { locale: ptBR })}
-                              </time>
-                            )}
-                            <span className="text-sm text-primary/80">
-                              • {post.views || 0} views
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </section>
-              </div>
-            </aside>
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[2fr_1fr] mt-8">
+          <div className="grid gap-10">
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))
+            ) : (
+              <p className="text-muted-foreground">Nenhum post encontrado para esta categoria.</p>
+            )}
           </div>
+          <aside className="space-y-8">
+            <Categories tags={allTags} selectedTag={selectedTag} />
+            <PopularPosts posts={popularPosts} />
+          </aside>
         </div>
       </div>
     </>

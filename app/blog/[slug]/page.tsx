@@ -190,14 +190,14 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         <article className="container mx-auto px-4 py-12 lg:py-16" itemScope itemType="https://schema.org/BlogPosting">
           <header className="max-w-4xl mx-auto mb-12 relative">
             {post.featuredImage && (
-              <figure className="relative aspect-[21/9] mb-8 rounded-xl overflow-hidden shadow-2xl">
+              <figure className="relative aspect-[21/9] mb-8 rounded-2xl overflow-hidden shadow-2xl group">
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
                 <Image
                   src={post.featuredImage}
                   alt={post.title}
                   fill
                   priority
-                  className="object-cover hover:scale-105 transition-transform duration-700"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
                   itemProp="image"
                 />
               </figure>
@@ -224,7 +224,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                   {post.description}
                 </p>
               )}
-              <div className="flex items-center gap-4 text-sm">
+              <div className="flex flex-wrap items-center gap-4 text-sm">
                 {formattedDate && (
                   <time 
                     dateTime={post.date}
@@ -234,6 +234,17 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                     <span className="sr-only">Data de publicação:</span>
                     {formattedDate}
                   </time>
+                )}
+                {mainTag && (
+                  <>
+                    <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+                    <a 
+                      href={`/blog?tag=${mainTag}`}
+                      className="px-3 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                    >
+                      {mainTag}
+                    </a>
+                  </>
                 )}
                 <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
                 <span className="px-3 py-1 rounded-full bg-primary/10 text-primary">
@@ -246,18 +257,18 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
           <div className="max-w-4xl mx-auto">
             <div className="lg:grid lg:grid-cols-[auto,300px] lg:gap-8">
-              <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 prose-headings:font-bold prose-headings:tracking-tight prose-headings:bg-gradient-to-r prose-headings:from-primary prose-headings:to-purple-500 prose-headings:bg-clip-text prose-headings:text-transparent">
+              <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 prose-headings:font-bold prose-headings:tracking-tight prose-headings:bg-gradient-to-r prose-headings:from-primary prose-headings:to-purple-500 prose-headings:bg-clip-text prose-headings:text-transparent prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
                 {blocks.map((block) => (
                   <RenderBlock key={block.id} block={block} />
                 ))}
               </div>
               <aside className="hidden lg:flex lg:flex-col gap-8">
-                <div className="sticky top-8 space-y-8 p-6 rounded-xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
+                <div className="sticky top-8 space-y-8 p-6 rounded-2xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
                   <TableOfContents blocks={blocks} />
                   <SocialShare title={post.title} slug={params.slug} />
                 </div>
-                {mainTag && (
-                  <div className="sticky top-[400px] p-6 rounded-xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
+                {mainTag && posts.filter(p => p.tags.includes(mainTag)).length > 1 && (
+                  <div className="sticky top-[400px] p-6 rounded-2xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
                     <CategoryPosts
                       currentPostSlug={params.slug}
                       tag={mainTag}
@@ -272,7 +283,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           <footer className="max-w-4xl mx-auto mt-16 space-y-16">
             <AuthorCard />
             <PostNavigation previousPost={previousPost} nextPost={nextPost} />
-            <RelatedPosts posts={relatedPosts} />
           </footer>
         </article>
       </div>
