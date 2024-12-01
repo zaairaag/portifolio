@@ -16,11 +16,11 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const tag = decodeURIComponent(params.tag).trim();
   
   return {
-    title: `Posts sobre ${tag} | Zaira Miranda`,
-    description: `Confira todos os artigos sobre ${tag} no blog da Zaira Miranda`,
+    title: `Posts sobre ${tag} | Zaíra Gonçalves`,
+    description: `Confira todos os artigos sobre ${tag} no blog da Zaíra Gonçalves`,
     openGraph: {
-      title: `Posts sobre ${tag} | Zaira Miranda`,
-      description: `Confira todos os artigos sobre ${tag} no blog da Zaira Miranda`,
+      title: `Posts sobre ${tag} | Zaíra Gonçalves`,
+      description: `Confira todos os artigos sobre ${tag} no blog da Zaíra Gonçalves`,
     },
   };
 }
