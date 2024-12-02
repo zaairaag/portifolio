@@ -35,7 +35,7 @@ export const projects: Project[] = [
     description:
       'Criação de aplicações empresariais usando Power Apps e Power Automate. Desenvolvimento de fluxos de trabalho automatizados e interfaces intuitivas para gestão de processos internos.',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80',
-    tags: ['Power Apps', 'Power Automate', 'SharePoint', 'Azure'],
+    tags: ['Power Apps','SharePoint', 'Azure'],
     category: 'Power Platform',
     links: {
       demo: '#',

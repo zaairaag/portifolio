@@ -154,7 +154,7 @@ function PostCard({
         </div>
         
         <h2 
-          className="text-2xl font-semibold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent"
+          className="text-2xl font-semibold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent mb-3"
           itemProp="headline"
         >
           {post.title}

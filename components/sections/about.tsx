@@ -96,7 +96,7 @@ const skillGroups = [
       {
         icon: <Blocks className="w-5 h-5" />,
         title: 'Plataformas',
-        items: ['Power Apps', 'Power Automate','n8n', 'Zapier', 'Make']
+        items: ['Power Apps','n8n', 'Zapier', 'Make']
       },
       {
         icon: <Puzzle className="w-5 h-5" />,
@@ -130,7 +130,7 @@ export function About() {
               Explorando o futuro da{' '}
               <span className="text-primary">tecnologia</span>
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Desde 2019 mergulhada no universo do desenvolvimento web, sou uma entusiasta
               apaixonada por inovação e novas tecnologias. Encontrei na programação não
               apenas uma profissão, mas uma forma de transformar ideias em realidade.
