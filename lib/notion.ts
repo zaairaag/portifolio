@@ -39,14 +39,14 @@ export const getDatabase = cache(async (): Promise<Post[]> => {
     const response = await notionClient.databases.query({
       database_id: process.env.NOTION_DATABASE_ID,
       filter: {
-        property: 'Status',
-        status: {
-          equals: 'Published',
+        property: 'Published',
+        checkbox: {
+          equals: true,
         },
       },
       sorts: [
         {
-          property: 'Date',
+          property: 'Published',
           direction: 'descending',
         },
       ],
@@ -70,10 +70,10 @@ export const getDatabase = cache(async (): Promise<Post[]> => {
           id: page.id,
           title,
           description: properties.description?.rich_text?.[0]?.plain_text || '',
-          date: properties.Date?.date?.start || page.created_time.split('T')[0],
+          date: page.created_time.split('T')[0],
           slug,
           tags: properties.Tags?.multi_select?.map((tag: any) => tag.name) || [],
-          views: properties.views?.number || 0,
+          views: 0,
           featuredImage: properties.featuredImage?.url || null,
           last_edited_time: page.last_edited_time
         } as Post;
