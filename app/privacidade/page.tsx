@@ -47,8 +47,8 @@ export default function PrivacyPolicy() {
           <h2 className="text-2xl font-semibold mb-4">5. Contato</h2>
           <p>
             Para questões relacionadas à privacidade, entre em contato através do email:{" "}
-            <a href="mailto:zaira.candido@hotmail.com" className="text-primary hover:underline">
-              zaira.candido@hotmail.com
+            <a href="mailto:contato@zairagoncalves.com" className="text-primary hover:underline">
+              contato@zairagoncalves.com
             </a>
           </p>
         </section>

@@ -57,8 +57,8 @@ export default function TermsOfService() {
           <h2 className="text-2xl font-semibold mb-4">6. Contato</h2>
           <p>
             Para questões relacionadas aos termos de uso, entre em contato através do email:{" "}
-            <a href="mailto:zaira.candido@hotmail.com" className="text-primary hover:underline">
-              zaira.candido@hotmail.com
+            <a href="mailto:contato@zairagoncalves.com" className="text-primary hover:underline">
+              contato@zairagoncalves.com
             </a>
           </p>
         </section>
