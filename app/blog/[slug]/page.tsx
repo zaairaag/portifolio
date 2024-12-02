@@ -92,16 +92,15 @@ export async function generateStaticParams() {
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const posts = await getDatabase();
   const currentIndex = posts.findIndex((p): p is Post => p.slug === params.slug);
-  const post: Post = posts[currentIndex];
-
-  if (!post) {
+  
+  if (currentIndex === -1) {
     notFound();
   }
 
-  // Busca página e blocos em paralelo
-  const { page, blocks } = await getPostContent(post.id);
+  const post = posts[currentIndex];
+  const postContent = await getPostContent(post.id);
 
-  if (!page || !blocks) {
+  if (!postContent.page || !postContent.blocks) {
     notFound();
   }
 
@@ -109,7 +108,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     ? format(parseISO(post.date), "d 'de' MMMM 'de' yyyy", { locale: ptBR })
     : null;
   
-  const readingTime = calculateReadingTime(blocks);
+  const readingTime = calculateReadingTime(postContent.blocks);
   const mainTag = post.tags?.[0];
   const url = `${siteConfig.url}/blog/${params.slug}`;
 
@@ -144,13 +143,13 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       '@id': url,
     },
     keywords: post.tags.join(', '),
-    articleBody: blocks
-      .filter(block => block.type === 'paragraph')
-      .map(block => block.paragraph?.rich_text?.[0]?.plain_text)
-      .join(' '),
-    wordCount: blocks
-      .filter(block => block.type === 'paragraph')
-      .reduce((acc, block) => {
+    articleBody: postContent.blocks
+      ?.filter((block: any) => 'type' in block && block.type === 'paragraph')
+      .map((block: any) => block.paragraph?.rich_text?.[0]?.plain_text)
+      .join(' ') || '',
+    wordCount: postContent.blocks
+      ?.filter((block: any) => 'type' in block && block.type === 'paragraph')
+      .reduce((acc, block: any) => {
         return acc + (block.paragraph?.rich_text?.[0]?.plain_text?.split(/\s+/).length || 0);
       }, 0),
   };
@@ -269,7 +268,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 </div>
               }>
                 <div className="prose prose-lg max-w-none prose-headings:scroll-mt-20 prose-headings:font-bold prose-headings:tracking-tight prose-headings:bg-gradient-to-r prose-headings:from-primary prose-headings:to-purple-500 prose-headings:bg-clip-text prose-headings:text-transparent prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
-                  {blocks.map((block) => (
+                  {postContent.blocks.map((block) => (
                     <RenderBlock key={block.id} block={block} />
                   ))}
                 </div>
@@ -278,7 +277,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               <aside className="hidden lg:flex lg:flex-col gap-8">
                 <div className="sticky top-8 space-y-8 p-6 rounded-2xl border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
                   <Suspense>
-                    <TableOfContents blocks={blocks} />
+                    <TableOfContents blocks={postContent.blocks} />
                   </Suspense>
                   <Suspense>
                     <SocialShare title={post.title} slug={params.slug} />

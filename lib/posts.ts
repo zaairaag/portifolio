@@ -8,9 +8,14 @@ function isFullPage(page: PageObjectResponse | PartialPageObjectResponse | Datab
 }
 
 export const getAllPosts = cache(async (): Promise<Post[]> => {
+  if (!notion || !process.env.NOTION_DATABASE_ID) {
+    console.warn('Cliente Notion não inicializado ou database ID não configurado');
+    return [];
+  }
+
   try {
     const response = await notion.databases.query({
-      database_id: process.env.NOTION_DATABASE_ID!,
+      database_id: process.env.NOTION_DATABASE_ID,
       filter: {
         property: 'Status',
         status: {
