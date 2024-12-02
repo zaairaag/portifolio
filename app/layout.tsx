@@ -4,8 +4,9 @@ import { Providers } from './providers'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { Toaster } from 'sonner'
-import { Analytics } from '@vercel/analytics/react'
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics as GoogleAnalytics } from '@/components/analytics'
 
 // Otimização de fonte com display swap
 const inter = Inter({ 
@@ -79,7 +80,8 @@ export default function RootLayout({
           <Footer />
           <Toaster />
         </Providers>
-        <Analytics />
+        <VercelAnalytics />
+        <GoogleAnalytics />
         <SpeedInsights />
       </body>
     </html>
