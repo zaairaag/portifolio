@@ -9,8 +9,8 @@ export function AuthorCard() {
   return (
     <div className="relative border rounded-xl p-8 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/10 to-background" />
-      <div className="relative z-10 flex gap-6 items-center">
-        <div className="relative">
+      <div className="relative z-10 flex flex-col md:flex-row gap-6 items-center md:items-start">
+        <div className="relative shrink-0">
           <div className="absolute -inset-1 bg-gradient-to-br from-primary to-purple-500 rounded-full blur-sm" />
           <Image
             src={author.image}
@@ -20,16 +20,16 @@ export function AuthorCard() {
             className="relative rounded-full ring-2 ring-background"
           />
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3 text-center md:text-left">
           <div>
             <h3 className="font-semibold text-lg bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
               {author.name}
             </h3>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
               {author.bio}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-center md:justify-start">
             <a
               href={links.linkedin}
               target="_blank"

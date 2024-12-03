@@ -1,32 +1,9 @@
 import { services } from '@/data/services'
 import { Check } from 'lucide-react'
-
-import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-type Props = {
-  params: {
-    slug: string
-  }
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const service = services.find(s => s.slug === params.slug)
-
-  if (!service) {
-    return {
-      title: 'Serviço não encontrado',
-    }
-  }
-
-  return {
-    title: `${service.title} | Zaíra Gonçalves`,
-    description: service.description,
-  }
-}
-
-export default function ServicePage({ params }: Props) {
-  const service = services.find(s => s.slug === params.slug)
+export default function EcommercePage() {
+  const service = services.find(s => s.slug === 'e-commerce')
 
   if (!service) {
     notFound()
@@ -60,7 +37,7 @@ export default function ServicePage({ params }: Props) {
         <div className="max-w-4xl mx-auto">
           {/* Long Description */}
           <div className="prose prose-gray dark:prose-invert max-w-none mb-16">
-            <p className="whitespace-pre-line text-lg">{service.description}</p>
+            <p className="whitespace-pre-line text-lg">{service.longDescription}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
