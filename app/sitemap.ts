@@ -11,11 +11,6 @@ const staticRoutes = [
     changeFrequency: 'daily' as const,
   },
   {
-    path: '/inicio',
-    priority: 0.9,
-    changeFrequency: 'daily' as const,
-  },
-  {
     path: '/sobre',
     priority: 0.8,
     changeFrequency: 'monthly' as const,
@@ -26,18 +21,19 @@ const staticRoutes = [
     changeFrequency: 'weekly' as const,
   },
   {
-    path: '/experiencia',
-    priority: 0.8,
-    changeFrequency: 'monthly' as const,
-  },
-  {
     path: '/blog',
     priority: 0.9,
-    changeFrequency: 'daily' as const,
+    changeFrequency: 'weekly' as const,
+  },
+  {
+    path: '/contato',
+    priority: 0.7,
+    changeFrequency: 'monthly' as const,
   }
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Formatando a data atual no formato ISO 8601
   const currentDate = new Date().toISOString();
 
   // Criando o sitemap com URLs estáticas
@@ -56,10 +52,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return staticUrls;
     }
 
-    // Adicionando URLs dos posts do blog
+    // Adicionando URLs dos posts do blog com data ISO 8601
     const blogUrls = posts.map(post => ({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: post.date,
+      lastModified: new Date(post.date).toISOString(),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
