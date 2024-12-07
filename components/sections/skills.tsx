@@ -40,6 +40,24 @@ const skills: { category: string; items: Skill[] }[] = [
       { name: 'Figma', level: 85, icon: '🎯', color: '#F24E1E' },
     ],
   },
+  {
+    category: 'SEO',
+    items: [
+      { name: 'SEO On-page', level: 90, icon: '📝', color: '#34A853' },
+      { name: 'SEO Técnico', level: 85, icon: '⚙️', color: '#4285F4' },
+      { name: 'SEO Off-page', level: 80, icon: '🔗', color: '#EA4335' },
+      { name: 'Google Analytics', level: 85, icon: '📊', color: '#F9AB00' },
+    ],
+  },
+  {
+    category: 'Web Analytics',
+    items: [
+      { name: 'Google Tag Manager', level: 85, icon: '🏷️', color: '#4285F4' },
+      { name: 'GA4', level: 90, icon: '📈', color: '#F9AB00' },
+      { name: 'SQL & Data Analysis', level: 80, icon: '💾', color: '#00758F' },
+      { name: 'Data Studio/Power BI', level: 85, icon: '📊', color: '#00A2ED' },
+    ],
+  },
 ];
 
 export function Skills() {

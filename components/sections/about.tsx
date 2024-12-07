@@ -12,6 +12,8 @@ import {
   Settings,
   Smartphone,
   Workflow,
+  LineChart,
+  Search,
 } from 'lucide-react'
 
 import { BriefcaseIcon, DownloadIcon } from 'lucide-react'
@@ -112,6 +114,31 @@ const skillGroups = [
         icon: <Brain className="w-5 h-5" />,
         title: 'LLMs & Prompts',
         items: ['Prompt Engineering', 'OpenAI API', 'LangChain', 'ChatGPT']
+      }
+    ]
+  },
+  {
+    title: 'SEO',
+    skills: [
+      {
+        icon: <Search className="w-5 h-5" />,
+        title: 'Técnicas de SEO',
+        items: ['SEO On-page', 'SEO Técnico', 'SEO Off-page', 'Schema Markup', 'Link Building']
+      },
+      {
+        icon: <Settings className="w-5 h-5" />,
+        title: 'Ferramentas',
+        items: ['Google Search Console', 'SEMrush', 'Ahrefs', 'Screaming Frog', 'Google Keyword Planner']
+      }
+    ]
+  },
+  {
+    title: 'Web Analytics',
+    skills: [
+      {
+        icon: <LineChart className="w-5 h-5" />,
+        title: 'Ferramentas & Plataformas',
+        items: ['Google Tag Manager', 'Google Analytics (GA4)', 'Data Studio']
       }
     ]
   }

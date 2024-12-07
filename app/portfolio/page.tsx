@@ -2,7 +2,7 @@
 
 import { clientProjects, type GitHubRepo } from '@/data/projects'
 import { motion } from 'framer-motion'
-import { ChevronRight, Lightbulb, Briefcase, Star, GitFork } from 'lucide-react'
+import { ChevronRight, Lightbulb, Briefcase, Star, GitFork, ExternalLink } from 'lucide-react'
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,12 +13,12 @@ import { ptBR } from 'date-fns/locale'
 import { getGitHubRepos } from '@/lib/github'
 
 const categories = [
-  { id: 'all', label: 'Todos' },
-  { id: 'websites', label: 'Websites' },
+  { id: 'all', label: 'Ver Todos' },
+  { id: 'ecommerce', label: 'Lojas Online' },
+  { id: 'websites', label: 'Sites Criativos' },
   { id: 'landing-pages', label: 'Landing Pages' },
-  { id: 'ecommerce', label: 'E-commerce' },
-  { id: 'sistemas', label: 'Sistemas Web' },
-  { id: 'ui-ux', label: 'UI/UX Design' },
+  { id: 'sistemas', label: 'Aplicações Web' },
+  { id: 'ui-ux', label: 'Design de Interfaces' },
 ]
 
 interface Props {
@@ -35,7 +35,7 @@ export default async function PortfolioPage() {
 
 function ClientPortfolio({ githubRepos }: Props) {
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [selectedType, setSelectedType] = useState<'lab' | 'client'>('lab')
+  const [selectedType, setSelectedType] = useState<'lab' | 'client'>('client')
 
   const filteredProjects = selectedType === 'lab' 
     ? [] // Lab agora usa apenas repos do GitHub
@@ -46,14 +46,14 @@ function ClientPortfolio({ githubRepos }: Props) {
   const projectTypes = [
     { 
       id: 'lab', 
-      label: 'Laboratório de Programação', 
-      description: 'Projetos pessoais e experimentos no GitHub', 
+      label: 'Meu Laboratório Particular', 
+      description: 'Onde experimento, crio e compartilho código aberto', 
       icon: Lightbulb 
     },
     { 
       id: 'client', 
-      label: 'Clientes', 
-      description: 'Projetos entregues para clientes', 
+      label: 'Entregas para Clientes', 
+      description: 'Projetos que transformaram ideias em realidade', 
       icon: Briefcase 
     },
   ] as const
@@ -62,23 +62,26 @@ function ClientPortfolio({ githubRepos }: Props) {
     <div className="min-h-screen">
       <PageHeader 
         badge="Portfólio"
-        title="Criando"
-        titleHighlight="experiências excepcionais"
-        description="Uma seleção dos meus melhores projetos, demonstrando expertise em desenvolvimento web, design de interfaces e soluções técnicas inovadoras."
+        title="Transformando desafios em"
+        titleHighlight="soluções digitais"
+        description="Uma coleção cuidadosamente selecionada dos meus melhores projetos. Do planejamento à entrega, cada linha de código reflete minha paixão por criar experiências digitais memoráveis."
       />
 
       {/* Project Type Selection */}
-      <section className="max-w-4xl mx-auto px-4 py-12">
+      <section className="container max-w-4xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {projectTypes.map(type => (
-            <button
+            <motion.button
               key={type.id}
               onClick={() => setSelectedType(type.id)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               className={cn(
                 'group relative overflow-hidden rounded-xl p-8 transition-all duration-300',
                 selectedType === type.id
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-card hover:bg-accent hover:text-accent-foreground'
+                  ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                  : 'bg-card hover:bg-accent hover:text-accent-foreground hover:shadow-md'
               )}
             >
               <div className="flex items-start gap-4">
@@ -105,7 +108,7 @@ function ClientPortfolio({ githubRepos }: Props) {
                 </div>
               </div>
               <div className="absolute inset-0 border-2 border-transparent transition-colors duration-300 group-hover:border-primary/20 rounded-xl" />
-            </button>
+            </motion.button>
           ))}
         </div>
       </section>
@@ -113,21 +116,23 @@ function ClientPortfolio({ githubRepos }: Props) {
       {/* Filters - Only show for client projects */}
       {selectedType !== 'lab' && (
         <section className="sticky top-0 z-10 bg-background/80 backdrop-blur-xl border-b border-border">
-          <div className="max-w-5xl mx-auto px-4 py-8">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:flex lg:justify-center gap-2 max-w-4xl mx-auto">
+          <div className="container max-w-5xl mx-auto px-4 py-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:flex lg:justify-center gap-2">
               {categories.map(category => (
-                <button
+                <motion.button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   className={cn(
-                    'w-full lg:flex-1 px-4 py-2.5 text-sm font-medium transition-colors rounded-lg whitespace-nowrap',
+                    'w-full lg:flex-1 px-4 py-2.5 text-sm font-medium transition-all duration-300 rounded-lg whitespace-nowrap',
                     selectedCategory === category.id
-                      ? 'bg-primary text-primary-foreground'
-                      : 'hover:bg-accent hover:text-accent-foreground'
+                      ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
+                      : 'hover:bg-accent hover:text-accent-foreground hover:shadow-sm'
                   )}
                 >
                   {category.label}
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -135,122 +140,99 @@ function ClientPortfolio({ githubRepos }: Props) {
       )}
 
       {/* Projects Grid */}
-      <main className="max-w-5xl mx-auto px-4 py-12">
+      <main className="container max-w-5xl mx-auto px-4 py-12">
         {selectedType === 'lab' ? (
           // GitHub Repos Grid
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="space-y-3">
             {githubRepos.map(repo => (
               <motion.div
                 key={repo.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="group relative overflow-hidden rounded-lg bg-card border border-border p-6 transition-all duration-300 hover:-translate-y-2"
+                className="group flex items-center justify-between gap-4 rounded-lg bg-card border border-border p-4 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20"
               >
-                <div className="flex flex-col h-full">
-                  <div className="flex items-start justify-between gap-4">
-                    <h3 className="text-lg font-semibold text-primary">
-                      {repo.name}
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Star className="w-4 h-4" />
-                      <span>{repo.stargazers_count}</span>
-                    </div>
+                <div className="flex items-center gap-4 flex-1 min-w-0">
+                  <div className="rounded-lg p-2 bg-primary/10">
+                    <GitFork className="w-5 h-5 text-primary" />
                   </div>
-
-                  {repo.description ? (
-                    <p className="mt-2 text-muted-foreground line-clamp-2">
-                      {repo.description}
-                    </p>
-                  ) : (
-                    <p className="mt-2 text-muted-foreground/60 italic">
-                      Repositório no GitHub
-                    </p>
-                  )}
-
-                  {repo.topics && repo.topics.length > 0 ? (
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {repo.topics.map(topic => (
-                        <span
-                          key={topic}
-                          className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary"
-                        >
-                          {topic}
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-base font-semibold text-primary truncate">
+                        {repo.name}
+                      </h3>
+                      {repo.language && (
+                        <span className="px-2 py-0.5 text-xs rounded-full bg-primary/10 text-primary font-medium">
+                          {repo.language}
                         </span>
-                      ))}
+                      )}
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <Star className="w-4 h-4" />
+                        <span>{repo.stargazers_count}</span>
+                      </div>
                     </div>
-                  ) : repo.language && (
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      <span className="px-2 py-1 text-xs rounded-full bg-primary/10 text-primary">
-                        {repo.language}
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="mt-4 pt-4 border-t border-border">
-                    <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      <span>{repo.language}</span>
-                      <span>
-                        Atualizado em {format(new Date(repo.updated_at), "d 'de' MMM", { locale: ptBR })}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 flex gap-2">
-                    <Link
-                      href={repo.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-                    >
-                      Ver código
-                      <GitFork className="ml-2 h-4 w-4" />
-                    </Link>
-                    {repo.homepage && (
-                      <Link
-                        href={repo.homepage}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 inline-flex items-center justify-center rounded-md bg-accent px-4 py-2 text-sm font-medium transition-colors hover:bg-accent/90"
-                      >
-                        Ver demo
-                        <ChevronRight className="ml-2 h-4 w-4" />
-                      </Link>
+                    
+                    {repo.description && (
+                      <p className="mt-1 text-sm text-muted-foreground truncate">
+                        {repo.description}
+                      </p>
                     )}
                   </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Link
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 inline-flex items-center justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  >
+                    Ver código
+                  </Link>
+                  {repo.homepage && (
+                    <Link
+                      href={repo.homepage}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 inline-flex items-center justify-center rounded-md bg-accent px-3 py-1.5 text-sm font-medium transition-colors hover:bg-accent/90"
+                    >
+                      Demo
+                    </Link>
+                  )}
                 </div>
               </motion.div>
             ))}
           </div>
         ) : (
           // Client Projects Grid
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map(project => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="group relative overflow-hidden rounded-lg bg-card transition-all duration-300 hover:-translate-y-2"
+                className="group relative overflow-hidden rounded-lg bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/5"
               >
                 {/* Thumbnail com overlay */}
-                <div className="relative aspect-[4/5] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={project.thumbnail}
                     alt={project.title}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </div>
 
                 {/* Conteúdo do card */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <h3 className="text-lg font-bold leading-tight">{project.title}</h3>
+                <div className="absolute inset-0 flex flex-col justify-end p-6 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <h3 className="text-xl font-bold leading-tight">{project.title}</h3>
                   <p className="mt-2 text-sm text-gray-200 line-clamp-3">{project.description}</p>
 
                   {/* Tags */}
-                  <div className="mt-3 flex flex-wrap gap-1.5">
+                  <div className="mt-4 flex flex-wrap gap-1.5">
                     {project.tags.slice(0, 3).map(tag => (
                       <span
                         key={tag}
@@ -264,10 +246,12 @@ function ClientPortfolio({ githubRepos }: Props) {
                   {/* Botão Ver Mais */}
                   <Link
                     href={project.link || '#'}
-                    className="mt-4 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center justify-center rounded-md bg-primary/90 px-4 py-2 text-sm font-medium text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary"
                   >
                     Ver projeto
-                    <ChevronRight className="ml-2 h-4 w-4" />
+                    <ExternalLink className="ml-2 h-4 w-4" />
                   </Link>
                 </div>
               </motion.div>
