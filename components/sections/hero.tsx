@@ -142,17 +142,17 @@ export function Hero() {
         >
           <TypeAnimation
             sequence={[
-              'Desenvolvedora Full Stack,',
+              'Desenvolvedora Full Stack',
               2000,
-              'Desenvolvedora low code/no code,',
+              'Desenvolvedora low code/no code',
               2000,
-              'Analista de web analytics,',
+              'Analista de web analytics',
               2000,
-              'Analista de SEO,',
+              'Analista de SEO',
               2000,
-              'Analista IA Generativa,',
+              'Entusiasta de IA Generativa',
               2000,
-              'Engenheira de Prompt.',
+              'Entusiasta de engenharia de Prompt.',
               2000,
             ]}
             wrapper="span"
